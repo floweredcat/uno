@@ -1,0 +1,122 @@
+.table {
+    display: grid;
+    grid-template-columns: 
+    minmax(100px, 0.5fr)
+    minmax(160px, 1.67fr)
+    minmax(160px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(120px, 1.67fr)
+    minmax(150px, 2.5fr)
+    minmax(150px, 1.8fr);
+    padding-bottom: 96px;
+}
+
+thead,
+tbody,
+tr {
+  display: contents;
+}
+
+th,
+td {
+  padding: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+th:last-child {
+    border: 0;
+  }
+
+.table_row {
+    background-color: white;
+}
+
+tr:nth-child(even) .table_cell, .table_cell__header {
+    background: #F2F2F2;
+}
+
+.table_cell__header {
+    font-weight: bold;
+}
+
+.table_cell {
+    height: 100%;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid white;
+}
+
+.table_cell:nth-of-type(1) {
+    border-left: none;
+}
+
+.table_cell__balance {
+    background-color: #0353A4;
+    border-radius: 15px;
+    line-height: 21px;
+    padding: 0 13px;
+    color: white;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    margin: 0 5px;
+}
+
+.button {
+    appearance: none;
+    margin: auto 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.bar_container {
+    position: fixed;
+    bottom: 0;
+    left: 336px;
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+    transition: all 200ms ease;
+}
+
+.bar_button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(3,83,164, 0.8);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bar_buttonImage {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.4);
+    transition: all 200ms ease-in-out;
+}
+
+.bar_button:hover .bar_buttonImage {
+    transform: scale(0.6);
+    transition: all 200ms ease-in-out;
+}
+
+.bar_button__delete {
+    background-color: rgba(237,33,33, 0.8);
+}
+
+.bar_moved {
+    left: 0;
+    transition: all 200ms ease;
+}

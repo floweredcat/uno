@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  src: url('../public/fonts/Inter-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  src: url('../public/fonts/Inter-Regular.ttf');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0353A4;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

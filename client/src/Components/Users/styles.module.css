@@ -29,6 +29,10 @@ th:last-child {
     border: 0;
   }
 
+.users_wrapper {
+    position: relative;
+}
+
 .table_row {
     background-color: white;
 }

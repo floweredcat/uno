@@ -1,39 +1,50 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { nanoid } from "nanoid";
 
 const initialState = {
   entities: [],
-  status: 'idle',
+  status: "idle",
 };
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {
     startLoading: () => {
       return {
         entities: [],
-        status: 'loading',
+        status: "loading",
       };
     },
     successLoading: (state, action) => {
-      const { entities } = action.payload;
+      const { entities, ids } = action.payload;
       return {
         entities,
-        status: 'success',
+        ids,
+        status: "success",
       };
     },
     failLoading: () => {
       return {
         entities: [],
-        status: 'fail',
+        status: "fail",
       };
     },
     addUser: (state, action) => {
-        const {email, name, phone, city, password, role, balance} = action.payload;
+      const { email, name, phone, city, pass, role, balance } = action.payload;
+      const newId = nanoid()
 
-        state.entities.push({email, name, phone, city, password, role, balance})
-
-        return state
+      state.entities[newId] = {
+        'EMAIL': email,
+        'NAME': name,
+        "PHONE": phone,
+        'CITY': city,
+        'PASS': pass,
+        'ROLENAME': role,
+        'BALANCE': balance,
+      };
+      state.ids.push(newId)
+      return state;
     },
   },
 });

@@ -9,7 +9,7 @@ let options = {};
 
 options.host = "localhost";
 options.port = 3050;
-options.database = "C:\\Development\\uno\\server\\DB.FDB";
+options.database = "C:\\Development\\11312\\server\\DB.FDB";
 options.user = "SYSDBA";
 options.password = "masterkey";
 options.lowercase_keys = false;
@@ -21,8 +21,7 @@ options.blobAsText = false;
 
 app.use(cors());
 
-app.use(express.json())
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.post("/getUsers", (req, res) => {
   var REQ_PARAM = req.body.getCity;
@@ -32,6 +31,20 @@ app.post("/getUsers", (req, res) => {
     db.query(REQ_PARAM, (err, result) => {
       if (err) throw err;
       res.send(result);
+      db.detach();
+    });
+  });
+});
+
+app.post("/addUser", (req, res) => {
+  var REQ_PARAM = req.body.user;
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+
+    db.query(REQ_PARAM, (err, result) => {
+      if (err) throw err;
+      res.send('User added')
       db.detach();
     });
   });

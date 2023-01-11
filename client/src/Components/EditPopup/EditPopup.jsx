@@ -1,38 +1,52 @@
-import classNames from 'classnames';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { usersSliceActions } from '../../store/Users';
-import styles from './styles.module.css';
+import classNames from "classnames";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUserIfValidate } from "../../store/Users/middlewares/addUserIfValidate";
+import { loadUsers } from "../../store/Users/middlewares/loadUsersIfNotExist";
+import styles from "./styles.module.css";
 const roleVars = {
-  admin: 'admin',
-  user: 'user',
-  master: 'master',
+  admin: { content: "admin", id: 1 },
+  user: { content: "user", id: 3 },
+  master: { content: "master", id: 2 },
 };
 
-export const EditPopup = ({ isPopupOpened, togglePopup }) => {
-    const dispatch = useDispatch()
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [city, setCity] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState(roleVars.user);
+export const EditPopup = ({ togglePopup }) => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [pass, setPass] = useState("");
+  const [role, setRole] = useState(roleVars.user.id);
+
+  const resetForm = () => {
+    setCity("");
+    setEmail("");
+    setName("");
+    setPass("");
+    setPhone("");
+    setRole(roleVars.user.id);
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(usersSliceActions.addUser({email, name, phone, city, password, role}));
-    // reset form
+    const addUser = async () => {
+      addUserIfValidate({ email, role, name, phone, city, pass });
+    };
+    addUser().then(loadUsers(dispatch));
     togglePopup();
-  }
+    resetForm();
+  };
 
   return (
-    <div
-      className={styles.popup_wrapper}
-    >
+    <div className={styles.popup_wrapper}>
       <div className={styles.popup}>
         <form className={styles.form} onSubmit={onSubmit}>
           <h2 className={styles.title}>Добавление пользователя</h2>
-          <button className={classNames(styles.button, styles.popup_closeButton)} onClick={() => togglePopup()}/>
+          <button
+            className={classNames(styles.button, styles.popup_closeButton)}
+            onClick={() => togglePopup()}
+          />
           <div className={styles.input_container}>
             <input
               autoComplete="new-password"
@@ -101,8 +115,8 @@ export const EditPopup = ({ isPopupOpened, togglePopup }) => {
               className={styles.form_input}
               required
               placeholder=" "
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={pass}
+              onChange={(event) => setPass(event.target.value)}
             />
             <label htmlFor="password" className={styles.form_label}>
               Пароль
@@ -114,37 +128,42 @@ export const EditPopup = ({ isPopupOpened, togglePopup }) => {
               <input
                 className={styles.radio}
                 type="radio"
-                value={roleVars.user}
-                onChange={(e) => setRole(e.target.value)}
-                checked={role === roleVars.user}
+                value={roleVars.user.content}
+                onChange={() => setRole(roleVars.user.id)}
+                checked={role === roleVars.user.id}
               />
-              {roleVars.user}
+              {roleVars.user.content}
               <label className={styles.label_radio}></label>
             </div>
             <div className={styles.radio_container}>
               <input
                 className={styles.radio}
                 type="radio"
-                value={roleVars.admin}
-                onChange={(e) => setRole(e.target.value)}
-                checked={role === roleVars.admin}
+                value={roleVars.admin.content}
+                onChange={() => setRole(roleVars.admin.id)}
+                checked={role === roleVars.admin.id}
               />
-              {roleVars.admin}
+              {roleVars.admin.content}
               <label className={styles.label_radio}></label>
             </div>
             <div className={styles.radio_container}>
               <input
                 className={styles.radio}
                 type="radio"
-                value={roleVars.master}
-                onChange={(e) => setRole(e.target.value)}
-                checked={role === roleVars.master}
+                value={roleVars.master.content}
+                onChange={() => setRole(roleVars.master.id)}
+                checked={role === roleVars.master.id}
               />
-              {roleVars.master}
+              {roleVars.master.content}
               <label className={styles.label_radio}></label>
             </div>
           </div>
-          <button type='submit' className={classNames(styles.button, styles.form_submit)}>Добавить ползователя</button>
+          <button
+            type="submit"
+            className={classNames(styles.button, styles.form_submit)}
+          >
+            Добавить ползователя
+          </button>
         </form>
       </div>
     </div>

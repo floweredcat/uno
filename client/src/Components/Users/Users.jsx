@@ -8,41 +8,34 @@ import { EditPopup } from '../EditPopup/EditPopup';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { usersSliceActions } from '../../store/Users';
-import { selectUsers } from '../../store/Users/selectors';
-import { loadUsersIfNotExist } from '../../store/Users/middlewares/loadUsersIfNotExist';
+import { selectUsers, selectUsersIds, selectUsersIsLoading } from '../../store/Users/selectors';
+import { loadUsers } from '../../store/Users/middlewares/loadUsersIfNotExist';
 
 export const Users = ({ asideIsOpened }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => selectUsersIsLoading(state))
   useEffect(() => {
-    dispatch(loadUsersIfNotExist);
-  }, []);                     // eeewww
-  const users = useSelector((state) => selectUsers(state));
+    dispatch(loadUsers);
+  }, []);
+  const usersIds = useSelector(state => selectUsersIds(state));
+  const usersData = useSelector((state) => selectUsers(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
 
-  const data = [];
-
-  for (let i = 0; i < 10; i++) {
-    data.push({
-      name: 'UM System Group',
-      email: 'example@mail.ru',
-      phone: '+77007007070',
-      role: 'admin',
-      city: 'Шымкент, Сарыагаш',
-      balance: '250000',
-    });
-  }
-
   const headers = ['#', 'НАИМЕНОВАНИЕ', 'E-mail', 'Телефон', 'Роль', 'Франшиза', 'Баланс'];
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
+    <div className={styles.users_wrapper}>
     <table className={styles.table}>
       <thead className={styles.table_header}>
         <tr className={styles.table_row}>
-          {headers.map((el) => {
+          {headers?.map((el) => {
             return (
               <th
                 key={nanoid()}
@@ -55,13 +48,13 @@ export const Users = ({ asideIsOpened }) => {
         </tr>
       </thead>
       <tbody className={styles.table_content}>
-        {users.map((el, row) => {
-          const cellsValues = Object.values(el);
-          const { balance, city, email, name, phone, role } = el;
+        {usersIds?.map((el, row) => {
+          const user = usersData[el]
+          const { AMOUNT, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
 
           return (
             <tr key={nanoid()} className={styles.table_row}>
-              {cellsValues.map((_, idx) => {
+              {headers.map((_, idx) => {
                 switch (idx) {
                   default: return (
                     <td key={nanoid()} className={styles.table_cell}>
@@ -76,37 +69,37 @@ export const Users = ({ asideIsOpened }) => {
                   case 1:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        {name}
+                        {NAME}
                       </td>
                     );
                   case 2:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        {email}
+                        {EMAIL}
                       </td>
                     );
                   case 3:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        {phone}
+                        {PHONE}
                       </td>
                     );
                   case 4:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        {role}
+                        {ROLENAME}
                       </td>
                     );
                   case 5:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        {city}
+                        {CITY}
                       </td>
                     );
                   case 6:
                     return (
                       <td key={nanoid()} className={styles.table_cell}>
-                        <div className={styles.table_cell__balance}>{balance ? balance.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}</div>
+                        <div className={styles.table_cell__balance}>{AMOUNT ? AMOUNT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}</div>
                       </td>
                     );
                 }
@@ -115,7 +108,8 @@ export const Users = ({ asideIsOpened }) => {
           );
         })}
       </tbody>
-      <div className={classNames(styles.bar_container, {
+    </table>
+    <div className={classNames(styles.bar_container, {
         [styles.bar_moved]: !asideIsOpened
       })}>
         <div className={styles.bar_button}>
@@ -143,7 +137,7 @@ export const Users = ({ asideIsOpened }) => {
           />
         </div>
       </div>
-      {isPopupOpened && <EditPopup isPopupOpened={isPopupOpened} togglePopup={togglePopup}/>}
-    </table>
+      {isPopupOpened && <EditPopup togglePopup={togglePopup}/>}
+    </div>
   );
 };

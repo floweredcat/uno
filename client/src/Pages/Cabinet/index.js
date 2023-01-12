@@ -1,10 +1,14 @@
 import styles from './styles.module.css';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Users } from '../../Components/Users/Users';
 import { Profile } from '../../Components/Profile/Profile';
 import { Objects } from '../../Components/Objects/Objects';
 import { Menu } from '../../Components/Menu/Menu';
+import { useSelector } from 'react-redux';
+import { selectUserAuthenticated } from '../../store/Auth/selectors';
+import { useNavigate } from 'react-router-dom';
+import { RedirectFunction } from 'react-router-dom';
 
 const FOLDERS = {
   users: 'users',
@@ -13,8 +17,15 @@ const FOLDERS = {
 };
 
 export const Cabinet = () => {
+  const navigate = useNavigate()
   const [activeFolder, setActiveFolder] = useState(FOLDERS.users);
   const [asideIsOpened, setAsideIsOpened] = useState(true);
+  const isAuthenticated = useSelector(state => selectUserAuthenticated(state));
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/')
+    }
+  }, [])
   const toggleAside = () => {
     setAsideIsOpened(!asideIsOpened);
   };

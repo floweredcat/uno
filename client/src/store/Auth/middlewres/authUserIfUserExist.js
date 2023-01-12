@@ -1,19 +1,28 @@
-// request to server for auth user
+import { authSliceActions } from "..";
 
-const usersData = [{
-    firstName: 'Danil',
-    lastName: 'Bugaenko',
-    password: 'qwerty12345',
-    email: 'example@mail.ru',
-    company: 'Uno',
-},{
-    firstName: 'Ivan',
-    lastName: 'Ivanov',
-    password: 'qwerty12345',
-    email: 'example1@mail.ru',
-    company: 'Umag',
-}]
+export const authUserIfUserExist = (userData) => (dispatch) => {
+    const {email, password} = userData;
+    const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+          getAuth: `select id,name,idaccess,balance from peoples where upper(email)=upper('${email}')and pass = hash(cast('${password}' as varchar(50)));`,
+        }),
+      };
 
-export const authUserIfUserExist = ({}) => {
-    
+    fetch('http://localhost:4000/authUser', options)
+    .then(res => res.json())
+    .then(data => {
+        if (data.length === 0) {
+            console.log('handleErrorMessage')
+        }
+        else {
+            dispatch(authSliceActions.login(data[0]))
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }

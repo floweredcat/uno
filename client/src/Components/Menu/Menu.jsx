@@ -1,14 +1,28 @@
 import styles from './styles.module.css';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectAuthUser } from '../../store/Auth/selectors';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+// import { selectAuthUser } from '../../store/Auth/selectors';
 import usersIMG from './images/person.svg';
 import objectIMG from './images/domain.svg';
 import profileIMG from './images/Users.svg';
+import { authSliceActions } from '../../store/Auth';
+import { selectUserAuthenticated, selectUserName } from '../../store/Auth/selectors';
 
 export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
-  const user = useSelector((state) => selectAuthUser(state));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userName = useSelector(state => selectUserName(state))
+  const isUserAuthenticated = useSelector(state => selectUserAuthenticated(state))
+  if (!isUserAuthenticated) {
+    navigate('/');
+    return
+  }
+  const logout = () => {
+    dispatch(authSliceActions.logout())
+    navigate('/')
+  }
+  const user = false
   const FOLDERS = {
     users: 'users',
     profile: 'profile',
@@ -30,8 +44,7 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
       <div className={styles.user}>
         <div className={styles.user_info}>
           <div className={styles.user_name}>
-            {(user?.firstName && user?.lastName && user?.firstName + ' ' + user?.lastName) ||
-              'Ivan Ivanov'}
+            {userName}
           </div>
           <div className={styles.user_from}>{user?.company || 'Company name'}</div>
         </div>
@@ -54,7 +67,7 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
           })}
           onClick={() => setActiveFolder(FOLDERS.profile)}
         >
-          <img src={profileIMG} className={styles.tab_icon}></img>
+          <img src={profileIMG} alt="" className={styles.tab_icon}></img>
           <div className={classNames(styles.button)}>Профиль</div>
         </button>
         <button
@@ -68,9 +81,9 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
           <div className={classNames(styles.button)}>Объекты</div>
         </button>
       </nav>
-      <Link to="/" className={classNames(styles.button, styles.exitButton)}>
+      <button to="/" className={classNames(styles.button, styles.exitButton)} onClick={() => logout()}>
         Выйти
-      </Link>
+      </button>
     </aside>
   );
 };

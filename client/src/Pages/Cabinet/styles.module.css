@@ -59,6 +59,8 @@
   z-index: 2;
   overflow-x: hidden;
   transition: all 200ms ease;
+  display: flex;
+  justify-content: center;
 }
 
 .content::-webkit-scrollbar {

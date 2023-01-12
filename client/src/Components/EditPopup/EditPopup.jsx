@@ -1,9 +1,12 @@
 import classNames from "classnames";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addUserIfValidate } from "../../store/Users/middlewares/addUserIfValidate";
-import { loadUsers } from "../../store/Users/middlewares/loadUsersIfNotExist";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserAuthenticated, selectUserId } from "../../store/Auth/selectors";
+import { addUserIfValidate } from "../../store/Users/Thunks/addUserIfValidate";
+import { loadUsers } from "../../store/Users/Thunks/loadUsersIfNotExist";
 import styles from "./styles.module.css";
+import {useNavigate} from 'react-router-dom'
 const roleVars = {
   admin: { content: "admin", id: 1 },
   user: { content: "user", id: 3 },
@@ -11,6 +14,14 @@ const roleVars = {
 };
 
 export const EditPopup = ({ togglePopup }) => {
+  const isUserAuthenticated = useSelector(state => selectUserAuthenticated(state)) ;
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!isUserAuthenticated) {
+      navigate('/')
+    }
+  }, [])
+  const userId = useSelector(state => selectUserId(state))
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -31,9 +42,9 @@ export const EditPopup = ({ togglePopup }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     const addUser = async () => {
-      addUserIfValidate({ email, role, name, phone, city, pass });
+      addUserIfValidate({userId, email, role, name, phone, city, pass });
     };
-    addUser().then(loadUsers(dispatch));
+    addUser().then(dispatch(loadUsers));
     togglePopup();
     resetForm();
   };
@@ -44,6 +55,7 @@ export const EditPopup = ({ togglePopup }) => {
         <form className={styles.form} onSubmit={onSubmit}>
           <h2 className={styles.title}>Добавление пользователя</h2>
           <button
+          type="button"
             className={classNames(styles.button, styles.popup_closeButton)}
             onClick={() => togglePopup()}
           />
@@ -139,22 +151,22 @@ export const EditPopup = ({ togglePopup }) => {
               <input
                 className={styles.radio}
                 type="radio"
-                value={roleVars.admin.content}
-                onChange={() => setRole(roleVars.admin.id)}
-                checked={role === roleVars.admin.id}
+                value={roleVars.master.content}
+                onChange={() => setRole(roleVars.master.id)}
+                checked={role === roleVars.master.id}
               />
-              {roleVars.admin.content}
+              {roleVars.master.content}
               <label className={styles.label_radio}></label>
             </div>
             <div className={styles.radio_container}>
               <input
                 className={styles.radio}
                 type="radio"
-                value={roleVars.master.content}
-                onChange={() => setRole(roleVars.master.id)}
-                checked={role === roleVars.master.id}
+                value={roleVars.admin.content}
+                onChange={() => setRole(roleVars.admin.id)}
+                checked={role === roleVars.admin.id}
               />
-              {roleVars.master.content}
+              {roleVars.admin.content}
               <label className={styles.label_radio}></label>
             </div>
           </div>

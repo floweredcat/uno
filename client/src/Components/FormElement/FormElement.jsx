@@ -1,8 +1,9 @@
 import classNames from "classnames"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { authSliceActions } from "../../store/Auth"
+import { authUserIfUserExist } from "../../store/Auth/middlewres/authUserIfUserExist"
+import { selectUserAuthenticated } from "../../store/Auth/selectors"
 import logo from './images/logo.png'
 import styles from './styles.module.css'
 
@@ -13,10 +14,14 @@ export const FormElement = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    let isUserAuthenticated = useSelector((state) => selectUserAuthenticated(state))
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(authSliceActions.login({email}))
+        dispatch(authUserIfUserExist({email, password}))
+        if (isUserAuthenticated) {
         navigate('/cabinet');
+        }
     }
 
     const togglePasswordVisible = () => {

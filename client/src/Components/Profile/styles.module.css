@@ -1,0 +1,15 @@
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    align-self: center;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}

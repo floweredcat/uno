@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.post("/getUsers", (req, res) => {
   var REQ_PARAM = req.body.getCity;
-
+  
   firefird.attach(options, (err, db) => {
     if (err) throw err;
     db.query(REQ_PARAM, (err, result) => {
@@ -49,6 +49,20 @@ app.post("/addUser", (req, res) => {
     });
   });
 });
+
+app.post("/authUser", (req, res) => {
+  var REQ_PARAM = req.body.getAuth;
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+
+    db.query(REQ_PARAM, (err, result) => {
+      if (err) throw err;
+      res.send(result)
+      db.detach();
+    });
+  });
+})
 
 app.listen(4000, () => {
   console.log("Running on port 4000...");

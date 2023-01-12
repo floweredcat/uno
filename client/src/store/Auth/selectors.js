@@ -1,10 +1,10 @@
 export const selectUsersModule = (state) => state.auth;
 
-export const selectUsers = (state) => selectUsersModule(state).entities;
+export const selectUserAuthenticated = (state) =>
+  selectUsersModule(state).isAuthenticated;
 
-export const selectUserByEmail = (state, {email}) =>
-  selectUsers(state)[email] ? selectUsers(state)[email] : false;
+export const selectUserData = (state) => selectUsersModule(state).userData;
 
-export const selectUserPasswordByEmail = (state, {email}) => selectUserByEmail(state, {email})?.password
+export const selectUserId = (state) => selectUserData(state).ID;
 
-export const selectAuthUser = (state) => selectUsersModule(state).authUser
+export const selectUserName = (state) => selectUserData(state).NAME;

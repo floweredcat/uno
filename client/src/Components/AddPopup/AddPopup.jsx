@@ -13,7 +13,7 @@ const roleVars = {
   master: { content: "master", id: 2 },
 };
 
-export const EditPopup = ({ togglePopup }) => {
+export const AddPopup = ({ toggleAddPopup }) => {
   const isUserAuthenticated = useSelector(state => selectUserAuthenticated(state)) ;
   const navigate = useNavigate()
   useEffect(() => {
@@ -45,7 +45,7 @@ export const EditPopup = ({ togglePopup }) => {
       addUserIfValidate({userId, email, role, name, phone, city, pass });
     };
     addUser().then(dispatch(loadUsers));
-    togglePopup();
+    toggleAddPopup();
     resetForm();
   };
 
@@ -57,7 +57,7 @@ export const EditPopup = ({ togglePopup }) => {
           <button
           type="button"
             className={classNames(styles.button, styles.popup_closeButton)}
-            onClick={() => togglePopup()}
+            onClick={() => toggleAddPopup()}
           />
           <div className={styles.input_container}>
             <input

@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import addIMG from "./images/add.svg";
 import editIMG from "./images/edit.svg";
 import deleteIMG from "./images/delete.svg";
-import { EditPopup } from "../EditPopup/EditPopup";
+import { AddPopup } from "../AddPopup/AddPopup";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -30,9 +30,16 @@ export const Users = ({ asideIsOpened }) => {
   const usersIds = useSelector((state) => selectUsersIds(state));
   const usersData = useSelector((state) => selectUsers(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const togglePopup = () => {
+  const [isRowSelected, setisRowSelected] = useState(false);
+  const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
+  let selectedRow
+
+  const toggleSelectedRow = (el) => {
+    setisRowSelected(!!el);
+    el ? selectedRow = el : selectedRow = false
+  }
 
   const headers = [
     "#",
@@ -61,8 +68,7 @@ export const Users = ({ asideIsOpened }) => {
                     className={classNames(
                       styles.table_cell,
                       styles.table_cell__header
-                    )}
-                  >
+                    )}>
                     {el}
                   </th>
                 );
@@ -75,52 +81,71 @@ export const Users = ({ asideIsOpened }) => {
               const { AMOUNT, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
 
               return (
-                <tr key={nanoid()} className={styles.table_row}>
+                <tr
+                  key={el}
+                  className={styles.table_row}
+                  onClick={() => toggleSelectedRow(el)}>
                   {headers.map((_, idx) => {
                     switch (idx) {
                       default:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}></td>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}></td>
                         );
                       case 0:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {+row + 1}
                           </td>
                         );
                       case 1:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {NAME}
                           </td>
                         );
                       case 2:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {EMAIL}
                           </td>
                         );
                       case 3:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {PHONE}
                           </td>
                         );
                       case 4:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {ROLENAME}
                           </td>
                         );
                       case 5:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             {CITY}
                           </td>
                         );
                       case 6:
                         return (
-                          <td key={nanoid()} className={styles.table_cell}>
+                          <td
+                            key={nanoid()}
+                            className={styles.table_cell}>
                             <div className={styles.table_cell__balance}>
                               {AMOUNT
                                 ? AMOUNT.toString().replace(
@@ -144,36 +169,41 @@ export const Users = ({ asideIsOpened }) => {
       <div
         className={classNames(styles.bar_container, {
           [styles.bar_moved]: !asideIsOpened,
-        })}
-      >
+        })}>
         <div className={styles.bar_button}>
           <img
             src={addIMG}
             alt="add button"
             className={styles.bar_buttonImage}
-            onClick={() => togglePopup()}
+            onClick={() => toggleAddPopup()}
           />
         </div>
-        <div className={styles.bar_button}>
+        <button
+          className={classNames(styles.bar_button, styles.button)}
+          onClick={()=> console.log('1232')}
+          disabled={isRowSelected}>
           <img
             src={editIMG}
             alt="add button"
             className={styles.bar_buttonImage}
-            onClick={() => console.log("add")}
           />
-        </div>
-        <div
-          className={classNames(styles.bar_button, styles.bar_button__delete)}
-        >
+        </button>
+        <button
+          className={classNames(
+            styles.bar_button,
+            styles.bar_button__delete,
+            styles.button
+          )}
+          disabled={isRowSelected}
+          onClick={() => console.log("add")}>
           <img
             src={deleteIMG}
             alt="add button"
             className={styles.bar_buttonImage}
-            onClick={() => console.log("add")}
           />
-        </div>
+        </button>
       </div>
-      {isPopupOpened && <EditPopup togglePopup={togglePopup} />}
+      {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
     </div>
   );
 };

@@ -36,6 +36,8 @@ th:last-child {
 
 .table_row {
     background-color: white;
+    height: fit-content;
+    width: fit-content;
 }
 
 tr:nth-child(even) .table_cell, .table_cell__header {
@@ -129,4 +131,18 @@ tr:nth-child(even) .table_cell, .table_cell__header {
 .emptyData {
     font-size: 32px;
     line-height: 40px;
+}
+
+.bar_button__active {
+    cursor: pointer;
+
+}
+
+.bar_button:disabled .bar_buttonImage {
+    transform: scale(0.4);
+    opacity: 0.5;
+}
+
+.bar_button:disabled {
+    cursor: default;
 }

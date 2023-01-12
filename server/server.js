@@ -9,7 +9,7 @@ let options = {};
 
 options.host = "localhost";
 options.port = 3050;
-options.database = "C:\\Development\\11312\\server\\DB.FDB";
+options.database = "D:\\dev\\uno\\server\\DB.FDB";
 options.user = "SYSDBA";
 options.password = "masterkey";
 options.lowercase_keys = false;

@@ -19,6 +19,7 @@ import {
   selectUserId,
 } from "../../store/Auth/selectors";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
+import { EditPopup } from "../EditPopup/EditPopup";
 
 export const Users = ({ asideIsOpened }) => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const Users = ({ asideIsOpened }) => {
   const usersData = useSelector((state) => selectUsers(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isRowSelected, setIsRowSelected] = useState(false);
+  const [isEditPopupOpened, setIsEditPopupOpened] = useState(false);
   const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
   const [selectedRow, setSelectedRow] = useState(false);
   const userId = useSelector((state) => selectUserId(state));
@@ -47,6 +49,10 @@ export const Users = ({ asideIsOpened }) => {
   };
   const toggleDeletePopup = () => {
     setIsDeletePopupOpened(!isDeletePopupOpened);
+  };
+
+  const toggleEditPopup = () => {
+    setIsEditPopupOpened(!isEditPopupOpened);
   };
 
   const toggleSelectedRow = (el) => {
@@ -207,7 +213,7 @@ export const Users = ({ asideIsOpened }) => {
         </button>
         <button
           className={classNames(styles.bar_button, styles.button)}
-          onClick={() => console.log("1232")}
+          onClick={() => toggleEditPopup()}
           disabled={!isRowSelected}
         >
           <img
@@ -234,7 +240,18 @@ export const Users = ({ asideIsOpened }) => {
       </div>
       {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
       {isDeletePopupOpened && (
-        <DeletePopup id={selectedRow} toggleDeletePopup={toggleDeletePopup} resetSelectedRow={resetSelectedRow}/>
+        <DeletePopup
+          id={selectedRow}
+          toggleDeletePopup={toggleDeletePopup}
+          resetSelectedRow={resetSelectedRow}
+        />
+      )}
+      {isEditPopupOpened && (
+        <EditPopup
+          id={selectedRow}
+          togglePopup={toggleEditPopup}
+          resetSelectedRow={resetSelectedRow}
+        />
       )}
     </div>
   );

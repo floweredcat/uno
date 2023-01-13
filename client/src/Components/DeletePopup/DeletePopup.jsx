@@ -1,7 +1,7 @@
 import classNames from "classnames";
+import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { loadDeleteUser } from "../../store/Users/Thunks/deleteUser";
-import styles from "./styles.module.css";
 
 export const DeletePopup = ({ id, toggleDeletePopup, resetSelectedRow }) => {
   const dispatch = useDispatch();

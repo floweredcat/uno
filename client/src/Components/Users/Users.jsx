@@ -14,7 +14,11 @@ import {
   selectUsersIsLoading,
 } from "../../store/Users/selectors";
 import { loadUsers } from "../../store/Users/Thunks/loadUsersIfNotExist";
-import { selectUserAuthenticated } from "../../store/Auth/selectors";
+import {
+  selectUserAuthenticated,
+  selectUserId,
+} from "../../store/Auth/selectors";
+import { DeletePopup } from "../DeletePopup/DeletePopup";
 
 export const Users = ({ asideIsOpened }) => {
   const dispatch = useDispatch();
@@ -30,16 +34,35 @@ export const Users = ({ asideIsOpened }) => {
   const usersIds = useSelector((state) => selectUsersIds(state));
   const usersData = useSelector((state) => selectUsers(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const [isRowSelected, setisRowSelected] = useState(false);
+  const [isRowSelected, setIsRowSelected] = useState(false);
+  const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(false);
+  const userId = useSelector((state) => selectUserId(state));
   const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
-  let selectedRow
+  const resetSelectedRow = () => {
+    setSelectedRow(false);
+    setIsRowSelected(false);
+  };
+  const toggleDeletePopup = () => {
+    setIsDeletePopupOpened(!isDeletePopupOpened);
+  };
 
   const toggleSelectedRow = (el) => {
-    setisRowSelected(!!el);
-    el ? selectedRow = el : selectedRow = false
-  }
+    if (userId !== el) {
+      if (!!el) {
+        if (selectedRow === el) {
+          resetSelectedRow();
+        } else {
+          setIsRowSelected(true);
+          setSelectedRow(el);
+        }
+      } else {
+        resetSelectedRow();
+      }
+    }
+  };
 
   const headers = [
     "#",
@@ -68,7 +91,8 @@ export const Users = ({ asideIsOpened }) => {
                     className={classNames(
                       styles.table_cell,
                       styles.table_cell__header
-                    )}>
+                    )}
+                  >
                     {el}
                   </th>
                 );
@@ -78,66 +102,61 @@ export const Users = ({ asideIsOpened }) => {
           <tbody className={styles.table_content}>
             {usersIds?.map((el, row) => {
               const user = usersData[el];
-              const { AMOUNT, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
+              const { ID, AMOUNT, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
 
               return (
                 <tr
                   key={el}
-                  className={styles.table_row}
-                  onClick={() => toggleSelectedRow(el)}>
+                  className={classNames(styles.table_row, {
+                    [styles.table_row__selected]: selectedRow === el,
+                  })}
+                  onClick={() => toggleSelectedRow(el)}
+                >
                   {headers.map((_, idx) => {
                     switch (idx) {
                       default:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}></td>
+                          <td key={nanoid()} className={styles.table_cell}></td>
                         );
                       case 0:
                         return (
                           <td
                             key={nanoid()}
-                            className={styles.table_cell}>
-                            {+row + 1}
+                            className={classNames(
+                              styles.table_cell,
+                              styles.table_cell__num
+                            )}
+                          >
+                            {ID}
                           </td>
                         );
                       case 1:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}>
+                          <td key={nanoid()} className={styles.table_cell}>
                             {NAME}
                           </td>
                         );
                       case 2:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}>
+                          <td key={nanoid()} className={styles.table_cell}>
                             {EMAIL}
                           </td>
                         );
                       case 3:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}>
+                          <td key={nanoid()} className={styles.table_cell}>
                             {PHONE}
                           </td>
                         );
                       case 4:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}>
+                          <td key={nanoid()} className={styles.table_cell}>
                             {ROLENAME}
                           </td>
                         );
                       case 5:
                         return (
-                          <td
-                            key={nanoid()}
-                            className={styles.table_cell}>
+                          <td key={nanoid()} className={styles.table_cell}>
                             {CITY}
                           </td>
                         );
@@ -145,7 +164,11 @@ export const Users = ({ asideIsOpened }) => {
                         return (
                           <td
                             key={nanoid()}
-                            className={styles.table_cell}>
+                            className={classNames(
+                              styles.table_cell,
+                              styles.table_cell__num
+                            )}
+                          >
                             <div className={styles.table_cell__balance}>
                               {AMOUNT
                                 ? AMOUNT.toString().replace(
@@ -169,19 +192,24 @@ export const Users = ({ asideIsOpened }) => {
       <div
         className={classNames(styles.bar_container, {
           [styles.bar_moved]: !asideIsOpened,
-        })}>
-        <div className={styles.bar_button}>
+        })}
+      >
+        <button
+          type="button"
+          className={classNames(styles.bar_button, styles.button)}
+        >
           <img
             src={addIMG}
             alt="add button"
             className={styles.bar_buttonImage}
             onClick={() => toggleAddPopup()}
           />
-        </div>
+        </button>
         <button
           className={classNames(styles.bar_button, styles.button)}
-          onClick={()=> console.log('1232')}
-          disabled={isRowSelected}>
+          onClick={() => console.log("1232")}
+          disabled={!isRowSelected}
+        >
           <img
             src={editIMG}
             alt="add button"
@@ -194,8 +222,9 @@ export const Users = ({ asideIsOpened }) => {
             styles.bar_button__delete,
             styles.button
           )}
-          disabled={isRowSelected}
-          onClick={() => console.log("add")}>
+          disabled={!isRowSelected}
+          onClick={() => toggleDeletePopup()}
+        >
           <img
             src={deleteIMG}
             alt="add button"
@@ -204,6 +233,9 @@ export const Users = ({ asideIsOpened }) => {
         </button>
       </div>
       {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
+      {isDeletePopupOpened && (
+        <DeletePopup id={selectedRow} toggleDeletePopup={toggleDeletePopup} resetSelectedRow={resetSelectedRow}/>
+      )}
     </div>
   );
 };

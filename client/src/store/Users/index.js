@@ -31,7 +31,6 @@ export const usersSlice = createSlice({
       };
     },
     addUser: (state) => {   
-
       state.entities.push(nanoid())
 
       return state

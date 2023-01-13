@@ -23,6 +23,15 @@
   position: relative;
 }
 
+.title {
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  align-self: flex-start;
+  padding-bottom: 24px;
+}
+
 .form_input {
   outline: none;
   border: none;

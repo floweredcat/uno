@@ -7,17 +7,12 @@ import usersIMG from './images/person.svg';
 import objectIMG from './images/domain.svg';
 import profileIMG from './images/Users.svg';
 import { authSliceActions } from '../../store/Auth';
-import { selectUserAuthenticated, selectUserName } from '../../store/Auth/selectors';
+import { selectUserName } from '../../store/Auth/selectors';
 
 export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = useSelector(state => selectUserName(state))
-  const isUserAuthenticated = useSelector(state => selectUserAuthenticated(state))
-  if (!isUserAuthenticated) {
-    navigate('/');
-    return
-  }
   const logout = () => {
     dispatch(authSliceActions.logout())
     navigate('/')

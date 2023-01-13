@@ -1,12 +1,10 @@
 import classNames from "classnames";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserAuthenticated, selectUserId } from "../../store/Auth/selectors";
+import { selectUserId } from "../../store/Auth/selectors";
 import { addUserIfValidate } from "../../store/Users/Thunks/addUserIfValidate";
 import { loadUsers } from "../../store/Users/Thunks/loadUsersIfNotExist";
 import styles from "./styles.module.css";
-import {useNavigate} from 'react-router-dom'
 const roleVars = {
   admin: { content: "admin", id: 1 },
   user: { content: "user", id: 3 },
@@ -14,13 +12,6 @@ const roleVars = {
 };
 
 export const AddPopup = ({ toggleAddPopup }) => {
-  const isUserAuthenticated = useSelector(state => selectUserAuthenticated(state)) ;
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!isUserAuthenticated) {
-      navigate('/')
-    }
-  }, [])
   const userId = useSelector(state => selectUserId(state))
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -41,17 +32,14 @@ export const AddPopup = ({ toggleAddPopup }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const addUser = async () => {
       addUserIfValidate({userId, email, role, name, phone, city, pass });
-    };
-    addUser().then(dispatch(loadUsers));
+    dispatch(loadUsers);
     toggleAddPopup();
     resetForm();
   };
 
   return (
     <div className={styles.popup_wrapper}>
-      <div className={styles.popup}>
         <form className={styles.form} onSubmit={onSubmit}>
           <h2 className={styles.title}>Добавление пользователя</h2>
           <button
@@ -177,7 +165,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             Добавить ползователя
           </button>
         </form>
-      </div>
     </div>
   );
 };

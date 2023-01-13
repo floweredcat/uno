@@ -9,7 +9,7 @@ let options = {};
 
 options.host = "localhost";
 options.port = 3050;
-options.database = "D:\\dev\\uno\\server\\DB.FDB";
+options.database = "C:\\Development\\11312\\server\\DB.FDB";
 options.user = "SYSDBA";
 options.password = "masterkey";
 options.lowercase_keys = false;
@@ -27,7 +27,9 @@ app.post("/getUsers", (req, res) => {
   var REQ_PARAM = req.body.getCity;
   
   firefird.attach(options, (err, db) => {
-    if (err) throw err;
+    if (err) {
+      res.send(err)
+    };
     db.query(REQ_PARAM, (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -40,7 +42,9 @@ app.post("/addUser", (req, res) => {
   var REQ_PARAM = req.body.user;
 
   firefird.attach(options, (err, db) => {
-    if (err) throw err;
+    if (err) {
+      res.send(err)
+    };
 
     db.query(REQ_PARAM, (err, result) => {
       if (err) throw err;
@@ -54,14 +58,35 @@ app.post("/authUser", (req, res) => {
   var REQ_PARAM = req.body.getAuth;
 
   firefird.attach(options, (err, db) => {
-    if (err) throw err;
+    if (err) throw err
 
     db.query(REQ_PARAM, (err, result) => {
       if (err) throw err;
-      res.send(result)
+      res.send(result);
       db.detach();
     });
   });
+})
+
+app.post("/deleteUser", (req, res) => {
+  var {deleteUser, hideUser} = req.body;
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err
+
+    db.query(deleteUser, (err, result) => {
+      if (err) {
+        db.query(hideUser, (err, result) => {
+          if (err) throw err;
+
+          res.send(result)
+        })
+        db.detach()
+      }
+      else res.send(result)
+      db.detach()
+    })
+  })
 })
 
 app.listen(4000, () => {

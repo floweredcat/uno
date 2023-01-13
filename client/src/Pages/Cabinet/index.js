@@ -7,8 +7,7 @@ import { Objects } from '../../Components/Objects/Objects';
 import { Menu } from '../../Components/Menu/Menu';
 import { useSelector } from 'react-redux';
 import { selectUserAuthenticated } from '../../store/Auth/selectors';
-import { useNavigate } from 'react-router-dom';
-import { RedirectFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const FOLDERS = {
   users: 'users',

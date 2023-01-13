@@ -1,0 +1,100 @@
+.popup_wrapper {
+  position: fixed;
+  z-index: 88;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  width: fit-content;
+  background-color: white;
+  z-index: 99;
+  background-color: white;
+  position: relative;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  font-weight: bold;
+  padding: 0 80px;
+  margin: 0;
+  font-size: 28px;
+  line-height: 92px;
+  background-color: #0353a4;
+  border-radius: 12px 12px 0 0;
+  white-space: nowrap;
+}
+
+.button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: white;
+  padding: 12px 65px;
+  font-size: 24px;
+  line-height: 36px;
+  border-radius: 36px;
+  text-transform: uppercase;
+}
+
+.form_submit {
+  background-color: #0353a4;
+  min-width: 346px;
+  line-height: 22px;
+  font-family: "Inter";
+  padding: 20px 0;
+  border-radius: 30px;
+  appearance: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  border: none;
+  margin-top: 64px;
+  transition: 300ms ease-in-out;
+}
+
+.form_submit:hover {
+  opacity: 0.7;
+  transition: 300ms ease-in-out;
+}
+
+.popup_closeButton {
+  /* background-image: url("./images/delete.svg"); */
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background-color: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.buttons_wrapper {
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+  background-color: inherit;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 24px 0;
+}
+
+.cancel {
+  background-color: #0353a4;
+  color: white;
+}

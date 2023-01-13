@@ -1,13 +1,13 @@
 import { loadUsers } from "./loadUsersIfNotExist";
 
-export const loadDeleteUser = ({id, name, email, password, userId}) => (dispatch) => {
+export const editUser = ({id, name, email, userId}) => (dispatch) => {
     const options = {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({
-          editedUser: `update peoples set name='${name}', email='${email}', phone='${phone}', pass='${password}', idaccess='${userId}' where id='${id}';`
+          editedUser: `update peoples set name='${name}', email='${email}', idaccess=${userId} where id=${id};`
         }),
       };
 

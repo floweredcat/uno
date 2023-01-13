@@ -89,7 +89,7 @@ app.post("/deleteUser", (req, res) => {
 });
 
 app.post("/editUser", (req, res) => {
-  var REQ_PARAM = req.body;
+  var REQ_PARAM = req.body.editedUser;
 
   firefird.attach(options, (err, db) => {
     if (err) throw err;

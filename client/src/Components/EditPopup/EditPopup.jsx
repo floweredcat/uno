@@ -3,19 +3,21 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserId } from "../../store/Auth/selectors";
 import { selectUserDataById } from "../../store/Users/selectors";
+import { editUser } from "../../store/Users/Thunks/editUser";
 import styles from "./styles.module.css";
 
 export const EditPopup = ({ togglePopup, id, resetSelectedRow }) => {
   const userId = useSelector((state) => selectUserId(state));
   const userData = useSelector((state) => selectUserDataById(state, {id}))
   const dispatch = useDispatch();
-  const [email, setEmail] = useState(userData.EMAIL ? userData.EMAIL : '');
-  const [name, setName] = useState(userData.NAME ? userData.NAME : '');
-  const [phone, setPhone] = useState(userData.PHONE ? userData.PHONE : '');
+  const [email, setEmail] = useState(userData?.EMAIL ? userData.EMAIL : '');
+  const [name, setName] = useState(userData?.NAME ? userData.NAME : '');
+  const [phone, setPhone] = useState(userData?.PHONE ? userData.PHONE : '');
 
   const onSubmit = (event) => {
     event.preventDefault();
     console.log('YaAAAAAAaye');
+    dispatch(editUser({id, email, name, userId}))
     resetSelectedRow();
     resetForm();
   }

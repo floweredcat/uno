@@ -1,73 +1,95 @@
-import classNames from 'classnames';
-import styles from './styles.module.css';
+import classNames from "classnames";
+import { useState } from "react";
+import { EditPackagePopup } from "../EditPackagePopup/EditPackagePopup";
+import styles from "./styles.module.css";
 
 export const Objects = () => {
-    return (
-        <div className={styles.objects}>
-            <div className={styles.header}>
-                <div className={classNames(styles.header_element, styles.place)}>
-                    <h3 className={styles.title}>Название</h3>
-                    <p className={styles.content}>Ресторан “Chica”</p>
-                </div>
-                <div className={classNames(styles.header_element, styles.partner)}>
-                    <h3 className={styles.title}>Название</h3>
-                    <p className={styles.content}>Ресторан “Chica”</p>
-                </div>
-                <div className={classNames(styles.header_element, styles.city)}>
-                    <h3 className={styles.title}>Название</h3>
-                    <p className={styles.content}>Бишкек, Кыргызстан</p>
-                </div>
-                <div className={classNames(styles.header_element, styles.name)}>
-                    <h3 className={styles.title}>Название</h3>
-                    <p className={styles.content}>Ресторан “Chica”</p>
-                </div>
-                <div className={classNames(styles.header_element, styles.num)}>
-                    <h3 className={styles.title}>Название</h3>
-                    <p className={styles.content}>Ресторан “Chica”</p>
-                </div>
+
+    const [isPopupOpened, setIsPopupOpened] = useState(false)
+    const togglePopup = () => {
+        setIsPopupOpened(!isPopupOpened)
+    }
+
+  return (
+    <div className={styles.objects}>
+      <div className={classNames(styles.info, styles.objects_element)}>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.object_name}>Ресторан “Chica”</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+      </div>
+      <div className={classNames(styles.info, styles.objects_element)}>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+      </div>
+      <div className={classNames(styles.object_info, styles.objects_element)}>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Пакет</h2>
+          <p className={styles.object_name}>MAX</p>
+        </div>
+        <div className={styles.object_radios}>
+            <div class={styles.object_radio}>
+                <h2 className={styles.title}>Front</h2>
+                <div className={styles.radio_indicator}>2</div>
             </div>
-            <div className={styles.info}>
-                <div className={classNames(styles.info_element, styles.info_element__front)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__package)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__cook)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__rate)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__qr)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__startdate)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__enddate)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__left)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__sum)}>
-                    <div className={styles.title}>title</div>
-                    <div className={styles.content}>content</div>
-                </div>
-                <div className={classNames(styles.info_element, styles.info_element__date)}>
-                    <div className={styles.title}>date</div>
-                    <div className={styles.content}>content</div>
-                </div>
+            <div class={styles.object_radio}>
+                <h2 className={styles.title}>Тарификация</h2>
+                <div className={styles.radio_indicator}></div>
+            </div>
+            <div class={styles.object_radio}>
+                <h2 className={styles.title}>Мобильный</h2>
+                <div className={styles.radio_indicator}></div>
+            </div>
+            <div class={styles.object_radio}>
+                <h2 className={styles.title}>QR</h2>
+                <div className={styles.radio_indicator}></div>
             </div>
         </div>
-    )
-}
+        <button type="button" className={classNames(styles.button, styles.button_edit)} onClick={() => togglePopup()}>Редактировать пакет</button>
+      </div>
+      <div className={classNames(styles.info, styles.objects_element)}>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+        <div className={styles.info_element}>
+          <h2 className={styles.title}>Название</h2>
+          <p className={styles.content}>content</p>
+        </div>
+      </div>
+      <div className={classNames(styles.status, styles.objects_element)}>
+        <div className={styles.status_element}>
+            <h2 className={styles.title}>Статус</h2>
+            <div className={styles.status_info}>Активен</div>
+        </div>
+        <div className={styles.status_element}>
+            <h2 className={styles.title}>Сумма</h2>
+            <div className={styles.status_info}>180,000</div>
+        </div>
+      </div>
+      {isPopupOpened && <EditPackagePopup togglePopup={togglePopup} />}
+    </div>
+  );
+};

@@ -31,6 +31,7 @@ export const Users = ({ asideIsOpened }) => {
     if (isUserAuthenticated) {
       dispatch(loadUsers);
     }
+    setIsRowSelected(false)
   }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
   const usersData = useSelector((state) => selectUsers(state));

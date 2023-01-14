@@ -16,9 +16,9 @@ export const EditPopup = ({ togglePopup, id, resetSelectedRow }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log('YaAAAAAAaye');
-    dispatch(editUser({id, email, name, userId}))
+    dispatch(editUser({id, email, name, phone, userId}))
     resetSelectedRow();
+    togglePopup();
     resetForm();
   }
 
@@ -30,7 +30,7 @@ export const EditPopup = ({ togglePopup, id, resetSelectedRow }) => {
   return (
     <div className={styles.popup_wrapper}>
       <form className={styles.form} onSubmit={onSubmit}>
-        <h2 className={styles.title}>Добавление пользователя</h2>
+        <h2 className={styles.title}>Редактирование пользователя</h2>
         <button
           type="button"
           className={classNames(styles.button, styles.popup_closeButton)}
@@ -85,7 +85,7 @@ export const EditPopup = ({ togglePopup, id, resetSelectedRow }) => {
           type="submit"
           className={classNames(styles.button, styles.form_submit)}
         >
-          Добавить ползователя
+          Изменить данные
         </button>
       </form>
     </div>

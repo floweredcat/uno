@@ -119,7 +119,7 @@ body {
     z-index: 10;
 }
 
-.form_input__noValid {
+.form_input__invalid {
     border-bottom: 1px solid #FF4040;
 }
 

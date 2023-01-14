@@ -9,7 +9,7 @@ export const addUserIfValidate = ({userId, email, role, name, phone, city, pass}
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        user: `insert into peoples(pid,name,email,pass,idaccess) values(${userId},'${name}','${email}','${pass}',${role});`,
+        user: `insert into peoples(pid,name,email,phone,pass,idaccess) values(${userId},'${name}','${email}','${phone}','${pass}',${role});`,
       }),
     };
 

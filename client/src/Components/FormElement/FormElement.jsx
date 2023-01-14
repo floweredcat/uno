@@ -10,6 +10,7 @@ import {
 import logo from "./images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
+import { authSliceActions } from "../../store/Auth";
 
 export const FormElement = () => {
   const [email, setEmail] = useState("");
@@ -22,6 +23,9 @@ export const FormElement = () => {
   const userAuthSuccess = useSelector((state) =>
     selectUserAuthenticated(state)
   );
+  useEffect(() => {
+    dispatch(authSliceActions.logout())
+  }, [])
   useEffect(() => {
     if (userAuthSuccess) {
       navigate("/cabinet");
@@ -70,7 +74,9 @@ export const FormElement = () => {
             autoComplete="new-password"
             id="login"
             type="text"
-            className={styles.form_input}
+            className={classNames(styles.form_input, {
+              [styles.form_input__invalid]: !isValidate
+            })}
             placeholder=" "
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -84,7 +90,9 @@ export const FormElement = () => {
             autoComplete="new-password"
             id="password"
             type={passwordVisible ? "text" : "password"}
-            className={styles.form_input}
+            className={classNames(styles.form_input, {
+              [styles.form_input__invalid]: !isValidate
+            })}
             placeholder=" "
             value={password}
             onChange={(event) => setPassword(event.target.value)}

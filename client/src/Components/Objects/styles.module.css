@@ -1,15 +1,184 @@
 .objects {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    height: fit-content;
+  display: grid;
+  padding: 24px;
+  gap: 50px;
+  width: calc(100% - 48px);
+  grid-template-rows: 1fr 3fr;
+  height: calc(100% - 48px);
+}
+
+.header {
+  display: grid;
+  grid-template-areas:
+    "place partner partner"
+    "city name num";
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 80px;
+  width: 100%;
+}
+
+.place {
+  grid-area: place;
+}
+
+.partner {
+  grid-area: partner;
+}
+
+.city {
+  grid-area: city;
+}
+
+.num {
+  grid-area: num;
+}
+
+.name {
+  grid-area: name;
+}
+
+.header_element {
+  width: fit-content;
+  height: fit-content;
 }
 
 .title {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  color: #bcbcbc;
+  text-transform: uppercase;
+}
+
+.content {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.header_element {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info {
+  display: grid;
+  grid-template-areas:
+    "front front front package package package"
+    "cook cook rate rate qr qr"
+    "start start end end left left"
+    "sum sum sum date date date";
+  grid-template-columns: repeat(1fr, 3);
+  grid-template-rows: 1fr 1fr 2fr 2fr;
+  justify-items: stretch;
+  gap: 20px;
+}
+
+.info_element__sum {
+  grid-area: sum;
+}
+
+.info_element__left {
+  grid-area: left;
+}
+
+.info_element__enddate {
+  grid-area: end;
+}
+
+.info_element__startdate {
+  grid-area: start;
+}
+
+.info_element__qr {
+  grid-area: qr;
+}
+
+.info_element__rate {
+  grid-area: rate;
+}
+
+.info_element__cook {
+  grid-area: cook;
+}
+
+.info_element__package {
+  grid-area: package;
+}
+
+.info_element__front {
+  grid-area: front;
+}
+
+.info_element__date {
+  grid-area: date;
+  justify-content: flex-end !important;
+  align-items: flex-end !important;
+  padding: 10px !important;
+}
+
+.info_element {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  color: white;
+  gap: 10px;
+  justify-content: center;
+}
+
+.info_element .title {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info_element__front,
+.info_element__sum,
+.info_element__package {
+  background-color: #d9d9d9;
+}
+
+.info_element__front,
+.info_element__sum,
+.info_element__package .content {
+  color: black;
+}
+
+.info_element__cook,
+.info_element__qr,
+.info_element__rate {
+  background: linear-gradient(
+    87.6deg,
+    #1b8cfe -44.81%,
+    rgba(0, 33, 205, 0.491667) 27.5%,
+    #1d85ee 131.81%
+  );
+  border-radius: 16px;
+}
+
+.info_element__startdate .content,
+.info_element__enddate .content,
+.info_element__left .content {
+  font-size: 48px;
+  line-height: 58px;
+}
+
+.info_element__startdate,
+.info_element__enddate,
+.info_element__left {
+  background: #77ce59;
+  border-radius: 24px;
+}
+
+.info_element__date .content {
+  color: black;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.info_element__date .title {
+  color: #bcbcbc;
 }

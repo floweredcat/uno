@@ -45,6 +45,8 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 41px;
+  z-index: 10;
+  cursor: pointer;
 }
 
 input:-webkit-autofill,
@@ -76,6 +78,8 @@ select:-webkit-autofill:focus {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 8;
+  cursor: pointer;
 }
 
 .input_container {
@@ -88,49 +92,12 @@ select:-webkit-autofill:focus {
 }
 
 .input_container input:focus + label,
-.input_container input:valid + label {
+.input_container input:not(:placeholder-shown) + label {
   transform: translateY(-12px);
   line-height: 15px;
   font-size: 12px;
   color: #bcbcbc;
   transition: all 200ms ease-in-out;
-}
-
-.radios_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  width: 100%;
-}
-
-.radio {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-  padding: 0;
-}
-
-.radio_container {
-  max-width: 110px;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 15px;
-  align-content: center;
-  height: 24px;
-}
-
-.label_radio {
-  font-size: 14px;
-  line-height: 24px;
-  padding: 0;
-}
-
-.radios_label {
-  font-size: 20px;
-  line-height: 24px;
-  align-self: flex-start;
-  margin-bottom: 24px;
 }
 
 .button {
@@ -171,9 +138,16 @@ select:-webkit-autofill:focus {
   width: 24px;
   height: 24px;
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 12px;
+  right: 12px;
   background-color: inherit;
   background-position: center;
   background-repeat: no-repeat;
+  transform: scale(1);
+  transition: all ease-in-out 200ms;
+}
+
+.popup_closeButton:hover {
+  transform: scale(1.1);
+  transition: all ease-in-out 200ms;
 }

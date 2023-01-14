@@ -102,6 +102,20 @@ app.post("/editUser", (req, res) => {
   });
 });
 
+app.post("/getObjects", (req, res) => {
+  var REQ_PARAM = req.body.getObjects;
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+
+    db.query(REQ_PARAM, (err, result) => {
+      if (err) throw err;
+      res.send(result);
+      db.detach();
+    });
+  });
+});
+
 app.listen(4000, () => {
   console.log("Running on port 4000...");
 });

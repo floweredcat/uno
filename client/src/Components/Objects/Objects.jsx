@@ -1,14 +1,19 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { getObjects } from "../../store/Objects/Thunks/getObjectsById";
 import { EditPackagePopup } from "../EditPackagePopup/EditPackagePopup";
 import styles from "./styles.module.css";
+import { useDispatch } from "react-redux";
 
 export const Objects = () => {
+  const dispatch = useDispatch();
 
     const [isPopupOpened, setIsPopupOpened] = useState(false)
     const togglePopup = () => {
         setIsPopupOpened(!isPopupOpened)
     }
+
+  dispatch(getObjects)
 
   return (
     <div className={styles.objects}>

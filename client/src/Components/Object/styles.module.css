@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
 }
 
 .objects_element {
@@ -94,6 +101,13 @@
   text-decoration: none;
 }
 
+.button_exit {
+  background-color: #0353a4;
+  width: 24px;
+  height: 24px;
+  align-self: flex-end;
+}
+
 .button_edit {
   background-color: #0353a4;
   line-height: 36px;
@@ -105,6 +119,16 @@
   font-size: 17px;
   transition: 300ms ease-in-out;
   width: fit-content;
+}
+
+.button_edit:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.button_edit:disabled:hover {
+  cursor: default;
+  opacity: 1;
 }
 
 .button_edit:hover {

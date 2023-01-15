@@ -109,7 +109,7 @@ export const Users = ({ asideIsOpened }) => {
           <tbody className={styles.table_content}>
             {usersIds?.map((el, row) => {
               const user = usersData[el];
-              const { ID, AMOUNT, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
+              const { ID, BALANCE, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
 
               return (
                 <tr
@@ -177,8 +177,8 @@ export const Users = ({ asideIsOpened }) => {
                             )}
                           >
                             <div className={styles.table_cell__balance}>
-                              {AMOUNT
-                                ? AMOUNT.toString().replace(
+                              {BALANCE
+                                ? BALANCE.toString().replace(
                                     /\B(?=(\d{3})+(?!\d))/g,
                                     ","
                                   )

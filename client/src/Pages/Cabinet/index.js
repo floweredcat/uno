@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { Users } from '../../Components/Users/Users';
 import { Profile } from '../../Components/Profile/Profile';
-import { Objects } from '../../Components/obj/Objects';
+import { Objects } from '../../Components/Objects/Objects';
 import { Menu } from '../../Components/Menu/Menu';
 import { useSelector } from 'react-redux';
 import { selectUserAuthenticated } from '../../store/Auth/selectors';

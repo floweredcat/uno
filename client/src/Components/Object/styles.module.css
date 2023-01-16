@@ -18,9 +18,36 @@
   padding: 24px;
 }
 
+.info:nth-child(2) {
+  padding-left: 44px;
+}
+
+.info:nth-child(2) .info_element {
+  padding-left: 20px;
+}
+
+.info:nth-child(4) {
+  padding-left: 44px;
+}
+
+.info:nth-child(4) .info_element {
+  padding-left: 20px;
+}
+
+.info_element {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: -20px;
+  height: 80%;
+  top: 4px;
+}
+
 .info {
   justify-content: space-between;
-  padding: 24px;  
+  padding: 24px;
 }
 
 .objects_element:last-of-type {
@@ -77,10 +104,19 @@
   content: " ";
   width: 12px;
   height: 12px;
-  border: 2px solid gray;
+  border: 2px solid #bcbcbc;
   border-radius: 2px;
   margin-top: 9px;
-  color: gray;
+  color: #bcbcbc;
+}
+
+.radio_indicator__active {
+  background-image: url('./images/radio_active.svg');
+  width: 16px;
+  height: 16px;
+  border: none;
+  background-position: center;
+  background-size: cover;
 }
 
 .object_radio:first-of-type .radio_indicator {
@@ -102,7 +138,8 @@
 }
 
 .button_exit {
-  background-color: #0353a4;
+  background-color: inherit;
+  background-image: url('./images/exit-button.svg');
   width: 24px;
   height: 24px;
   align-self: flex-end;

@@ -1,10 +1,14 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { EditPackagePopup } from "../EditPackagePopup/EditPackagePopup";
 import styles from "./styles.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
+import geoIcon from './images/geo.svg'
+import partnerIcon from './images/partner.svg'
+import phoneIcon from './images/phone.svg'
+import timerIcon from './images/timer.svg'
+import endtimerIcon from './images/endtimer.svg'
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -12,7 +16,38 @@ export const Object = ({ toggleObject, id }) => {
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
-  console.log(objectData)
+
+  const getDiffDates = () => {
+   const diff =  new Date(new Date(objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T")))) - new Date(objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T")))
+    const days = diff / 86400000
+    let months = Math.floor(days / 30);
+    let leftDays = Math.floor(days / 30 - months)
+    if (leftDays[-1] == 1) {
+      leftDays += ' День'
+    }
+    else if (2 <= leftDays[-1] <=4 ) {
+      leftDays += ' Дня'
+    }
+
+    else {
+      leftDays += ' Дней'
+    }
+
+    if (months <= 1) {
+      months += ' Месяц'
+    }
+
+    else if (2 <= months && months <= 4){
+      months += ' Месяца'
+    }
+
+    else {
+      months += ' Месяцев'
+    }
+    return {months, leftDays}
+  }
+
+  const leftTime = getDiffDates()
 
   return (
     <div className={styles.objects}>
@@ -37,14 +72,17 @@ export const Object = ({ toggleObject, id }) => {
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
+          <img src={geoIcon} alt={geoIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Город/Страна</h2>
           <p className={styles.content}>{objectData.CITY}</p>
         </div>
         <div className={styles.info_element}>
+          <img src={partnerIcon} alt={partnerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Партнер</h2>
           <p className={styles.content}>UM System Group</p>
         </div>
         <div className={styles.info_element}>
+        <img src={phoneIcon} alt={phoneIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Телефон</h2>
           <p className={styles.content}>{objectData.PHONE}</p>
         </div>
@@ -61,15 +99,21 @@ export const Object = ({ toggleObject, id }) => {
           </div>
           <div class={styles.object_radio}>
             <h2 className={styles.title}>Тарификация</h2>
-            <div className={styles.radio_indicator}></div>
+            <div className={classNames(styles.radio_indicator, {
+              [styles.radio_indicator__active]: objectData.TARIF
+            })}></div>
           </div>
           <div class={styles.object_radio}>
             <h2 className={styles.title}>Мобильный</h2>
-            <div className={styles.radio_indicator}></div>
+            <div className={classNames(styles.radio_indicator, {
+              [styles.radio_indicator__active]: objectData.MOB
+            })}></div>
           </div>
           <div class={styles.object_radio}>
             <h2 className={styles.title}>QR</h2>
-            <div className={styles.radio_indicator}></div>
+            <div className={classNames(styles.radio_indicator, {
+              [styles.radio_indicator__active]: objectData.QR
+            })}></div>
           </div>
         </div>
         <button
@@ -82,16 +126,19 @@ export const Object = ({ toggleObject, id }) => {
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
+          <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
           <p className={styles.content}>{objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T"))}</p>
         </div>
         <div className={styles.info_element}>
+          <img src={endtimerIcon} alt={endtimerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Конец</h2>
           <p className={styles.content}>{objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T"))}</p>
         </div>
         <div className={styles.info_element}>
+          <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Осталось</h2>
-          <p className={styles.content}>content</p>
+          <p className={styles.content}>{leftTime.months ? leftTime.months : '' + leftTime.leftDays ? ", " + leftTime.leftDays : ''}</p>
         </div>
       </div>
       <div className={classNames(styles.status, styles.objects_element)}>

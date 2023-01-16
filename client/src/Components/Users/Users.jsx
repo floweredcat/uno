@@ -24,13 +24,8 @@ import { EditPopup } from "../EditPopup/EditPopup";
 export const Users = ({ asideIsOpened }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
-  const isUserAuthenticated = useSelector((state) =>
-    selectUserAuthenticated(state)
-  );
   useEffect(() => {
-    if (isUserAuthenticated) {
-      dispatch(loadUsers);
-    }
+      dispatch(loadUsers({userId}));
     setIsRowSelected(false)
   }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
@@ -40,7 +35,10 @@ export const Users = ({ asideIsOpened }) => {
   const [isEditPopupOpened, setIsEditPopupOpened] = useState(false);
   const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
   const [selectedRow, setSelectedRow] = useState(false);
-  const userId = useSelector((state) => selectUserId(state));
+  let userId = useSelector((state) => selectUserId(state));
+  if (localStorage.userId) {
+    userId = localStorage.userId;
+  }
   const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };

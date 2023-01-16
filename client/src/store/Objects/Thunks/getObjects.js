@@ -1,14 +1,7 @@
 import { objectsSliceActions } from "..";
-import { selectUserId } from "../../Auth/selectors";
 import { normolizeEntities } from "../../helpers/normalizeEntites";
-import { selectObjectsIds } from "../selectors";
 
-export const getObjects = (dispatch, getState) => {
-  const userId = selectUserId(getState());
-  if (selectObjectsIds(getState())?.lenght > 0 ) {
-    console.log('!!')
-    return 
-  }
+export const getObjects = ({userId}) => (dispatch) => {
 
   const options = {
     method: "POST",

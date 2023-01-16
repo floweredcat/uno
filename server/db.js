@@ -1,9 +1,17 @@
 const firebase = require("node-firebird");
 
-const connection = firebase.pool(5, {
+const options = {
   host: "localhost",
-  port: 4000,
-  user: "SYSDBA",
-  password: "masterkey",
-  database: "DB.FDB",
-});
+port: 3050,
+database: "C:\\Development\\11312\\server\\DB.FDB",
+user: "SYSDBA",
+password: "masterkey",
+lowercase_keys: false,
+role: null,
+pageSize: 4096,
+pageSize: 4096,
+retryConnectionInterval: 1000,
+blobAsText: false,
+}
+
+

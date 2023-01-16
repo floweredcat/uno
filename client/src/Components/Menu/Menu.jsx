@@ -2,7 +2,6 @@ import styles from './styles.module.css';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { selectAuthUser } from '../../store/Auth/selectors';
 import usersIMG from './images/person.svg';
 import objectIMG from './images/domain.svg';
 import profileIMG from './images/Users.svg';
@@ -12,7 +11,10 @@ import { selectUserName } from '../../store/Auth/selectors';
 export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userName = useSelector(state => selectUserName(state))
+  let userName = useSelector(state => selectUserName(state))
+  if (localStorage.user) {
+    userName = localStorage.user
+  }
   const logout = () => {
     dispatch(authSliceActions.logout())
     navigate('/')
@@ -41,7 +43,7 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
           <div className={styles.user_name}>
             {userName}
           </div>
-          <div className={styles.user_from}>{user?.company || 'Company name'}</div>
+          <div className={styles.user_from}>{ user?.company || 'Company name'}</div>
         </div>
       </div>
       <nav className={styles.tabs_container}>

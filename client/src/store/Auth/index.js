@@ -19,7 +19,9 @@ export const authSlice = createSlice({
     },
     login: (state, action) => {
       const userData = action.payload;
-
+      localStorage.setItem('user', userData.NAME)
+      localStorage.setItem('userId', userData.ID)
+      localStorage.setItem('userIdAccess', userData.IDACCESS)
       state = {
         userData,
         isAuthenticated: true,
@@ -38,6 +40,10 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state = initialState;
+      
+      localStorage.removeItem('user');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userIdAccess');
 
       return state
     }

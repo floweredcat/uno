@@ -10,7 +10,6 @@ import {
 import logo from "./images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
-import { authSliceActions } from "../../store/Auth";
 
 export const FormElement = () => {
   const [email, setEmail] = useState("");
@@ -23,8 +22,11 @@ export const FormElement = () => {
   const userAuthSuccess = useSelector((state) =>
     selectUserAuthenticated(state)
   );
+  const user = localStorage.userId
   useEffect(() => {
-    dispatch(authSliceActions.logout())
+    if (user) {
+      navigate("/cabinet")
+    }
   }, [])
   useEffect(() => {
     if (userAuthSuccess) {

@@ -19,15 +19,16 @@ export const Cabinet = () => {
   const navigate = useNavigate()
   const [activeFolder, setActiveFolder] = useState(FOLDERS.users);
   const [asideIsOpened, setAsideIsOpened] = useState(true);
-  const isAuthenticated = useSelector(state => selectUserAuthenticated(state));
+  // const isAuthenticated = useSelector(state => selectUserAuthenticated(state));
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!user) {
       navigate('/')
     }
   }, [])
   const toggleAside = () => {
     setAsideIsOpened(!asideIsOpened);
   };
+  const user = localStorage.getItem('user')
 
   return (
     <div className={styles.cabinet}>

@@ -1,11 +1,7 @@
 import { usersSliceActions } from "..";
-import { selectUserId } from "../../Auth/selectors";
 import { normolizeEntities } from "../../helpers/normalizeEntites";
 
-
-
-export const loadUsers = (dispatch, getState) => {
-  const userId = selectUserId(getState());
+export const loadUsers = ({userId}) => (dispatch) => {
   const options = {
     method: "POST",
     headers: {

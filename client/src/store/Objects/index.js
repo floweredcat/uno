@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 
 const initialState = {
-  entities: [],
+  entities: {},
+  ids: [],
   status: "idle",
 };
 
@@ -12,7 +13,8 @@ export const objectsSlice = createSlice({
   reducers: {
     startLoading: () => {
       return {
-        entities: [],
+        entities: {},
+        ids: [],
         status: "loading",
       };
     },
@@ -29,6 +31,13 @@ export const objectsSlice = createSlice({
         entities: [],
         status: "fail",
       };
+    },
+    addFilterObj: (state, action) => {
+      const {filteredIds} = action.payload
+      return {
+        ...state,
+        filteredIds
+      }
     },
     addUser: (state) => {   
       state.entities.push(nanoid())

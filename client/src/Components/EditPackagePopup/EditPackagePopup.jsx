@@ -8,47 +8,51 @@ const packs = {
 };
 
 export const EditPackagePopup = ({ togglePopup }) => {
-  const [pack, setPack] = useState(packs.start);
-  const [packagePeriod, setPackagePeriod] = useState();
-  const [officePeriod, setOfficePeriod] = useState();
-  const [office, setOffice] = useState(false);
-  const [qr, setQr] = useState(false);
-  const [tarification, setTarification] = useState(false);
-  const toggleOffice = () => {
-    setOffice(!office);
-  };
+  const [form, setForm] = useState({
+    pack: packs.start,
+    packagePeriod: undefined,
+    officePeriod: undefined,
+    office: false,
+    packageDate: undefined,
+    qr: false,
+    frontOffice: undefined,
+    tarification: false,
+    mobile: undefined,
+    officeCount: undefined,
+  });
+
   return (
     <div className={styles.popup_wrapper}>
       <div className={styles.radios_container}>
         <div
           className={classNames(styles.radio_container, {
-            [styles.radio_container__aective]: pack === packs.start,
+            [styles.radio_container__aective]: form.pack === packs.start,
           })}
-          onClick={() => setPack(packs.start)}
+          onClick={() => setForm({...form, pack: packs.start})}
         >
           {packs.start}
         </div>
         <div
           className={classNames(styles.radio_container, {
-            [styles.radio_container__aective]: pack === packs.base,
+            [styles.radio_container__aective]: form.pack === packs.base,
           })}
-          onClick={() => setPack(packs.base)}
+          onClick={() => setForm({...form, pack: packs.base})}
         >
           {packs.base}
         </div>
         <div
           className={classNames(styles.radio_container, {
-            [styles.radio_container__aective]: pack === packs.max,
+            [styles.radio_container__aective]: form.pack === packs.max,
           })}
-          onClick={() => setPack(packs.max)}
+          onClick={() => setForm({...form, pack: packs.max})}
         >
           {packs.max}
         </div>
       </div>
       <div
         className={classNames(styles.popup, {
-          [styles.popup__base]: pack === packs.base,
-          [styles.popup__max]: pack === packs.max,
+          [styles.popup__base]: form.pack === packs.base,
+          [styles.popup__max]: form.pack === packs.max,
         })}
       >
       <button
@@ -58,13 +62,13 @@ export const EditPackagePopup = ({ togglePopup }) => {
       />
         <div className={styles.container}>
           <div className={styles.date_container}>
-            <input type="date" id="dateStart" className={styles.date}></input>
+            <input type="date" id="dateStart" value={form.packageDate} onChange={e => setForm({...form, packageDate: e.target.value})} className={styles.date}></input>
             <label htmlFor="dateStart" className={styles.label}>
               Дата начала
             </label>
           </div>
           <div className={styles.date_container}>
-            <input type="number" id="office" className={styles.count}></input>
+            <input type="number" id="office" value={form.frontOffice} onChange={e => setForm({...form, frontOffice: e.target.value}) } className={styles.count}></input>
             <label
               htmlFor="office"
               className={classNames(styles.count_label, styles.label)}
@@ -78,45 +82,45 @@ export const EditPackagePopup = ({ togglePopup }) => {
           <button
             type="button"
             className={classNames(styles.perion_button, {
-              [styles.period_button__active]: packagePeriod === 1,
+              [styles.period_button__active]: form.packagePeriod === 1,
             })}
-            onClick={() => setPackagePeriod(1)}
+            onClick={() => setForm({...form, packagePeriod: 1})}
           >
             1 Месяц
           </button>
           <button
             type="button"
             className={classNames(styles.perion_button, {
-              [styles.period_button__active]: packagePeriod === 3,
+              [styles.period_button__active]: form.packagePeriod === 3,
             })}
-            onClick={() => setPackagePeriod(3)}
+            onClick={() => setForm({...form, packagePeriod: 3})}
           >
             3 Месяца
           </button>
           <button
             type="button"
             className={classNames(styles.perion_button, {
-              [styles.period_button__active]: packagePeriod === 12,
+              [styles.period_button__active]: form.packagePeriod === 12,
             })}
-            onClick={() => setPackagePeriod(12)}
+            onClick={() => setForm({...form, packagePeriod: 12})}
           >
             1 Год
           </button>
           <button
             type="button"
             className={classNames(styles.perion_button, {
-              [styles.period_button__active]: packagePeriod === 24,
+              [styles.period_button__active]: form.packagePeriod === 24,
             })}
-            onClick={() => setPackagePeriod(24)}
+            onClick={() => setForm({...form, packagePeriod: 24})}
           >
             2 Года
           </button>
           <button
             type="button"
             className={classNames(styles.perion_button, {
-              [styles.period_button__active]: packagePeriod === 36,
+              [styles.period_button__active]: form.packagePeriod === 36,
             })}
-            onClick={() => setPackagePeriod(36)}
+            onClick={() => setForm({...form, packagePeriod: 36})}
           >
             3 Года
           </button>
@@ -124,14 +128,14 @@ export const EditPackagePopup = ({ togglePopup }) => {
         <label
           htmlFor="switchTar"
           className={classNames(styles.switch, {
-            [styles.switch__active]: tarification,
+            [styles.switch__active]: form.tarification,
           })}
         >
           Тарификация
           <input
             type="checkbox"
-            onChange={() => setTarification(!tarification)}
-            checked={tarification}
+            onChange={e => setForm({...form, tarification: !form.tarification})}
+            checked={form.tarification}
             id="switchTar"
             className={styles.toggle}
           ></input>
@@ -139,14 +143,14 @@ export const EditPackagePopup = ({ togglePopup }) => {
         <label
           htmlFor="switchQr"
           className={classNames(styles.switch, {
-            [styles.switch__active]: qr,
+            [styles.switch__active]: form.qr,
           })}
         >
           QR Меню
           <input
             type="checkbox"
-            onChange={() => setQr(!qr)}
-            checked={qr}
+            onChange={e => setForm({...form, qr: !form.qr})}
+            checked={form.qr}
             id="switchQr"
             className={styles.toggle}
           ></input>
@@ -154,19 +158,19 @@ export const EditPackagePopup = ({ togglePopup }) => {
         <label
           htmlFor="switch"
           className={classNames(styles.switch, {
-            [styles.switch__active]: office,
+            [styles.switch__active]: form.office,
           })}
         >
           Мобильный официант
           <input
             type="checkbox"
-            onChange={() => toggleOffice()}
-            checked={office}
+            onChange={e => setForm({...form, office: !form.office})}
+            checked={form.office}
             id="switch"
             className={styles.toggle}
           ></input>
         </label>
-        {office && (
+        {form.office && (
           <>
             <div className={styles.container}>
               <div className={styles.date_container}>
@@ -174,6 +178,8 @@ export const EditPackagePopup = ({ togglePopup }) => {
                   type="date"
                   id="dateStart"
                   className={styles.date}
+                  value={form.mobile}
+                  onChange={e => setForm({...form, mobile: e.target.value})}
                 ></input>
                 <label htmlFor="dateStart" className={styles.label}>
                   Дата начала
@@ -184,12 +190,14 @@ export const EditPackagePopup = ({ togglePopup }) => {
                   type="number"
                   id="office"
                   className={styles.count}
+                  value={form.officeCount}
+                  onChange={e => setForm({...form, officeCount: e.target.value >= 0 ? e.target.value : 0})}
                 ></input>
                 <label
                   htmlFor="office"
                   className={classNames(styles.count_label, styles.label)}
                 >
-                  Количество Front-office
+                  Количество
                 </label>
               </div>
             </div>
@@ -197,45 +205,45 @@ export const EditPackagePopup = ({ togglePopup }) => {
               <button
                 type="button"
                 className={classNames(styles.perion_button, {
-                  [styles.period_button__active]: officePeriod === 1,
+                  [styles.period_button__active]: form.officePeriod === 1,
                 })}
-                onClick={() => setOfficePeriod(1)}
+                onClick={() => setForm({...form, officePeriod: 1})}
               >
                 1 Месяц
               </button>
               <button
                 type="button"
                 className={classNames(styles.perion_button, {
-                  [styles.period_button__active]: officePeriod === 3,
+                  [styles.period_button__active]: form.officePeriod === 3,
                 })}
-                onClick={() => setOfficePeriod(3)}
+                onClick={() => setForm({...form, officePeriod: 3})}
               >
                 3 Месяца
               </button>
               <button
                 type="button"
                 className={classNames(styles.perion_button, {
-                  [styles.period_button__active]: officePeriod === 12,
+                  [styles.period_button__active]: form.officePeriod === 12,
                 })}
-                onClick={() => setOfficePeriod(12)}
+                onClick={() => setForm({...form, officePeriod: 12})}
               >
                 1 Год
               </button>
               <button
                 type="button"
                 className={classNames(styles.perion_button, {
-                  [styles.period_button__active]: officePeriod === 24,
+                  [styles.period_button__active]: form.officePeriod === 24,
                 })}
-                onClick={() => setOfficePeriod(24)}
+                onClick={() => setForm({...form, officePeriod: 24})}
               >
                 2 Года
               </button>
               <button
                 type="button"
                 className={classNames(styles.perion_button, {
-                  [styles.period_button__active]: officePeriod === 36,
+                  [styles.period_button__active]: form.officePeriod === 36,
                 })}
-                onClick={() => setOfficePeriod(36)}
+                onClick={() => setForm({...form, officePeriod: 36})}
               >
                 3 Года
               </button>
@@ -245,8 +253,8 @@ export const EditPackagePopup = ({ togglePopup }) => {
           
         <div
           className={classNames(styles.amount, {
-            [styles.amount__base]: pack === packs.base,
-            [styles.amount__max]: pack === packs.max,
+            [styles.amount__base]: form.pack === packs.base,
+            [styles.amount__max]: form.pack === packs.max,
           })}
         >
           120,000

@@ -1,5 +1,7 @@
-export const addUserIfValidate = ({userId, email, role, name, phone, city, pass}) => {
-    
+import { loadUsers } from "./loadUsers";
+
+export const addUser = ({ userId, email, role, name, phone, pass }) => (dispatch) => {
+
   const isDataValid = true;
 
   if (isDataValid) {
@@ -15,6 +17,7 @@ export const addUserIfValidate = ({userId, email, role, name, phone, city, pass}
 
     fetch("http://localhost:4000/addUser", options)
       .then((res) => res.text())
+      .then((data) => dispatch(loadUsers({ userId: localStorage.userId })))
       .catch((err) => console.log(err));
   }
 };

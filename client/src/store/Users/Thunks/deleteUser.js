@@ -1,4 +1,4 @@
-import { loadUsers } from "./loadUsersIfNotExist";
+import { loadUsers } from "./loadUsers";
 
 export const loadDeleteUser = ({id}) => (dispatch) => {
     const options = {
@@ -15,7 +15,7 @@ export const loadDeleteUser = ({id}) => (dispatch) => {
       fetch("http://localhost:4000/deleteUser", options)
       .then((res) => res.text())
       .then(data => {
-        dispatch(loadUsers)
+        dispatch(loadUsers({userId: localStorage.userId}))
       })
       .catch(err => console.log(err))
 }

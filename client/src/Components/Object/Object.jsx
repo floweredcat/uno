@@ -128,7 +128,6 @@ export const Object = ({ toggleObject, id }) => {
         <button
           type="button"
           className={classNames(styles.button, styles.button_edit)}
-          disabled
           onClick={() => togglePopup()}
         >
           Редактировать пакет

@@ -1,9 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUserId } from "../../store/Auth/selectors";
-import { addUserIfValidate } from "../../store/Users/Thunks/addUserIfValidate";
-import { loadUsers } from "../../store/Users/Thunks/loadUsersIfNotExist";
+import { addUser } from "../../store/Users/Thunks/addUser";
 import styles from "./styles.module.css";
 const roleVars = {
   admin: { content: "admin", id: 1 },
@@ -12,23 +9,21 @@ const roleVars = {
 };
 
 export const AddPopup = ({ toggleAddPopup }) => {
-  const userId = useSelector((state) => selectUserId(state));
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [pass, setPass] = useState("");
   const [role, setRole] = useState(roleVars.user.id);
-  const [isValidate, setIsValidate] = useState();  
+  const [isValidate, setIsValidate] = useState();
   useEffect(() => {
     if (isValidate) {
-      addUserIfValidate({ userId, email, role, name, phone, city, pass });
-      dispatch(loadUsers);
+      addUser({ userId, email, role, name, phone, pass });
       toggleAddPopup();
       resetForm();
     }
-  }, [isValidate])
+  }, [isValidate]);
+  const userId = localStorage.userId;
 
   const resetForm = () => {
     setCity("");
@@ -39,7 +34,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
     setRole(roleVars.user.id);
   };
   const handleValidate = () => {
-
     let lastAtPos = email.lastIndexOf("@");
     let lastDotPos = email.lastIndexOf(".");
     if (!email || !phone || !name || !city || !pass) {

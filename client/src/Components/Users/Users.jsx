@@ -13,11 +13,7 @@ import {
   selectUsersIds,
   selectUsersIsLoading,
 } from "../../store/Users/selectors";
-import { loadUsers } from "../../store/Users/Thunks/loadUsersIfNotExist";
-import {
-  selectUserAuthenticated,
-  selectUserId,
-} from "../../store/Auth/selectors";
+import { loadUsers } from "../../store/Users/Thunks/loadUsers";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
 import { EditPopup } from "../EditPopup/EditPopup";
 
@@ -35,10 +31,9 @@ export const Users = ({ asideIsOpened }) => {
   const [isEditPopupOpened, setIsEditPopupOpened] = useState(false);
   const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
   const [selectedRow, setSelectedRow] = useState(false);
-  let userId = useSelector((state) => selectUserId(state));
-  if (localStorage.userId) {
-    userId = localStorage.userId;
-  }
+  
+  const userId = localStorage.userId;
+  
   const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
@@ -55,7 +50,7 @@ export const Users = ({ asideIsOpened }) => {
   };
 
   const toggleSelectedRow = (el) => {
-    if (userId !== el) {
+    if (userId/1 !== el) {
       if (!!el) {
         if (selectedRow === el) {
           resetSelectedRow();

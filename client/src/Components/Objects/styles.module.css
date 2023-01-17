@@ -65,6 +65,18 @@ tr:nth-child(even) .table_cell, .table_cell__header {
     line-height: 30px;
 }
 
+.red {
+    background-color: #F13D25 !important;
+}
+
+.yellow {
+    background-color: #FFF50C !important;
+}
+
+.green {
+    background-color: #25F176 !important;
+}
+
 .table_cell {
     height: 100%;
     white-space: nowrap;

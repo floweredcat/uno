@@ -20,11 +20,6 @@ export const EditPackagePopup = ({ togglePopup }) => {
   return (
     <div className={styles.popup_wrapper}>
       <div className={styles.radios_container}>
-        <button
-          className={classNames(styles.button, styles.popup_closeButton)}
-          type="button"
-          onClick={() => togglePopup()}
-        />
         <div
           className={classNames(styles.radio_container, {
             [styles.radio_container__aective]: pack === packs.start,
@@ -56,6 +51,11 @@ export const EditPackagePopup = ({ togglePopup }) => {
           [styles.popup__max]: pack === packs.max,
         })}
       >
+      <button
+        className={classNames(styles.button, styles.popup_closeButton)}
+        type="button"
+        onClick={() => togglePopup()}
+      />
         <div className={styles.container}>
           <div className={styles.date_container}>
             <input type="date" id="dateStart" className={styles.date}></input>

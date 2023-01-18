@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import styles from "./styles.module.css";
 const roleVars = {
@@ -9,6 +10,7 @@ const roleVars = {
 };
 
 export const AddPopup = ({ toggleAddPopup }) => {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,7 +20,7 @@ export const AddPopup = ({ toggleAddPopup }) => {
   const [isValidate, setIsValidate] = useState();
   useEffect(() => {
     if (isValidate) {
-      addUser({ userId, email, role, name, phone, pass });
+      dispatch(addUser({ userId, email, role, name, phone, pass }));
       toggleAddPopup();
       resetForm();
     }

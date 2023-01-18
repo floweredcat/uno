@@ -16,3 +16,8 @@ export const selectIsUserSuccess = (state) => selectUsersModule(state)?.status =
 export const selectUserLoadingStatus = (state) => selectUsersModule(state).status
 
 export const selectUserErrorMessage = (state) => selectUsersModule(state).err;
+
+export const selectUserPasswordError = (state) => selectUsersModule(state).errorMessage
+
+
+export const selectUserPasswordSuccess = (state) => selectUsersModule(state).successMessage

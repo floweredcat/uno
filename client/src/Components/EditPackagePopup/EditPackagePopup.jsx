@@ -1,5 +1,9 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
+import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
+import { calculateBull } from "./helpers/calculateBill";
 import styles from "./styles.module.css";
 const packs = {
   start: "Start",
@@ -20,6 +24,12 @@ export const EditPackagePopup = ({ togglePopup }) => {
     mobile: undefined,
     officeCount: undefined,
   });
+  const packagesPrices = useSelector(state => selectObjectPricePackages(state))
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    calculateBull({form, packagesPrices})
+  }
 
   return (
     <div className={styles.popup_wrapper}>
@@ -258,6 +268,7 @@ export const EditPackagePopup = ({ togglePopup }) => {
           })}
         >
           120,000
+          <button type='submit' onClick={(e) => handleSubmit(e)} className={styles.submit}></button>
         </div>
       </div>
     </div>

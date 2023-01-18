@@ -15,7 +15,7 @@ export const loadDeleteUser = ({id}) => (dispatch) => {
       fetch("http://localhost:4000/deleteUser", options)
       .then((res) => res.text())
       .then(data => {
-        dispatch(loadUsers({userId: localStorage.userId}))
+        dispatch(loadUsers({userId: localStorage.userId/1}))
       })
       .catch(err => console.log(err))
 }

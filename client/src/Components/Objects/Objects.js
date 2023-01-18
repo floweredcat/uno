@@ -11,6 +11,7 @@ import styles from "./styles.module.css";
 import { Object } from "../Object/Object";
 import { selectUserId } from "../../store/Auth/selectors";
 import { UserData } from "../UserData/UserData";
+import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 
 export const Objects = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export const Objects = () => {
   }
   useEffect(() => {
     dispatch(getObjects({ userId }));
+    dispatch(getPackagePrices)
   }, []);
   const handleSearch = (event) => {
     setFilter(event.target.value);

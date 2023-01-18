@@ -32,7 +32,7 @@ export const Users = ({ asideIsOpened }) => {
   const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
   const [selectedRow, setSelectedRow] = useState(false);
   
-  const userId = localStorage.userId;
+  const userId = localStorage.userId/1;
   
   const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);

@@ -32,18 +32,6 @@ export const objectsSlice = createSlice({
         status: "fail",
       };
     },
-    addFilterObj: (state, action) => {
-      const {filteredIds} = action.payload
-      return {
-        ...state,
-        filteredIds
-      }
-    },
-    addUser: (state) => {   
-      state.entities.push(nanoid())
-
-      return state
-    },
   },
 });
 

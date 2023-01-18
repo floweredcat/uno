@@ -115,6 +115,48 @@ app.post("/getObjects", (req, res) => {
   });
 });
 
+app.post("/getObjectsPrices", (_, res) => {
+  const REQ_PARAM = "select id,name,price,price_year from tbitems order by id;";
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+
+    db.query(REQ_PARAM, (err, result) => {
+      if (err) throw err;
+      res.send(result);
+      db.detach();
+    });
+  });
+});
+
+app.post("/setNewPassword", (req, res) => {
+  const { pass, newPass, id } = req.body;
+  const REQ_PARAM = {
+    changePass: `update peoples set pass = hash('${newPass}') where id = ${id};`,
+    checkOldPassIsCorrect: `select count(*) as cnt from peoples where id = ${id} and pass = hash('${pass}}');`,
+  };
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+
+    db.query(REQ_PARAM.checkOldPassIsCorrect, (err, result) => {
+      if (err) throw err;
+
+      if(result.CNT == 1) {
+        db.query(REQ_PARAM.changePass, (err, result) => {
+          if (err) throw err
+          res.send('й')
+          db.detach()
+        })
+        db.detach()
+      }
+      else {
+        res.send('Неверный текущий пароль')
+      }
+    });
+  });
+});
+
 app.listen(4000, () => {
   console.log("Running on port 4000...");
 });

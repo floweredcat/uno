@@ -63,11 +63,6 @@ export const Object = ({ toggleObject, id }) => {
           <h2 className={styles.title}>Специалист</h2>
           <p className={styles.content}>{objectData.WORKER}</p>
         </div>
-        <button
-          type="button"
-          className={classNames(styles.button, styles.button_exit)}
-          onClick={() => toggleObject()}
-        />
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
@@ -100,7 +95,7 @@ export const Object = ({ toggleObject, id }) => {
             <h2 className={styles.title}>Front</h2>
             <div className={styles.radio_indicator}>2</div>
           </div>
-          <div class={styles.object_radio}>
+          <div className={styles.object_radio}>
             <h2 className={styles.title}>Тарификация</h2>
             <div
               className={classNames(styles.radio_indicator, {
@@ -174,6 +169,12 @@ export const Object = ({ toggleObject, id }) => {
           <div className={styles.status_info}>{objectData.AMOUNT}</div>
         </div>
       </div>
+      
+      <button
+          type="button"
+          className={classNames(styles.button, styles.button_exit)}
+          onClick={() => toggleObject()}
+        >Назад</button>
       {isPopupOpened && <EditPackagePopup togglePopup={togglePopup} />}
     </div>
   );

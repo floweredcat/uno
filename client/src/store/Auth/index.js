@@ -46,6 +46,21 @@ export const authSlice = createSlice({
       localStorage.removeItem('userIdAccess');
 
       return state
+    },
+    setErrorChangePass: (state, action) => {
+      const {errorMessage} = action.payload;
+
+      return {
+        ...state,
+        errorMessage
+      }
+    },
+    successChangePass: (state, action) => {
+      const {mess} = action.payload
+      state.errorMessage = false;
+      state.successMessage = mess
+
+      return state
     }
   },
 });

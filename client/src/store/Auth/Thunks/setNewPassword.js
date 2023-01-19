@@ -18,13 +18,7 @@ export const setNewPassword =
     fetch("http://localhost:4000/setNewPassword", options)
       .then((res) => res.text())
       .then((data) => {
-        if (data.length > 3) {
-          dispatch(
-            authSliceActions.successChangePass({ mess: "Пароль изменен" })
-          );
-        } else {
-          dispatch(authSliceActions.setErrorChangePass(data));
-        }
+        data ? dispatch(authSliceActions.successChangePass('Пароль изменен успешно')) : authSliceActions.setErrorChangePass('Неверный текущий пароль!')
       })
       .catch((err) => {
         dispatch(

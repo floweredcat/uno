@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectUserPasswordError, selectUserPasswordSuccess } from "../../store/Auth/selectors";
 import classNames from "classnames";
+import { send } from 'emailjs-com';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const Profile = () => {
     if (validate.errorMessage < 5 && form.newPassword.length >= 6) {
       setValidate(initialValidate)
       dispatch(
-        setNewPassword({ pass: form.newPassword, id: localStorage.userId / 1 })
+        setNewPassword({ pass: form.password, id: localStorage.userId / 1, newPass: form.newPassword })
       );
       setForm({
         password: '',
@@ -61,6 +62,12 @@ export const Profile = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     handleValidate();
+    // send(
+    //   "service_vp6wkge",
+    //   "template_atzykxd",
+    //   form,
+    //   'p0THk3jnQGbrILhHE'
+    // )
   };
 
   return (

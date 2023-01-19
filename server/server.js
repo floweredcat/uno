@@ -133,7 +133,7 @@ app.post("/setNewPassword", (req, res) => {
   const { pass, newPass, id } = req.body;
   const REQ_PARAM = {
     changePass: `update peoples set pass = hash('${newPass}') where id = ${id};`,
-    checkOldPassIsCorrect: `select count(*) as cnt from peoples where id = ${id} and pass = hash('${pass}}');`,
+    checkOldPassIsCorrect: `select count(*) as cnt from peoples where id = ${id} and pass = hash('${pass}');`,
   };
 
   firefird.attach(options, (err, db) => {
@@ -142,16 +142,16 @@ app.post("/setNewPassword", (req, res) => {
     db.query(REQ_PARAM.checkOldPassIsCorrect, (err, result) => {
       if (err) throw err;
 
-      if(result.CNT == 1) {
+      if(result[0].CNT==1) {
         db.query(REQ_PARAM.changePass, (err, result) => {
           if (err) throw err
-          res.send('й')
+          res.send('true')
           db.detach()
         })
         db.detach()
       }
       else {
-        res.send('Неверный текущий пароль')
+        res.send()
       }
     });
   });

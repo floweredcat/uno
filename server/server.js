@@ -23,7 +23,8 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/getUsers", (req, res) => {
-  var REQ_PARAM = req.body.getCity;
+  const { userId } = req.body;
+  var REQ_PARAM = `select p.id,p.pid,p.name,p.phone,p.email,p.phone,p.pass,p.idaccess,decode(p.idaccess,1,'admin',2,'master franchises',3,'user')as rolename, (select list(c.name,', ') from franchisee f join tbcity c on f.idcity=c.id where f.idpeople=p.id)as franch, balance, bdel from peoples p where coalesce(p.bdel, false) = false and coalesce(pid,0) = decode((select idaccess from peoples where id=${userId}),1,coalesce(pid,0),2,(select id from peoples where id=${userId}))`;
 
   firefird.attach(options, (err, db) => {
     if (err) {
@@ -38,7 +39,8 @@ app.post("/getUsers", (req, res) => {
 });
 
 app.post("/addUser", (req, res) => {
-  var REQ_PARAM = req.body.user;
+  const { name, role, phone, email, pass, userId } = req.body;
+  const REQ_PARAM = `insert into peoples(pid,name,email,phone,pass,idaccess) values(${userId},'${name}','${email}','${phone}','${pass}',${role});`;
 
   firefird.attach(options, (err, db) => {
     if (err) {
@@ -54,7 +56,8 @@ app.post("/addUser", (req, res) => {
 });
 
 app.post("/authUser", (req, res) => {
-  var REQ_PARAM = req.body.getAuth;
+  const { email, password } = req.body;
+  const REQ_PARAM = `select id,name,idaccess,balance from peoples where upper(email)=upper('${email}')and pass = hash(cast('${password}' as varchar(50)));`;
 
   firefird.attach(options, (err, db) => {
     if (err) throw err;
@@ -68,14 +71,18 @@ app.post("/authUser", (req, res) => {
 });
 
 app.post("/deleteUser", (req, res) => {
-  var { deleteUser, hideUser } = req.body;
+  const { id } = req.body;
+  const REQ_PARAMS = {
+    deleteUser: `delete from peoples where id = ${id};`,
+    hideUser: `update peoples set bdel = true where id = ${id}`,
+  };
 
   firefird.attach(options, (err, db) => {
     if (err) throw err;
 
-    db.query(deleteUser, (err, result) => {
+    db.query(REQ_PARAMS.deleteUser, (err, result) => {
       if (err) {
-        db.query(hideUser, (err, result) => {
+        db.query(REQ_PARAMS.hideUser, (err, result) => {
           if (err) throw err;
 
           res.send(result);
@@ -88,7 +95,8 @@ app.post("/deleteUser", (req, res) => {
 });
 
 app.post("/editUser", (req, res) => {
-  var REQ_PARAM = req.body.editedUser;
+  const { id, name, phone, email, idAccess } = req.body;
+  const REQ_PARAM = `update peoples set name='${name}', email='${email}', phone='${phone}', idaccess=${idAccess} where id=${id};`;
 
   firefird.attach(options, (err, db) => {
     if (err) throw err;
@@ -102,7 +110,8 @@ app.post("/editUser", (req, res) => {
 });
 
 app.post("/getObjects", (req, res) => {
-  var REQ_PARAM = req.body.getObjects;
+  const { userId } = req.body;
+  const REQ_PARAM = `select g.* from (select o.id, o.idsrv, o.name, c.name as city, o.dt, o.org_owner, o.phone, p.name as fran_name, o.worker, (select i.name from tblicense l join tbitems i on l.iditem = i.id where l.idorg = o.id and lastrec = true) as paket, (select klv from tblicense l where l.idorg = o.id and lastrec = true) as klv, (select sum(i.klv) from tblicense l join tblicense_item i on l.id = i.pid where l.idorg = o.id and l.lastrec = true and i.iditem = 4 and current_date between l.dtstart and l.dtend) as mob, coalesce((select sum(i.klv) > 0   from tblicense l   join tblicense_item i on l.id = i.pid   where l.idorg = o.id and   l.lastrec = true and   i.iditem = 5 and   current_date between i.dtstart and i.dtend), false) as tarif, coalesce((select sum(i.klv) > 0      from tblicense l      join tblicense_item i on l.id = i.pid      where l.idorg = o.id and      l.lastrec = true and      i.iditem = 6 and      current_date between i.dtstart and i.dtend), false) as qr, (select min(dtstart) from tblicense where idorg = o.id and lastrec = true) as startdt, (select max(dtend) from tblicense where idorg = o.id and lastrec = true) as enddt, (select sum(amount) from tblicense where idorg = o.id and lastrec = true) as amount, o.tmpcode from tborgs o join franchisee f on o.idfran = f.id join tbcity c on f.idcity = c.id join peoples p on f.idpeople = p.id where coalesce(p.bdel, false) = false and decode((select idaccess from peoples where id = ${userId}), ${userId}, p.id, ${userId}) in (p.pid, p.id)) g;`;
 
   firefird.attach(options, (err, db) => {
     if (err) throw err;
@@ -142,16 +151,15 @@ app.post("/setNewPassword", (req, res) => {
     db.query(REQ_PARAM.checkOldPassIsCorrect, (err, result) => {
       if (err) throw err;
 
-      if(result[0].CNT==1) {
+      if (result[0].CNT == 1) {
         db.query(REQ_PARAM.changePass, (err, result) => {
-          if (err) throw err
-          res.send('true')
-          db.detach()
-        })
-        db.detach()
-      }
-      else {
-        res.send()
+          if (err) throw err;
+          res.send("true");
+          db.detach();
+        });
+        db.detach();
+      } else {
+        res.send();
       }
     });
   });

@@ -1,58 +1,97 @@
 import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
-import {selectObjectById} from '../../store/Objects/selectors'
+import { selectObjectById } from "../../store/Objects/selectors";
+import { selectUserDataById } from "../../store/Users/selectors";
+import classNames from "classnames";
+import styles from "./styles.module.css";
 
-export const UserData = ({ styles, onclick, objectId, filter }) => {
-  const user = useSelector((state) => selectObjectById(state, { id: objectId }));
-
-  const { IDSRV, AMOUNT, CITY, NAME, PHONE, DT, ENDDT, STARTDT } = user;
+export const UserData = ({ onclick, id, filter = "", userId, selectedRow }) => {
+  const object = useSelector((state) => selectObjectById(state, { id }));
+  const user = useSelector((state) =>
+    selectUserDataById(state, { id: userId })
+  );
 
   const getDiffDates = () => {
     const diff =
-      new Date(
-        new Date(ENDDT.substr(0, ENDDT.indexOf("T")))
-      ) -
-      new Date(STARTDT.substr(0, STARTDT.indexOf("T")));
+      new Date(new Date(object?.ENDDT.substr(0, object?.ENDDT?.indexOf("T")))) -
+      new Date(object?.STARTDT?.substr(0, object?.STARTDT?.indexOf("T")));
     const days = diff / 86400000;
     let months = Math.floor(days / 30);
-    return months
-  }
+    return months;
+  };
   const getStyleByLeftMonths = () => {
     if (getDiffDates() < 1) {
-      return styles.cell_num_red
+      return classNames(styles.table_cell, styles.table_cell__num, styles.red);
     }
     if (getDiffDates() === 1) {
-      return styles.cell_num_yellow
+      return classNames(
+        styles.table_cell,
+        styles.table_cell__num,
+        styles.yellow
+      );
     }
     if (getDiffDates() > 1) {
-      return styles.cell_num_green
+      return classNames(
+        styles.table_cell,
+        styles.table_cell__num,
+        styles.green
+      );
     }
+  };
+
+  if (id && !object?.NAME.toString().toLowerCase().includes(filter)) {
+    return null;
   }
 
-  return (NAME.toLowerCase().includes(filter.toLowerCase()) ?
-    <tr className={styles.row} onDoubleClick={() => onclick(IDSRV)}>
-      <td key={nanoid()} className={getStyleByLeftMonths()}>
-        {IDSRV}
+  return (
+    <tr
+      className={classNames(styles.table_row, {
+        [styles.table_row__selected]: selectedRow
+          ? selectedRow === userId
+          : false,
+      })}
+      onDoubleClick={() => (id ? onclick(object.IDSRV) : 0)}
+      onClick={() => (id ? 0 : onclick(userId))}
+    >
+      <td
+        key={nanoid()}
+        className={id ? getStyleByLeftMonths() : styles.table_cell}
+      >
+        {id ? object.IDSRV : user?.ID}
       </td>
-      <td key={nanoid()} className={styles.cell}>
-        {NAME}
+      <td key={nanoid()} className={styles.table_cell}>
+        {id ? object.NAME : user?.NAME}
       </td>
-      <td key={nanoid()} className={styles.cell}>
-        {CITY}
+      <td key={nanoid()} className={styles.table_cell}>
+        {id ? object.CITY : user?.EMAIL}
       </td>
-      <td key={nanoid()} className={styles.cell_num}>
-        {PHONE}
+      <td
+        key={nanoid()}
+        className={classNames(styles.table_cell, styles.table_cell__num)}
+      >
+        {id ? object.PHONE : user?.PHONE}
       </td>
-      <td key={nanoid()} className={styles.cell_num}>
-        {DT.substr(0, DT.indexOf("T"))}
+      <td
+        key={nanoid()}
+        className={classNames(styles.table_cell, styles.table_cell__num)}
+      >
+        {id ? object.DT.substr(0, object.DT.indexOf("T")) : user?.ROLENAME}
       </td>
-      <td key={nanoid()} className={styles.cell}>
+      <td key={nanoid()} className={styles.table_cell}>
         {"UM System Group"}
       </td>
-      <td key={nanoid()} className={styles.cell_num}>
-        <div className={styles.cell__balance}>{AMOUNT}</div>
+      <td
+        key={nanoid()}
+        className={classNames(styles.table_cell, styles.table_cell__num)}
+      >
+        <div className={styles.table_cell__balance}>
+          {id
+            ? object.AMOUNT
+            : user?.BALANCE
+            ? user.BALANCE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            : 0}
+        </div>
       </td>
-    </tr> :
-    null
+    </tr>
   );
 };

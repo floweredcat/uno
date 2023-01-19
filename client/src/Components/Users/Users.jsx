@@ -1,39 +1,48 @@
 import classNames from "classnames";
 import styles from "./styles.module.css";
 import { nanoid } from "nanoid";
-import addIMG from "./images/add.svg";
-import editIMG from "./images/edit.svg";
-import deleteIMG from "./images/delete.svg";
 import { AddPopup } from "../AddPopup/AddPopup";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  selectUsers,
   selectUsersIds,
   selectUsersIsLoading,
 } from "../../store/Users/selectors";
 import { loadUsers } from "../../store/Users/Thunks/loadUsers";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
 import { EditPopup } from "../EditPopup/EditPopup";
+import { ButtonBar } from "../ButtonsBar/ButtonsBar";
+import { UserData } from "../UserData/UserData";
 
 export const Users = ({ asideIsOpened }) => {
+  const barStyles = {
+    button: classNames(styles.bar_button, styles.button),
+    delete: classNames(
+      styles.bar_button,
+      styles.bar_button__delete,
+      styles.button
+    ),
+    img: styles.bar_buttonImage,
+    wrapper: classNames(styles.bar_container, {
+      [styles.bar_moved]: !asideIsOpened,
+    }),
+  };
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useEffect(() => {
-      dispatch(loadUsers({userId}));
-    setIsRowSelected(false)
-  }, []);
+    dispatch(loadUsers({ userId }));
+    setIsRowSelected(false);
+  }, [dispatch]);
   const usersIds = useSelector((state) => selectUsersIds(state));
-  const usersData = useSelector((state) => selectUsers(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isRowSelected, setIsRowSelected] = useState(false);
   const [isEditPopupOpened, setIsEditPopupOpened] = useState(false);
   const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
   const [selectedRow, setSelectedRow] = useState(false);
-  
-  const userId = localStorage.userId/1;
-  
+
+  const userId = localStorage.userId / 1;
+
   const toggleAddPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
@@ -50,7 +59,7 @@ export const Users = ({ asideIsOpened }) => {
   };
 
   const toggleSelectedRow = (el) => {
-    if (userId/1 !== el) {
+    if (userId / 1 !== el) {
       if (!!el) {
         if (selectedRow === el) {
           resetSelectedRow();
@@ -80,7 +89,7 @@ export const Users = ({ asideIsOpened }) => {
 
   return (
     <div className={styles.users_wrapper}>
-      {usersData ? (
+      {true ? (
         <table className={styles.table}>
           <thead className={styles.table_header}>
             <tr className={styles.table_row}>
@@ -100,88 +109,14 @@ export const Users = ({ asideIsOpened }) => {
             </tr>
           </thead>
           <tbody className={styles.table_content}>
-            {usersIds?.map((el, row) => {
-              const user = usersData[el];
-              const { ID, BALANCE, CITY, EMAIL, NAME, PHONE, ROLENAME } = user;
-
+            {usersIds?.map((el) => {
               return (
-                <tr
-                  key={el}
-                  className={classNames(styles.table_row, {
-                    [styles.table_row__selected]: selectedRow === el,
-                  })}
-                  onClick={() => toggleSelectedRow(el)}
-                >
-                  {headers.map((_, idx) => {
-                    switch (idx) {
-                      default:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}></td>
-                        );
-                      case 0:
-                        return (
-                          <td
-                            key={nanoid()}
-                            className={classNames(
-                              styles.table_cell,
-                              styles.table_cell__num
-                            )}
-                          >
-                            {ID}
-                          </td>
-                        );
-                      case 1:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}>
-                            {NAME}
-                          </td>
-                        );
-                      case 2:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}>
-                            {EMAIL}
-                          </td>
-                        );
-                      case 3:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}>
-                            {PHONE}
-                          </td>
-                        );
-                      case 4:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}>
-                            {ROLENAME}
-                          </td>
-                        );
-                      case 5:
-                        return (
-                          <td key={nanoid()} className={styles.table_cell}>
-                            {CITY}
-                          </td>
-                        );
-                      case 6:
-                        return (
-                          <td
-                            key={nanoid()}
-                            className={classNames(
-                              styles.table_cell,
-                              styles.table_cell__num
-                            )}
-                          >
-                            <div className={styles.table_cell__balance}>
-                              {BALANCE
-                                ? BALANCE.toString().replace(
-                                    /\B(?=(\d{3})+(?!\d))/g,
-                                    ","
-                                  )
-                                : 0}
-                            </div>
-                          </td>
-                        );
-                    }
-                  })}
-                </tr>
+                <UserData
+                  onclick={toggleSelectedRow}
+                  userId={el}
+                  selectedRow={selectedRow}
+                  key={nanoid()}
+                />
               );
             })}
           </tbody>
@@ -189,49 +124,12 @@ export const Users = ({ asideIsOpened }) => {
       ) : (
         <div className={styles.emptyData}>Данные отсутствуют</div>
       )}
-      <div
-        className={classNames(styles.bar_container, {
-          [styles.bar_moved]: !asideIsOpened,
-        })}
-      >
-        <button
-          type="button"
-          className={classNames(styles.bar_button, styles.button)}
-        >
-          <img
-            src={addIMG}
-            alt="add button"
-            className={styles.bar_buttonImage}
-            onClick={() => toggleAddPopup()}
-          />
-        </button>
-        <button
-          className={classNames(styles.bar_button, styles.button)}
-          onClick={() => toggleEditPopup()}
-          disabled={!isRowSelected}
-        >
-          <img
-            src={editIMG}
-            alt="add button"
-            className={styles.bar_buttonImage}
-          />
-        </button>
-        <button
-          className={classNames(
-            styles.bar_button,
-            styles.bar_button__delete,
-            styles.button
-          )}
-          disabled={!isRowSelected}
-          onClick={() => toggleDeletePopup()}
-        >
-          <img
-            src={deleteIMG}
-            alt="add button"
-            className={styles.bar_buttonImage}
-          />
-        </button>
-      </div>
+
+      <ButtonBar
+        onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
+        disabled={!isRowSelected}
+        styles={barStyles}
+      />
       {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
       {isDeletePopupOpened && (
         <DeletePopup

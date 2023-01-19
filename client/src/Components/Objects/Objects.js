@@ -25,7 +25,7 @@ export const Objects = () => {
   }
   useEffect(() => {
     dispatch(getObjects({ userId }));
-    dispatch(getPackagePrices)
+    dispatch(getPackagePrices);
   }, [dispatch, userId]);
   const handleSearch = (event) => {
     setFilter(event.target.value);
@@ -40,15 +40,6 @@ export const Objects = () => {
     "Партнер",
     "Баланс",
   ];
-  const userStyles = {
-    cell: styles.table_cell,
-    cell_num: classNames(styles.table_cell, styles.table_cell__num),
-    row: styles.table_row,
-    cell__balance: styles.table_cell__balance,
-    cell_num_red: classNames(styles.table_cell, styles.table_cell__num, styles.red),
-    cell_num_yellow: classNames(styles.table_cell, styles.table_cell__num, styles.yellow),
-    cell_num_green: classNames(styles.table_cell, styles.table_cell__num, styles.green)
-  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -88,9 +79,8 @@ export const Objects = () => {
         <tbody className={styles.table_content}>
           {objectsIds?.map((id) => (
             <UserData
-            key={id}
-              styles={userStyles}
-              objectId={id}
+              key={id}
+              id={id}
               filter={filter}
               onclick={setIsRowSelected}
             />

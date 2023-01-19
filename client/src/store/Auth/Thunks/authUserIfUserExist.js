@@ -8,7 +8,8 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      getAuth: `select id,name,idaccess,balance from peoples where upper(email)=upper('${email}')and pass = hash(cast('${password}' as varchar(50)));`,
+      email,
+      password,
     }),
   };
   dispatch(authSliceActions.startLoadingUser());
@@ -17,12 +18,14 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       if (data.length === 0) {
-        dispatch(authSliceActions.errorLoading({err: 'Пользователя не существует'}))
+        dispatch(
+          authSliceActions.errorLoading({ err: "Пользователя не существует" })
+        );
       } else {
         dispatch(authSliceActions.login(data[0]));
       }
     })
     .catch((err) => {
-      dispatch(authSliceActions.errorLoading({err}))
+      dispatch(authSliceActions.errorLoading({ err }));
     });
 };

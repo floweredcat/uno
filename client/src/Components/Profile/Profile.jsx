@@ -62,12 +62,6 @@ export const Profile = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     handleValidate();
-    // send(
-    //   "service_vp6wkge",
-    //   "template_atzykxd",
-    //   form,
-    //   'p0THk3jnQGbrILhHE'
-    // )
   };
 
   return (

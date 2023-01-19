@@ -14,14 +14,16 @@ const options = {
   blobAsText: false,
 };
 
-export function db ({REQ_PARAM, res}) {
+const database = (REQ_PARAM) => {
   firebird.attach(options, (err, db) => {
     if (err) throw err;
 
     db.query(REQ_PARAM, (err, result) => {
       if (err) throw err;
-      res.send(result);
       db.detach();
+      return result
     });
   });
 };
+
+module.exports.database = database

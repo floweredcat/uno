@@ -26,7 +26,7 @@ export const Objects = () => {
   useEffect(() => {
     dispatch(getObjects({ userId }));
     dispatch(getPackagePrices)
-  }, []);
+  }, [dispatch, userId]);
   const handleSearch = (event) => {
     setFilter(event.target.value);
   };

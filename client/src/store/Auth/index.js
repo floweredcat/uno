@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userData: {},
   isAuthenticated: false,
-  status: 'idle'
+  status: "idle",
 };
 
 export const authSlice = createSlice({
@@ -14,54 +14,54 @@ export const authSlice = createSlice({
       return {
         userData: {},
         isAuthenticated: false,
-        status: 'loading'
-      }
+        status: "loading",
+      };
     },
     login: (state, action) => {
       const userData = action.payload;
-      localStorage.setItem('user', userData.NAME)
-      localStorage.setItem('userId', userData.ID)
-      localStorage.setItem('userIdAccess', userData.IDACCESS)
+      localStorage.setItem("user", userData.NAME);
+      localStorage.setItem("userId", userData.ID);
+      localStorage.setItem("userIdAccess", userData.IDACCESS);
       state = {
         userData,
         isAuthenticated: true,
-        status: 'successLoading'
-      }
-      return state
+        status: "successLoading",
+      };
+      return state;
     },
     errorLoading: (state, action) => {
-      const {err} = action.payload
+      const { err } = action.payload;
       return {
         userData: {},
         isAuthenticated: false,
-        status: 'failLoading',
-        err
+        status: "failLoading",
+        err,
       };
     },
     logout: (state) => {
       state = initialState;
-      
-      localStorage.removeItem('user');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('userIdAccess');
 
-      return state
+      localStorage.removeItem("user");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userIdAccess");
+
+      return state;
     },
     setErrorChangePass: (state, action) => {
-      const {errorMessage} = action.payload;
+      const { errorMessage } = action.payload;
 
       return {
         ...state,
-        errorMessage
-      }
+        errorMessage,
+      };
     },
     successChangePass: (state, action) => {
-      const {mess} = action.payload
+      const { mess } = action.payload;
       state.errorMessage = false;
-      state.successMessage = mess
+      state.successMessage = mess;
 
-      return state
-    }
+      return state;
+    },
   },
 });
 

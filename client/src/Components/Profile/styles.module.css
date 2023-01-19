@@ -116,7 +116,7 @@ select:-webkit-autofill:focus {
   border: none;
   border-radius: 25.5px;
   margin-top: 36px;
-  color: white
+  color: white;
 }
 
 .successMessage {

@@ -15,30 +15,27 @@ export const FormElement = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isValidate, setIsValidate] = useState(true);
+  const [validate, setValidate] = useState({
+    isValid: true,
+    errorMessage: " ",
+  });
+  const isSuccessAuth = useSelector((state) => selectUserAuthenticated(state));
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const errorMessage = useSelector(state => selectUserErrorMessage(state))
-  const userAuthSuccess = useSelector((state) =>
-    selectUserAuthenticated(state)
-  );
-  const user = localStorage.userId
+  const errorMessage = useSelector((state) => selectUserErrorMessage(state));
+  const user = localStorage.userId;
   useEffect(() => {
     if (user) {
-      navigate("/cabinet")
-    }
-  }, [])
-  useEffect(() => {
-    if (userAuthSuccess) {
       navigate("/cabinet");
     }
-  }, [errorMessage, userAuthSuccess]);
+    setValidate({ ...validate, isValid: true });
+  }, [isSuccessAuth]);
 
   const handleValidate = () => {
     let lastAtPos = email.lastIndexOf("@");
     let lastDotPos = email.lastIndexOf(".");
     if (!email || !password) {
-      setIsValidate(false);
+      setValidate({ isValid: false, errorMessage: "Введите логин и пароль!" });
     } else if (
       !(
         lastAtPos < lastDotPos &&
@@ -48,19 +45,24 @@ export const FormElement = () => {
         email.length - lastDotPos > 2
       )
     ) {
-      setIsValidate(false);
-    }
-    else if(!userAuthSuccess) {
-        setIsValidate(false)
+      setValidate({
+        isValid: false,
+        errorMessage: "Неверный формат электронной почты",
+      });
+    } else if (errorMessage) {
+      setValidate({
+        isValid: false,
+        errorMessage: "Неверный логин или пароль!",
+      });
     } else {
-      setIsValidate(true);
+      setValidate({ isValid: true, errorMessage: " " });
     }
   };
 
   const handleSubmit = (event) => {
+    dispatch(authUserIfUserExist({ email, password }));
     event.preventDefault();
     handleValidate();
-    dispatch(authUserIfUserExist({ email, password }));
   };
 
   const togglePasswordVisible = () => {
@@ -77,7 +79,7 @@ export const FormElement = () => {
             id="login"
             type="text"
             className={classNames(styles.form_input, {
-              [styles.form_input__invalid]: !isValidate
+              [styles.form_input__invalid]: !validate.isValid,
             })}
             placeholder=" "
             value={email}
@@ -93,7 +95,7 @@ export const FormElement = () => {
             id="password"
             type={passwordVisible ? "text" : "password"}
             className={classNames(styles.form_input, {
-              [styles.form_input__invalid]: !isValidate
+              [styles.form_input__invalid]: !validate.isValid,
             })}
             placeholder=" "
             value={password}
@@ -111,9 +113,7 @@ export const FormElement = () => {
             onClick={togglePasswordVisible}
           ></button>
         </div>
-        <span className={styles.errorMessage}>
-          {!isValidate ? "Неверный логин или пароль!" : ""}
-        </span>
+        <span className={styles.errorMessage}>{validate.errorMessage}</span>
         <button className={styles.form_submit} type="submit">
           Войти
         </button>

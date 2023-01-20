@@ -32,6 +32,13 @@ export const objectsSlice = createSlice({
         status: "fail",
       };
     },
+    addFranshises: (state, action) => {
+      const franchises = action.payload
+      return {
+        ...state,
+        franchises,
+      }
+    }
   },
 });
 

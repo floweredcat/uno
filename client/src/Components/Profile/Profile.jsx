@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectUserPasswordError, selectUserPasswordSuccess } from "../../store/Auth/selectors";
 import classNames from "classnames";
-import { send } from 'emailjs-com';
 
 export const Profile = () => {
   const dispatch = useDispatch();

@@ -55,7 +55,7 @@ export const Cabinet = () => {
       >
         {activeFolder === FOLDERS.users && <Users asideIsOpened={asideIsOpened} />}
         {activeFolder === FOLDERS.profile && <Profile />}
-        {activeFolder === FOLDERS.objects && <Objects />}
+        {activeFolder === FOLDERS.objects && <Objects asideIsOpened={asideIsOpened} />}
       </section>
     </div>
   );

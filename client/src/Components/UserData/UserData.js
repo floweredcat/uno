@@ -13,13 +13,16 @@ export const UserData = ({ onclick, id, filter = "", userId, selectedRow }) => {
 
   const getDiffDates = () => {
     const diff =
-      new Date(new Date(object?.ENDDT.substr(0, object?.ENDDT?.indexOf("T")))) -
+      new Date(new Date(object?.ENDDT?.substr(0, object?.ENDDT?.indexOf("T")))) -
       new Date(object?.STARTDT?.substr(0, object?.STARTDT?.indexOf("T")));
     const days = diff / 86400000;
     let months = Math.floor(days / 30);
     return months;
   };
   const getStyleByLeftMonths = () => {
+    if (!getDiffDates()) {
+      return classNames(styles.table_cell, styles.table_cell__num)
+    }
     if (getDiffDates() < 1) {
       return classNames(styles.table_cell, styles.table_cell__num, styles.red);
     }
@@ -78,7 +81,7 @@ export const UserData = ({ onclick, id, filter = "", userId, selectedRow }) => {
         {id ? object.DT.substr(0, object.DT.indexOf("T")) : user?.ROLENAME}
       </td>
       <td key={nanoid()} className={styles.table_cell}>
-        {"UM System Group"}
+        {id ? object.FRAN_NAME : "UM System Group"}
       </td>
       <td
         key={nanoid()}

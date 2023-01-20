@@ -18,11 +18,11 @@ export const Object = ({ toggleObject, id }) => {
   };
 
   const getDiffDates = () => {
-    const diff =
+    const diff =  objectData.ENDDT && objectData.STARTDT ?
       new Date(
         new Date(objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T")))
       ) -
-      new Date(objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T")));
+      new Date(objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T"))) : 0;
     const days = diff / 86400000;
     let months = Math.floor(days / 30);
     let leftDays = Math.floor(days / 30 - months);
@@ -91,7 +91,7 @@ export const Object = ({ toggleObject, id }) => {
           <p className={styles.object_name}>{objectData.PAKET}</p>
         </div>
         <div className={styles.object_radios}>
-          <div class={styles.object_radio}>
+          <div className={styles.object_radio}>
             <h2 className={styles.title}>Front</h2>
             <div className={styles.radio_indicator}>2</div>
           </div>
@@ -103,7 +103,7 @@ export const Object = ({ toggleObject, id }) => {
               })}
             ></div>
           </div>
-          <div class={styles.object_radio}>
+          <div className={styles.object_radio}>
             <h2 className={styles.title}>Мобильный</h2>
             <div
               className={classNames(styles.radio_indicator, {
@@ -111,7 +111,7 @@ export const Object = ({ toggleObject, id }) => {
               })}
             ></div>
           </div>
-          <div class={styles.object_radio}>
+          <div className={styles.object_radio}>
             <h2 className={styles.title}>QR</h2>
             <div
               className={classNames(styles.radio_indicator, {
@@ -133,7 +133,7 @@ export const Object = ({ toggleObject, id }) => {
           <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
           <p className={styles.content}>
-            {objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T"))}
+            {objectData.STARTDT ? objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T")) : 'Лицензия отсутствует'}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -144,7 +144,7 @@ export const Object = ({ toggleObject, id }) => {
           ></img>
           <h2 className={styles.title}>Конец</h2>
           <p className={styles.content}>
-            {objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T"))}
+            {objectData.ENDDT ? objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T")) : 'Лицензия отсутствует'}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -166,7 +166,7 @@ export const Object = ({ toggleObject, id }) => {
         </div>
         <div className={styles.status_element}>
           <h2 className={styles.title}>Сумма</h2>
-          <div className={styles.status_info}>{objectData.AMOUNT}</div>
+          <div className={styles.status_info}>{objectData.AMOUNT ? objectData.AMOUNT : '0'}</div>
         </div>
       </div>
       

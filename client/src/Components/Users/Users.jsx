@@ -16,18 +16,6 @@ import { ButtonBar } from "../ButtonsBar/ButtonsBar";
 import { UserData } from "../UserData/UserData";
 
 export const Users = ({ asideIsOpened }) => {
-  const barStyles = {
-    button: classNames(styles.bar_button, styles.button),
-    delete: classNames(
-      styles.bar_button,
-      styles.bar_button__delete,
-      styles.button
-    ),
-    img: styles.bar_buttonImage,
-    wrapper: classNames(styles.bar_container, {
-      [styles.bar_moved]: !asideIsOpened,
-    }),
-  };
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useEffect(() => {
@@ -128,7 +116,7 @@ export const Users = ({ asideIsOpened }) => {
       <ButtonBar
         onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
         disabled={!isRowSelected}
-        styles={barStyles}
+        asideIsOpened={asideIsOpened}
       />
       {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
       {isDeletePopupOpened && (

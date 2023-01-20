@@ -165,6 +165,54 @@ app.post("/setNewPassword", (req, res) => {
   });
 });
 
+app.post("/addObject", (req, res) => {
+  const { userId, idFran, name, worker, phone, orgOwner } = req.body;
+
+  const getTmpCode = fetch(
+    "https://www.passwordrandom.com/query?command=password&scheme=VCNVNC",
+    { mode: "cors" }
+  );
+
+  getTmpCode
+    .then((res) => res.text())
+    .then((tmpCode) => {
+      const REQ_PARAM = `insert into tborgs(name,idfran,dt,org_owner,phone,worker,tmpcode)
+      values('${name}','${idFran}',current_date,'${orgOwner}',${phone},'${worker}','${tmpCode}');`;
+
+      firefird.attach(options, (err, db) => {
+        if (err) throw err;
+
+        db.query(REQ_PARAM, (err, result) => {
+          if (err) throw err;
+
+          res.send(result);
+
+          db.detach();
+        });
+      });
+    });
+});
+
+app.post("/getFranshises", (req, res) => {
+  const { userId } = req.body;
+  const REQ_PARAM = `select f.id, c.name||'('||c.parent||')'||
+  iif((select idaccess from peoples where id=${userId})=1,'/'||p.name,'')as name,
+  c.name as city,p.name as company
+  from franchisee f join tbcity c on f.idcity=c.id
+  join peoples p on f.idpeople=p.id
+  where f.idpeople=iif((select idaccess from peoples where id=${userId})=1,f.idpeople,${userId});`;
+
+  firefird.attach(options, (err, db) => {
+    if (err) throw err;
+    db.query(REQ_PARAM, (err, result) => {
+      if (err) throw err;
+      res.send(result);
+      db.detach();
+    });
+  });
+});
+
 app.listen(4000, () => {
   console.log("Running on port 4000...");
 });
+

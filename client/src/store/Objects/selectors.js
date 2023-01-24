@@ -1,6 +1,6 @@
 export const selectObjectsModule = (state) => state.objects;
 
-export const selectObjectsIsLoading = (state) => selectObjectsModule(state).status === 'loading'
+export const selectObjectsIsLoading = (state) => !['fail', 'success'].includes(selectObjectsModule(state).status)
 
 export const selectObjectsIds = (state) => selectObjectsModule(state).ids;
 

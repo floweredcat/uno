@@ -9,15 +9,18 @@ export const getFransheses = ({userId}) => (dispatch) => {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({
-          userId,
+          id: userId,
         }),
       };
       dispatch(franshisesSliceActions.startLoading())
 
-    fetch("http://localhost:4000/getFranshises", options)
+    fetch("http://wsuno.xyz:8111/getFransheses", options)
     .then(res => res.json()) 
     .then(data => {
-        dispatch(franshisesSliceActions.successLoading(normolizeEntities(data)))
+      if (!data.OK) {
+        throw Error(data.error)
+      }
+        dispatch(franshisesSliceActions.successLoading(normolizeEntities(data.result)))
     })
     .catch(err => {
       dispatch(franshisesSliceActions.failLoading(err))

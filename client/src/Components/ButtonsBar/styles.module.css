@@ -1,11 +1,10 @@
 .bar_container {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 336px;
     padding: 24px;
     display: flex;
     gap: 24px;
-    transition: all 200ms ease;
 }
 
 .bar_button {
@@ -31,11 +30,6 @@
 
 .bar_button__delete {
     background-color: rgba(237,33,33, 0.8);
-}
-
-.bar_moved {
-    left: 0;
-    transition: all 200ms ease;
 }
 
 .emptyData {

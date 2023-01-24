@@ -17,9 +17,12 @@ export const editUser =
       }),
     };
 
-    fetch("http://localhost:4000/editUser", options)
-      .then((res) => res.text())
+    fetch("http://wsuno.xyz:8111/editUser", options)
+      .then((res) => res.json())
       .then((data) => {
+        if (!data.OK) {
+          throw Error('Ошибка запроса на сервер')
+        }
         dispatch(loadUsers({ userId: localStorage.userId / 1 }));
       })
       .catch((err) => console.log(err));

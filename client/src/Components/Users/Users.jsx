@@ -4,7 +4,6 @@ import { nanoid } from "nanoid";
 import { AddPopup } from "../AddPopup/AddPopup";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import {
   selectUsersIds,
   selectUsersIsLoading,
@@ -13,15 +12,19 @@ import { loadUsers } from "../../store/Users/Thunks/loadUsers";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
 import { EditPopup } from "../EditPopup/EditPopup";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
-import { UserData } from "../UserData/UserData";
+import { HEADERS } from "../../constants/Fixtires";
+import { UserDataContainer } from "../../Containers/UserDataContainer";
+import { useSingleEffect } from "../../hooks/UseSingleEffect";
 
-export const Users = ({ asideIsOpened }) => {
+export const Users = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
-  useEffect(() => {
-    dispatch(loadUsers({ userId }));
-    setIsRowSelected(false);
-  }, [dispatch]);
+  useSingleEffect(() => {
+    if (!usersIds) {
+      dispatch(loadUsers({ userId }));
+      setIsRowSelected(false);
+    }
+  }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const [isRowSelected, setIsRowSelected] = useState(false);
@@ -61,16 +64,6 @@ export const Users = ({ asideIsOpened }) => {
     }
   };
 
-  const headers = [
-    "#",
-    "НАИМЕНОВАНИЕ",
-    "E-mail",
-    "Телефон",
-    "Роль",
-    "Франшиза",
-    "Баланс",
-  ];
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -81,7 +74,7 @@ export const Users = ({ asideIsOpened }) => {
         <table className={styles.table}>
           <thead className={styles.table_header}>
             <tr className={styles.table_row}>
-              {headers?.map((el) => {
+              {HEADERS?.map((el) => {
                 return (
                   <th
                     key={nanoid()}
@@ -99,9 +92,9 @@ export const Users = ({ asideIsOpened }) => {
           <tbody className={styles.table_content}>
             {usersIds?.map((el) => {
               return (
-                <UserData
+                <UserDataContainer
                   onclick={toggleSelectedRow}
-                  userId={el}
+                  id={el}
                   selectedRow={selectedRow}
                   key={nanoid()}
                 />
@@ -116,7 +109,6 @@ export const Users = ({ asideIsOpened }) => {
       <ButtonBar
         onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
         disabled={!isRowSelected}
-        asideIsOpened={asideIsOpened}
       />
       {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />}
       {isDeletePopupOpened && (

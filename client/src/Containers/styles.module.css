@@ -1,0 +1,22 @@
+.table_row {
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+}
+tr.table_row__selected td {
+  background: rgba(3, 83, 164, 0.2) !important;
+}
+
+.red td:first-of-type {
+  background-color: #f13d25 !important;
+}
+
+.yellow td:first-of-type {
+  background-color: #fff50c !important;
+}
+
+.green td:first-of-type {
+  background-color: #25f176 !important;
+}

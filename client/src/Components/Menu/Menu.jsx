@@ -7,6 +7,7 @@ import objectIMG from './images/domain.svg';
 import profileIMG from './images/Users.svg';
 import { authSliceActions } from '../../store/Auth';
 import { selectUserName } from '../../store/Auth/selectors';
+import { FOLDERS } from '../../constants/Fixtires';
 
 export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
   const dispatch = useDispatch();
@@ -19,12 +20,6 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
     dispatch(authSliceActions.logout())
     navigate('/')
   }
-  const user = false
-  const FOLDERS = {
-    users: 'users',
-    profile: 'profile',
-    objects: 'objects',
-  };
 
   return (
     <aside
@@ -43,7 +38,6 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
           <div className={styles.user_name}>
             {userName}
           </div>
-          <div className={styles.user_from}>{ user?.company || 'Company name'}</div>
         </div>
       </div>
       <nav className={styles.tabs_container}>

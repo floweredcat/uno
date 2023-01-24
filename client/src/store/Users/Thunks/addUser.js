@@ -13,13 +13,18 @@ export const addUser =
         name,
         email,
         phone,
-        pass,
+        pas: pass,
         role,
       }),
     };
 
-    fetch("http://localhost:4000/addUser", options)
+    fetch("http://wsuno.xyz:8111/addUser", options)
       .then((res) => res.text())
-      .then((data) => dispatch(loadUsers({ userId})))
+      .then((data) => {
+        if (!data.OK) {
+          throw Error('Ошибка запроса на сервер')
+        }
+        dispatch(loadUsers({userId}))
+      })
       .catch((err) => console.log(err));
   };

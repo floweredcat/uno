@@ -140,6 +140,7 @@ app.post("/getObjectsPrices", (_, res) => {
 
 app.post("/setNewPassword", (req, res) => {
   const { pass, newPass, id } = req.body;
+  console.log(req.body)
   const REQ_PARAM = {
     changePass: `update peoples set pass = hash('${newPass}') where id = ${id};`,
     checkOldPassIsCorrect: `select count(*) as cnt from peoples where id = ${id} and pass = hash('${pass}');`,
@@ -150,16 +151,15 @@ app.post("/setNewPassword", (req, res) => {
 
     db.query(REQ_PARAM.checkOldPassIsCorrect, (err, result) => {
       if (err) throw err;
+      console.log('result: ', result)
 
       if (result[0].CNT == 1) {
         db.query(REQ_PARAM.changePass, (err, result) => {
           if (err) throw err;
-          res.send("true");
+          res.send("true"); 
           db.detach();
         });
         db.detach();
-      } else {
-        res.send();
       }
     });
   });

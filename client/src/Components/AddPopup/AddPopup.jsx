@@ -1,30 +1,31 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ROLES } from "../../constants/Fixtires";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import styles from "./styles.module.css";
-const roleVars = {
-  admin: { content: "admin", id: 1 },
-  user: { content: "user", id: 3 },
-  master: { content: "master", id: 2 },
-};
+
 
 export const AddPopup = ({ toggleAddPopup }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [pass, setPass] = useState("");
-  const [role, setRole] = useState(roleVars.user.id);
-  const [isValidate, setIsValidate] = useState();
+  const [role, setRole] = useState(ROLES.user.id);  
+  const initialValidate = {
+    validate: undefined,
+    errorMessage: ' ',
+  }
+  const [validate, setValidate] = useState(initialValidate);
   useEffect(() => {
-    if (isValidate) {
+    if (validate.errorMessage.length < 5 && phone.length > 8) {
       dispatch(addUser({ userId, email, role, name, phone, pass }));
       toggleAddPopup();
       resetForm();
     }
-  }, [isValidate]);
+  }, [validate.errorMessage]);
   const userId = localStorage.userId;
 
   const resetForm = () => {
@@ -33,14 +34,13 @@ export const AddPopup = ({ toggleAddPopup }) => {
     setName("");
     setPass("");
     setPhone("");
-    setRole(roleVars.user.id);
+    setRole(ROLES.user.id);
   };
   const handleValidate = () => {
     let lastAtPos = email.lastIndexOf("@");
     let lastDotPos = email.lastIndexOf(".");
-    if (!email || !phone || !name || !city || !pass) {
-      setIsValidate(false);
-      return;
+    if (!city.length || !email.length || !name.length || !pass.length || !phone.length) {
+      setValidate({ isValid: false, errorMessage: "Пожалуйста, заполните все поля" });
     } else if (
       !(
         lastAtPos < lastDotPos &&
@@ -50,17 +50,13 @@ export const AddPopup = ({ toggleAddPopup }) => {
         email.length - lastDotPos > 2
       )
     ) {
-      setIsValidate(false);
+      setValidate({ isValid: false, errorMessage: "Неверный формат почты" });
     } else if (
-      city.length < 3 &&
-      name.length < 3 &&
-      !phone.match(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/) &&
-      10 >= phone.length >= 11
+      !phone.match(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/)
     ) {
-      console.log("!!");
-      setIsValidate(false);
+      setValidate({ isValid: false, errorMessage: "Длинна номер телефона должна быть не менее 10 символов" });
     } else {
-      setIsValidate(true);
+      setValidate({ isValid: true, errorMessage: "   " });
     }
   };
 
@@ -84,7 +80,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             id="name"
             type="text"
             className={styles.form_input}
-            required
             placeholder=" "
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -99,7 +94,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             id="email"
             type="text"
             className={styles.form_input}
-            required
             placeholder=" "
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -114,7 +108,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             id="phone"
             type="text"
             className={styles.form_input}
-            required
             placeholder=" "
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
@@ -129,7 +122,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             id="city"
             type="text"
             className={styles.form_input}
-            required
             placeholder=" "
             value={city}
             onChange={(event) => setCity(event.target.value)}
@@ -144,7 +136,6 @@ export const AddPopup = ({ toggleAddPopup }) => {
             id="password"
             type="password"
             className={styles.form_input}
-            required
             placeholder=" "
             value={pass}
             onChange={(event) => setPass(event.target.value)}
@@ -159,36 +150,37 @@ export const AddPopup = ({ toggleAddPopup }) => {
             <input
               className={styles.radio}
               type="radio"
-              value={roleVars.user.content}
-              onChange={() => setRole(roleVars.user.id)}
-              checked={role === roleVars.user.id}
+              value={ROLES.user.content}
+              onChange={() => setRole(ROLES.user.id)}
+              checked={role === ROLES.user.id}
             />
-            {roleVars.user.content}
+            {ROLES.user.content}
             <label className={styles.label_radio}></label>
           </div>
           <div className={styles.radio_container}>
             <input
               className={styles.radio}
               type="radio"
-              value={roleVars.master.content}
-              onChange={() => setRole(roleVars.master.id)}
-              checked={role === roleVars.master.id}
+              value={ROLES.master.content}
+              onChange={() => setRole(ROLES.master.id)}
+              checked={role === ROLES.master.id}
             />
-            {roleVars.master.content}
+            {ROLES.master.content}
             <label className={styles.label_radio}></label>
           </div>
           <div className={styles.radio_container}>
             <input
               className={styles.radio}
               type="radio"
-              value={roleVars.admin.content}
-              onChange={() => setRole(roleVars.admin.id)}
-              checked={role === roleVars.admin.id}
+              value={ROLES.admin.content}
+              onChange={() => setRole(ROLES.admin.id)}
+              checked={role === ROLES.admin.id}
             />
-            {roleVars.admin.content}
+            {ROLES.admin.content}
             <label className={styles.label_radio}></label>
           </div>
         </div>
+        <span className={styles.errorMessage}>{validate.errorMessage}</span>
         <button
           type="submit"
           className={classNames(styles.button, styles.form_submit)}

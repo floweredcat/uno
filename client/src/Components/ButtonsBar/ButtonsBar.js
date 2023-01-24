@@ -6,11 +6,9 @@ import classNames from "classnames";
 import styles from './styles.module.css'
 const images = [addIMG, editIMG, deleteIMG];
 
-export const ButtonBar = ({ onClicks, disabled, asideIsOpened }) => {
+export const ButtonBar = ({ onClicks, disabled }) => {
   return (
-    <div className={classNames(styles.bar_container, {
-      [styles.bar_moved]: !asideIsOpened,
-    })}>
+    <div className={classNames(styles.bar_container)}>
       {onClicks.map((onClick, idx) => {
         return (
           <button

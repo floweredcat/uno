@@ -1,14 +1,3 @@
-.table_row {
-  background-color: white;
-  height: fit-content;
-  width: fit-content;
-  cursor: pointer;
-  position: relative;
-}
-tr.table_row__selected .table_cell {
-  background: rgba(3, 83, 164, 0.2) !important;
-}
-
 tr:nth-child(even) .table_cell,
 .table_cell__header {
   background: #f2f2f2;
@@ -46,14 +35,4 @@ tr:nth-child(even) .table_cell,
   margin: 0 5px;
 }
 
-.red {
-    background-color: #F13D25 !important;
-}
 
-.yellow {
-    background-color: #FFF50C !important;
-}
-
-.green {
-    background-color: #25F176 !important;
-}

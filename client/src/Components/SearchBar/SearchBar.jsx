@@ -3,12 +3,12 @@ import { useRef } from 'react';
 import styles from './styles.module.css'
 
 export const SearchBar = ({ handleSearch, filter, placeholder }) => {
-  const ref= useRef()
+  const ref = useRef()
   useEffect(() => {
     if (ref.current) {
       ref.current.focus()
     }
-  } , [])
+  } , [filter])
 
   return (
     <input
@@ -16,7 +16,7 @@ export const SearchBar = ({ handleSearch, filter, placeholder }) => {
       type="text"
       value={filter}
       placeholder={placeholder}
-      onChange={(e) => {handleSearch(e)}}
+      onChange={handleSearch}
       className={styles.search_input}
     ></input>
   );

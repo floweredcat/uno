@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectObjectsIds,
@@ -10,26 +10,35 @@ import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import styles from "./styles.module.css";
 import { Object } from "../Object/Object";
 import { selectUserId } from "../../store/Auth/selectors";
-import { UserData } from "../UserData/UserData";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
 import { AddObjectPopup } from "../AddObjectPopup/AddObjectPopup";
 import { SearchBar } from "../SearchBar/SearchBar";
+import { ObjectDataContainer } from "../../Containers/ObjectDataContainer";
+import { useSingleEffect } from "../../hooks/UseSingleEffect";
 
-export const Objects = ({ asideIsOpened }) => {
+export const Objects = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectObjectsIsLoading(state));
   const objectsIds = useSelector((state) => selectObjectsIds(state));
   const [isRowSelected, setIsRowSelected] = useState(false);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState({ name: "", city: "" });
+  const setName = (e) => {
+    setFilter({...filter, name: e.target.value})
+  }
+  const setCity = (e) => {
+    setFilter({...filter, city: e.target.value})
+  }
   let userId = useSelector((state) => selectUserId(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
-  useEffect(() => {
-    dispatch(getObjects({ userId }));
-    dispatch(getPackagePrices);
-  }, [dispatch, userId]);
-  useEffect(() => {
+  useSingleEffect(() => {
+    if (true) {
+      dispatch(getObjects({ userId }));
+      dispatch(getPackagePrices);
+    }
+  }, [dispatch]);
+  useSingleEffect(() => {
     dispatch(getFransheses({ userId }));
   }, []);
   const togglePopupOpened = () => {
@@ -38,10 +47,6 @@ export const Objects = ({ asideIsOpened }) => {
   if (localStorage.userId) {
     userId = localStorage.userId;
   }
-
-  const handleSearch = (event) => {
-    setFilter(event.target.value);
-  };
 
   const headers = [
     "ID",
@@ -72,10 +77,15 @@ export const Objects = ({ asideIsOpened }) => {
                 >
                   {el === "Название" ? (
                     <SearchBar
-                      filter={filter}
-                      handleSearch={handleSearch}
+                      filter={filter.name}
+                      handleSearch={setName}
                       placeholder={el}
                     />
+                  ) : el === "Город" ?(
+                    <SearchBar 
+                    filter={filter.city}
+                    handleSearch={setCity}
+                    placeholder={el}/>
                   ) : (
                     el
                   )}
@@ -86,7 +96,7 @@ export const Objects = ({ asideIsOpened }) => {
         </thead>
         <tbody className={styles.table_content}>
           {objectsIds?.map((id) => (
-            <UserData
+            <ObjectDataContainer
               key={id}
               id={id}
               filter={filter}
@@ -98,7 +108,7 @@ export const Objects = ({ asideIsOpened }) => {
       {isRowSelected && (
         <Object toggleObject={setIsRowSelected} id={isRowSelected} />
       )}
-      <ButtonBar onClicks={[togglePopupOpened]} asideIsOpened={asideIsOpened} />
+      <ButtonBar onClicks={[togglePopupOpened]} />
       {isPopupOpened && <AddObjectPopup togglePopup={togglePopupOpened} />}
     </div>
   );

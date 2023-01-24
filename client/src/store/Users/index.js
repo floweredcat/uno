@@ -30,10 +30,11 @@ export const usersSlice = createSlice({
         status: "fail",
       };
     },
-    addUser: (state) => {   
-      state.entities.push(nanoid())
-
-      return state
+    addUser: (state) => {
+      console.log('hello!')
+      return {...state,
+      entities: {...state.entities,
+      qwew: 'qwewe'}}
     },
   },
 });

@@ -10,18 +10,21 @@ export const getObjects =
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        userId,
+        id: userId,
       }),
     };
     dispatch(objectsSliceActions.startLoading());
 
-    const url = new URL("http://localhost:4000/getObjects");
+    const url = new URL("http://wsuno.xyz:8111/getObjects");
 
     fetch(url, options)
       .then((res) => res.json())
       .then((data) => {
+        if (!data.OK) {
+          throw Error(data.error)
+        }
         dispatch(
-          objectsSliceActions.successLoading(normolizeEntities(data, "IDSRV"))
+          objectsSliceActions.successLoading(normolizeEntities(data.result, "IDSRV"))
         );
       })
       .catch((err) => {

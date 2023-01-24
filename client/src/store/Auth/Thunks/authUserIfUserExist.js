@@ -14,15 +14,19 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
   };
   dispatch(authSliceActions.startLoadingUser());
 
-  fetch("http://localhost:4000/authUser", options)
+  fetch("http://wsuno.xyz:8111/authUser", options)
     .then((res) => res.json())
     .then((data) => {
-      if (data.length === 0) {
+      console.log(data)
+      if (!data.OK) {
+        throw Error('Ошибка запроса на сервер')
+      }
+      else if (data.result.length === 0) {
         dispatch(
           authSliceActions.errorLoading({ err: "Пользователя не существует" })
         );
       } else {
-        dispatch(authSliceActions.login(data[0]));
+        dispatch(authSliceActions.login(data.result[0]));
       }
     })
     .catch((err) => {

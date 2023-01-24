@@ -9,6 +9,7 @@ import partnerIcon from "./images/partner.svg";
 import phoneIcon from "./images/phone.svg";
 import timerIcon from "./images/timer.svg";
 import endtimerIcon from "./images/endtimer.svg";
+import { getLeftMonth } from "./helpers/getLeftMonth";
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -17,34 +18,7 @@ export const Object = ({ toggleObject, id }) => {
     setIsPopupOpened(!isPopupOpened);
   };
 
-  const getDiffDates = () => {
-    const diff =  objectData.ENDDT && objectData.STARTDT ?
-      new Date(
-        new Date(objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T")))
-      ) -
-      new Date(objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T"))) : 0;
-    const days = diff / 86400000;
-    let months = Math.floor(days / 30);
-    let leftDays = Math.floor(days / 30 - months);
-    if (leftDays[-1] == 1) {
-      leftDays += " День";
-    } else if (2 <= leftDays[-1] <= 4) {
-      leftDays += " Дня";
-    } else {
-      leftDays += " Дней";
-    }
-
-    if (months <= 1) {
-      months += " Месяц";
-    } else if (2 <= months && months <= 4) {
-      months += " Месяца";
-    } else {
-      months += " Месяцев";
-    }
-    return { months, leftDays };
-  };
-
-  const leftTime = getDiffDates();
+  const leftTime = objectData ? getLeftMonth({start: objectData.STARTDT, end: objectData.ENDDT}) : null;
 
   return (
     <div className={styles.objects}>
@@ -56,7 +30,7 @@ export const Object = ({ toggleObject, id }) => {
         <div className={styles.info_element}>
           <h2 className={styles.title}>Дата создания</h2>
           <p className={styles.content}>
-            {objectData.DT.substr(0, objectData.DT.indexOf("T"))}
+            {objectData.DT?.substr(0, objectData.DT.indexOf("T"))}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -133,7 +107,9 @@ export const Object = ({ toggleObject, id }) => {
           <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
           <p className={styles.content}>
-            {objectData.STARTDT ? objectData.STARTDT.substr(0, objectData.STARTDT.indexOf("T")) : 'Лицензия отсутствует'}
+            {objectData.STARTDT
+              ? objectData.STARTDT?.substr(0, objectData.STARTDT.indexOf("T"))
+              : "Лицензия отсутствует"}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -144,7 +120,9 @@ export const Object = ({ toggleObject, id }) => {
           ></img>
           <h2 className={styles.title}>Конец</h2>
           <p className={styles.content}>
-            {objectData.ENDDT ? objectData.ENDDT.substr(0, objectData.ENDDT.indexOf("T")) : 'Лицензия отсутствует'}
+            {objectData.ENDDT
+              ? objectData.ENDDT?.substr(0, objectData.ENDDT.indexOf("T"))
+              : "Лицензия отсутствует"}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -154,7 +132,7 @@ export const Object = ({ toggleObject, id }) => {
             {leftTime.months
               ? leftTime.months
               : "" + leftTime.leftDays
-              ? ", " + leftTime.leftDays
+              ? " " + leftTime.leftDays
               : ""}
           </p>
         </div>
@@ -166,15 +144,19 @@ export const Object = ({ toggleObject, id }) => {
         </div>
         <div className={styles.status_element}>
           <h2 className={styles.title}>Сумма</h2>
-          <div className={styles.status_info}>{objectData.AMOUNT ? objectData.AMOUNT : '0'}</div>
+          <div className={styles.status_info}>
+            {objectData.AMOUNT ? objectData.AMOUNT : "0"}
+          </div>
         </div>
       </div>
-      
+
       <button
-          type="button"
-          className={classNames(styles.button, styles.button_exit)}
-          onClick={() => toggleObject()}
-        >Назад</button>
+        type="button"
+        className={classNames(styles.button, styles.button_exit)}
+        onClick={() => toggleObject()}
+      >
+        Назад
+      </button>
       {isPopupOpened && <EditPackagePopup togglePopup={togglePopup} />}
     </div>
   );

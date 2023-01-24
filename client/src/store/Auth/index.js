@@ -48,21 +48,20 @@ export const authSlice = createSlice({
       return state;
     },
     setErrorChangePass: (state, action) => {
-      const errorMessage = action.payload;
-      console.log(errorMessage)
+      console.log(action.payload)
 
       return {
         ...state,
-        errorMessage,
+        errorMessage: action.payload,
       };
     },
     successChangePass: (state, action) => {
       const mess = action.payload;
-      console.log(mess)
-      state.errorMessage = false;
-      state.successMessage = mess;
-
-      return state;
+      console.log('successmessage: ', mess)
+      return {
+        ...state,
+        mess: '123'
+      };
     },
   },
 });

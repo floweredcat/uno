@@ -1,5 +1,4 @@
-import { objectsSliceActions } from "..";
-import { normolizeEntities } from "../../helpers/normalizeEntites";
+import { getObjects } from "./getObjects";
 
 export const addObject =
   ({ userId, idFran, name, worker, phone, orgOwner }) =>
@@ -12,12 +11,15 @@ export const addObject =
       body: JSON.stringify({ userId, idFran, name, worker, phone, orgOwner }),
     };
 
-    const url = new URL("http://localhost:4000/addObject");
+    const url = new URL("http://wsuno.xyz:8111/addObject");
 
     fetch(url, options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (!data.OK) {
+          throw Error(data.error)
+        }
+        dispatch(getObjects({userId}))
       })
       .catch((err) => {
         console.log(err);

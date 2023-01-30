@@ -1,0 +1,19 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99;
+    background-color: white;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .title {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    align-self: flex-start;
+    padding-bottom: 24px;
+  }
+  

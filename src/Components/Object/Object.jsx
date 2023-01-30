@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { EditPackagePopup } from "../EditPackagePopup/EditPackagePopup";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
@@ -10,6 +9,9 @@ import phoneIcon from "./images/phone.svg";
 import timerIcon from "./images/timer.svg";
 import endtimerIcon from "./images/endtimer.svg";
 import { getLeftMonth } from "./helpers/getLeftMonth";
+import { EditPackageForm } from "../EditPackageForm/EditPackageForm";
+import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
+import { PackagePopupContainer } from "../../Containers/PackagePopupContainer/PackagePopupContainer";
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -18,7 +20,9 @@ export const Object = ({ toggleObject, id }) => {
     setIsPopupOpened(!isPopupOpened);
   };
 
-  const leftTime = objectData ? getLeftMonth({start: objectData.STARTDT, end: objectData.ENDDT}) : null;
+  const leftTime = objectData
+    ? getLeftMonth({ start: objectData.STARTDT, end: objectData.ENDDT })
+    : null;
 
   return (
     <div className={styles.objects}>
@@ -40,7 +44,10 @@ export const Object = ({ toggleObject, id }) => {
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
-          <img src={geoIcon} alt={geoIcon} className={styles.icon}></img>
+          <img
+            src={geoIcon}
+            alt={geoIcon}
+            className={styles.icon}></img>
           <h2 className={styles.title}>Город/Страна</h2>
           <p className={styles.content}>{objectData.CITY}</p>
         </div>
@@ -48,13 +55,15 @@ export const Object = ({ toggleObject, id }) => {
           <img
             src={partnerIcon}
             alt={partnerIcon}
-            className={styles.icon}
-          ></img>
+            className={styles.icon}></img>
           <h2 className={styles.title}>Партнер</h2>
           <p className={styles.content}>UM System Group</p>
         </div>
         <div className={styles.info_element}>
-          <img src={phoneIcon} alt={phoneIcon} className={styles.icon}></img>
+          <img
+            src={phoneIcon}
+            alt={phoneIcon}
+            className={styles.icon}></img>
           <h2 className={styles.title}>Телефон</h2>
           <p className={styles.content}>{objectData.PHONE}</p>
         </div>
@@ -74,37 +83,36 @@ export const Object = ({ toggleObject, id }) => {
             <div
               className={classNames(styles.radio_indicator, {
                 [styles.radio_indicator__active]: objectData.TARIF,
-              })}
-            ></div>
+              })}></div>
           </div>
           <div className={styles.object_radio}>
             <h2 className={styles.title}>Мобильный</h2>
             <div
               className={classNames(styles.radio_indicator, {
                 [styles.radio_indicator__active]: objectData.MOB,
-              })}
-            ></div>
+              })}></div>
           </div>
           <div className={styles.object_radio}>
             <h2 className={styles.title}>QR</h2>
             <div
               className={classNames(styles.radio_indicator, {
                 [styles.radio_indicator__active]: objectData.QR,
-              })}
-            ></div>
+              })}></div>
           </div>
         </div>
         <button
           type="button"
           className={classNames(styles.button, styles.button_edit)}
-          onClick={() => togglePopup()}
-        >
+          onClick={() => togglePopup()}>
           Редактировать пакет
         </button>
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
-          <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
+          <img
+            src={timerIcon}
+            alt={timerIcon}
+            className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
           <p className={styles.content}>
             {objectData.STARTDT
@@ -116,8 +124,7 @@ export const Object = ({ toggleObject, id }) => {
           <img
             src={endtimerIcon}
             alt={endtimerIcon}
-            className={styles.icon}
-          ></img>
+            className={styles.icon}></img>
           <h2 className={styles.title}>Конец</h2>
           <p className={styles.content}>
             {objectData.ENDDT
@@ -126,7 +133,10 @@ export const Object = ({ toggleObject, id }) => {
           </p>
         </div>
         <div className={styles.info_element}>
-          <img src={timerIcon} alt={timerIcon} className={styles.icon}></img>
+          <img
+            src={timerIcon}
+            alt={timerIcon}
+            className={styles.icon}></img>
           <h2 className={styles.title}>Осталось</h2>
           <p className={styles.content}>
             {leftTime.months
@@ -153,11 +163,16 @@ export const Object = ({ toggleObject, id }) => {
       <button
         type="button"
         className={classNames(styles.button, styles.button_exit)}
-        onClick={() => toggleObject()}
-      >
+        onClick={() => toggleObject()}>
         Назад
       </button>
-      {isPopupOpened && <EditPackagePopup togglePopup={togglePopup} />}
+      {isPopupOpened && (
+        <PackagePopupContainer
+          togglePopup={togglePopup}
+          title={"Добавление объекта"}>
+          <EditPackageForm togglePopup={togglePopup} />
+        </PackagePopupContainer>
+      )}
     </div>
   );
 };

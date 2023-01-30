@@ -19,7 +19,7 @@ export const addUser =
     };
 
     fetch("http://wsuno.xyz:8111/addUser", options)
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {
           throw Error('Ошибка запроса на сервер')

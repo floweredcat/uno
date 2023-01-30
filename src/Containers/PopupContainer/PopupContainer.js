@@ -1,6 +1,5 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
-import { AddPopup } from "../../Components/AddPopup/AddPopup";
 import { useEffect } from "react";
 
 export const PopupContainer = ({ togglePopup, children }) => {

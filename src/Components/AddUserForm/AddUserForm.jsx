@@ -10,7 +10,7 @@ import { InputRadio } from "../InputRadio/InputRadio";
 import { InputText } from "../InputText/InputText";
 import styles from "./styles.module.css";
 
-export const AddPopup = ({ togglePopup }) => {
+export const AddUserForm = ({ togglePopup }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");

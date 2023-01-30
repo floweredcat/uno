@@ -60,7 +60,6 @@
   overflow-x: hidden;
   transition: all 200ms ease;
   display: flex;
-  justify-content: center;
   z-index: 5;
 }
 

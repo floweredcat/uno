@@ -6,13 +6,7 @@
   align-self: flex-start;
   width: 100%;
   padding: 96px 0 0 36px;
-}
-
-.form {
   width: 336px;
-  gap: 24px;
-  display: flex;
-  flex-direction: column;
 }
 
 .title {

@@ -9,13 +9,13 @@ import {
 } from "../../store/Users/selectors";
 import { loadUsers } from "../../store/Users/Thunks/loadUsers";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
-import { EditPopup } from "../EditPopup/EditPopup";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
 import { HEADERS } from "../../constants/Fixtires";
 import { UserDataContainer } from "../../Containers/UserDataContainer";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
-import { AddPopup } from "../AddPopup/AddPopup";
+import { AddUserForm } from "../AddUserForm/AddUserForm";
+import { EditUserForm } from "../EditUserForm/EditUserForm";
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -110,23 +110,26 @@ export const Users = () => {
         onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
         disabled={!isRowSelected}
       />
-      {/* {isPopupOpened && <AddPopup toggleAddPopup={toggleAddPopup} />} */}
-      {isPopupOpened && <PopupContainer togglePopup={toggleAddPopup}>
-        <AddPopup togglePopup={toggleAddPopup} />
-        </PopupContainer>}
+      {isPopupOpened && (
+        <PopupContainer togglePopup={toggleAddPopup}>
+          <AddUserForm togglePopup={toggleAddPopup} />
+        </PopupContainer>
+      )}
       {isDeletePopupOpened && (
-        <DeletePopup
-          id={selectedRow}
-          toggleDeletePopup={toggleDeletePopup}
-          resetSelectedRow={resetSelectedRow}
-        />
+          <DeletePopup
+            id={selectedRow}
+            toggleDeletePopup={toggleDeletePopup}
+            resetSelectedRow={resetSelectedRow}
+          />
       )}
       {isEditPopupOpened && (
-        <EditPopup
-          id={selectedRow}
-          togglePopup={toggleEditPopup}
-          resetSelectedRow={resetSelectedRow}
-        />
+        <PopupContainer togglePopup={toggleEditPopup}>
+          <EditUserForm
+            id={selectedRow}
+            togglePopup={toggleEditPopup}
+            resetSelectedRow={resetSelectedRow}
+          />
+        </PopupContainer>
       )}
     </div>
   );

@@ -10,7 +10,6 @@ import timerIcon from "./images/timer.svg";
 import endtimerIcon from "./images/endtimer.svg";
 import { getLeftMonth } from "./helpers/getLeftMonth";
 import { EditPackageForm } from "../EditPackageForm/EditPackageForm";
-import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { PackagePopupContainer } from "../../Containers/PackagePopupContainer/PackagePopupContainer";
 
 export const Object = ({ toggleObject, id }) => {
@@ -21,7 +20,7 @@ export const Object = ({ toggleObject, id }) => {
   };
 
   const leftTime = objectData
-    ? getLeftMonth({ start: objectData.STARTDT, end: objectData.ENDDT })
+    ? getLeftMonth({ start: objectData?.STARTDT, end: objectData?.ENDDT })
     : null;
 
   return (
@@ -29,17 +28,17 @@ export const Object = ({ toggleObject, id }) => {
       <div className={classNames(styles.info, styles.objects_element)}>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Название</h2>
-          <p className={styles.object_name}>{objectData.NAME}</p>
+          <p className={styles.object_name}>{objectData?.NAME}</p>
         </div>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Дата создания</h2>
           <p className={styles.content}>
-            {objectData.DT?.substr(0, objectData.DT.indexOf("T"))}
+            {objectData?.DT?.substr(0, objectData?.DT.indexOf("T"))}
           </p>
         </div>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Специалист</h2>
-          <p className={styles.content}>{objectData.WORKER}</p>
+          <p className={styles.content}>{objectData?.WORKER}</p>
         </div>
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
@@ -49,7 +48,7 @@ export const Object = ({ toggleObject, id }) => {
             alt={geoIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Город/Страна</h2>
-          <p className={styles.content}>{objectData.CITY}</p>
+          <p className={styles.content}>{objectData?.CITY}</p>
         </div>
         <div className={styles.info_element}>
           <img
@@ -65,13 +64,13 @@ export const Object = ({ toggleObject, id }) => {
             alt={phoneIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Телефон</h2>
-          <p className={styles.content}>{objectData.PHONE}</p>
+          <p className={styles.content}>{objectData?.PHONE}</p>
         </div>
       </div>
       <div className={classNames(styles.object_info, styles.objects_element)}>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Пакет</h2>
-          <p className={styles.object_name}>{objectData.PAKET}</p>
+          <p className={styles.object_name}>{objectData?.PAKET}</p>
         </div>
         <div className={styles.object_radios}>
           <div className={styles.object_radio}>
@@ -82,21 +81,21 @@ export const Object = ({ toggleObject, id }) => {
             <h2 className={styles.title}>Тарификация</h2>
             <div
               className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData.TARIF,
+                [styles.radio_indicator__active]: objectData?.TARIF,
               })}></div>
           </div>
           <div className={styles.object_radio}>
             <h2 className={styles.title}>Мобильный</h2>
             <div
               className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData.MOB,
+                [styles.radio_indicator__active]: objectData?.MOB,
               })}></div>
           </div>
           <div className={styles.object_radio}>
             <h2 className={styles.title}>QR</h2>
             <div
               className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData.QR,
+                [styles.radio_indicator__active]: objectData?.QR,
               })}></div>
           </div>
         </div>
@@ -114,11 +113,7 @@ export const Object = ({ toggleObject, id }) => {
             alt={timerIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
-          <p className={styles.content}>
-            {objectData.STARTDT
-              ? objectData.STARTDT?.substr(0, objectData.STARTDT.indexOf("T"))
-              : "Лицензия отсутствует"}
-          </p>
+          <p className={styles.content}>{objectData?.STARTDT}</p>
         </div>
         <div className={styles.info_element}>
           <img
@@ -126,11 +121,7 @@ export const Object = ({ toggleObject, id }) => {
             alt={endtimerIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Конец</h2>
-          <p className={styles.content}>
-            {objectData.ENDDT
-              ? objectData.ENDDT?.substr(0, objectData.ENDDT.indexOf("T"))
-              : "Лицензия отсутствует"}
-          </p>
+          <p className={styles.content}>{objectData?.ENDDT}</p>
         </div>
         <div className={styles.info_element}>
           <img
@@ -155,7 +146,7 @@ export const Object = ({ toggleObject, id }) => {
         <div className={styles.status_element}>
           <h2 className={styles.title}>Сумма</h2>
           <div className={styles.status_info}>
-            {objectData.AMOUNT ? objectData.AMOUNT : "0"}
+            {objectData?.AMOUNT}
           </div>
         </div>
       </div>

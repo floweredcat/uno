@@ -10,6 +10,8 @@ import {
 import logo from "./images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
+import { InputText } from "../InputText/InputText";
+import { InputPassWithHide } from "../InputPassWithHide/InputPassWithHide"
 
 export const FormElement = () => {
   const [email, setEmail] = useState("");
@@ -73,46 +75,8 @@ export const FormElement = () => {
     <div className={styles.login_formWrapper}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <img src={logo} alt="logo" className={styles.form_logo} />
-        <div className={styles.input_container}>
-          <input
-            autoComplete="new-password"
-            id="login"
-            type="text"
-            className={classNames(styles.form_input, {
-              [styles.form_input__invalid]: !validate.isValid,
-            })}
-            placeholder=" "
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <label htmlFor="login" className={styles.form_label}>
-            Логин
-          </label>
-        </div>
-        <div className={styles.input_container}>
-          <input
-            autoComplete="new-password"
-            id="password"
-            type={passwordVisible ? "text" : "password"}
-            className={classNames(styles.form_input, {
-              [styles.form_input__invalid]: !validate.isValid,
-            })}
-            placeholder=" "
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <label htmlFor="password" className={styles.form_label}>
-            Пароль
-          </label>
-          <button
-            className={classNames({
-              [styles.form_hideButton]: passwordVisible,
-              [styles.form_hidePuttonFilled]: !passwordVisible,
-            })}
-            type="button"
-            onClick={togglePasswordVisible}
-          ></button>
-        </div>
+        <InputText label={"Логин"} value={email} setValue={setEmail} />
+        <InputPassWithHide label={"Пароль"} value={password} setValue={setPassword} />
         <span className={styles.errorMessage}>{validate.errorMessage}</span>
         <button className={styles.form_submit} type="submit">
           Войти

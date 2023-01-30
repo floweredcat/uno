@@ -17,10 +17,7 @@ export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
     object.AMOUNT,
   ];
 
-  const diffDates =
-    object && object.STARTDT && object.ENDDT
-      ? getDiffDates({ start: object.STARTDT, end: object.ENDDT })
-      : null;
+  const diffDates = getDiffDates({ start: object.STARTDT, end: object.ENDDT })
 
   const getStyleByLeftMonths = () => {
     if (diffDates < 1) {

@@ -14,6 +14,8 @@
     background-color: rgba(3,83,164, 0.8);
     background-position: center;
     background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
 }
 
 .bar_buttonImage {
@@ -39,7 +41,6 @@
 
 .bar_button__active {
     cursor: pointer;
-
 }
 
 .bar_button:disabled .bar_buttonImage {

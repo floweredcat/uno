@@ -11,6 +11,7 @@ import endtimerIcon from "./images/endtimer.svg";
 import { getLeftMonth } from "./helpers/getLeftMonth";
 import { EditPackageForm } from "../EditPackageForm/EditPackageForm";
 import { PackagePopupContainer } from "../../Containers/PackagePopupContainer/PackagePopupContainer";
+import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -158,11 +159,10 @@ export const Object = ({ toggleObject, id }) => {
         Назад
       </button>
       {isPopupOpened && (
-        <PackagePopupContainer
-          togglePopup={togglePopup}
-          title={"Добавление объекта"}>
+        <PopupContainer
+          togglePopup={togglePopup}>
           <EditPackageForm togglePopup={togglePopup} />
-        </PackagePopupContainer>
+        </PopupContainer>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectObjectsIds,
@@ -15,9 +15,10 @@ import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
 import { AddObjectForm } from "../AddObjectForm/AddObjectForm";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { ObjectDataContainer } from "../../Containers/ObjectDataContainer";
+import { ObjectDataContainer } from "../../Containers/ObjectDataContainer/ObjectDataContainer";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
+import { OBJECT_HEADERS } from "../../constants/Fixtires";
 
 export const Objects = () => {
   const dispatch = useDispatch();
@@ -45,16 +46,6 @@ export const Objects = () => {
     userId = localStorage.userId;
   }
 
-  const headers = [
-    "ID",
-    "Название",
-    "Город",
-    "Телефон",
-    "Дата",
-    "Партнер",
-    "Баланс",
-  ];
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -63,7 +54,7 @@ export const Objects = () => {
       <table className={styles.table}>
         <thead className={styles.table_header}>
           <tr className={styles.table_row}>
-            {headers?.map((el) => {
+            {OBJECT_HEADERS.map((el) => {
               return (
                 <th
                   key={nanoid()}

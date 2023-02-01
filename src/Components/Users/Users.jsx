@@ -10,8 +10,8 @@ import {
 import { loadUsers } from "../../store/Users/Thunks/loadUsers";
 import { DeletePopup } from "../DeletePopup/DeletePopup";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
-import { HEADERS } from "../../constants/Fixtires";
-import { UserDataContainer } from "../../Containers/UserDataContainer";
+import { USER_HEADERS } from "../../constants/Fixtires";
+import { UserDataContainer } from "../../Containers/UserDataContainer/UserDataContainer";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { AddUserForm } from "../AddUserForm/AddUserForm";
@@ -75,7 +75,7 @@ export const Users = () => {
         <table className={styles.table}>
           <thead className={styles.table_header}>
             <tr className={styles.table_row}>
-              {HEADERS?.map((el) => {
+              {USER_HEADERS.map((el) => {
                 return (
                   <th
                     key={nanoid()}

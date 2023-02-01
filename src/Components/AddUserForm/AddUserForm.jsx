@@ -9,6 +9,7 @@ import { InputPhone } from "../InputPhone/InputPhone";
 import { InputRadio } from "../InputRadio/InputRadio";
 import { InputText } from "../InputText/InputText";
 import styles from "./styles.module.css";
+import { isEmpty, isEmail, isMobilePhone, isAlpha } from "validator";
 
 export const AddUserForm = ({ togglePopup }) => {
   const dispatch = useDispatch();
@@ -41,39 +42,28 @@ export const AddUserForm = ({ togglePopup }) => {
     setRole(ROLES.user.id);
   };
   const handleValidate = () => {
-    let lastAtPos = email.lastIndexOf("@");
-    let lastDotPos = email.lastIndexOf(".");
     if (
-      !city.length ||
-      !email.length ||
-      !name.length ||
-      !pass.length ||
-      !phone.length
+      isEmpty(email) ||
+      isEmpty(phone) ||
+      isEmpty(city) ||
+      isEmpty(pass) ||
+      isEmpty(name)
     ) {
       setValidate({
         isValid: false,
         errorMessage: "Пожалуйста, заполните все поля",
       });
-    } else if (
-      !(
-        lastAtPos < lastDotPos &&
-        lastAtPos > 0 &&
-        email.indexOf("@@") === -1 &&
-        lastDotPos > 2 &&
-        email.length - lastDotPos > 2
-      )
-    ) {
-      setValidate({ isValid: false, errorMessage: "Неверный формат почты" });
-    } else if (
-      !phone.match(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/)
-    ) {
+    } else if (!isEmail(email)) {
       setValidate({
         isValid: false,
-        errorMessage: "Длинна номера телефона должна быть не менее 10 символов",
+        errorMessage: "Неверный формат почты",
       });
-    } else {
-      setValidate({ isValid: true, errorMessage: "   " });
-    }
+    } else if (!isMobilePhone(phone) || phone.length < 10 || phone.length > 14) {
+      setValidate({
+        isValid: false,
+        errorMessage: "Неверный номер телефона",
+      });
+    } else setValidate({ isValid: true, errorMessage: "   " });
   };
 
   const onSubmit = (event) => {

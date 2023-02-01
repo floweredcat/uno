@@ -28,7 +28,8 @@ export const objectsSlice = createSlice({
     },
     failLoading: () => {
       return {
-        entities: [],
+        entities: {},
+        ids: [],
         status: "fail",
       };
     },

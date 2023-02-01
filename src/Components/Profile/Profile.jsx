@@ -82,12 +82,12 @@ export const Profile = () => {
           setValue={(e) => setForm({ ...form, password: e })}
         />
         <InputPass
-          value={form.password}
+          value={form.newPassword}
           label={"Новый пароль"}
           setValue={(e) => setForm({ ...form, newPassword: e })}
         />
         <InputPass
-          value={form.password}
+          value={form.repeat}
           label={"Повторите пароль"}
           setValue={(e) => setForm({ ...form, repeat: e })}
         />

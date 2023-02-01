@@ -8,6 +8,7 @@ import { InputPhone } from "../InputPhone/InputPhone";
 import { InputText } from "../InputText/InputText";
 import { Option } from "../Option/Option";
 import styles from "./styles.module.css";
+import { isEmpty, isMobilePhone } from "validator";
 
 export const AddObjectForm = ({ togglePopup }) => {
   const dispatch = useDispatch();
@@ -34,13 +35,11 @@ export const AddObjectForm = ({ togglePopup }) => {
   const userId = localStorage.userId;
   const handleValidate = () => {
     if (
-      !form.name.length ||
-      !form.idFran ||
-      !form.orgOwner.length ||
-      !form.phone.length ||
-      !form.worker.length
+      Object.values(form).some(el => isEmpty(el))
     ) {
-      setValidate({ errorMessage: "error message", isValid: false });
+      setValidate({ errorMessage: "Необходимо заполнить все поля", isValid: false });
+    } else if(!isMobilePhone(form.phone) || form.phone.length < 10) {
+      setValidate({ errorMessage: "Неверный формат номера телефона", isValid: false });
     } else setValidate({ isValid: true, errorMessage: "   " });
     return validate.isValid;
   };
@@ -51,65 +50,66 @@ export const AddObjectForm = ({ togglePopup }) => {
   };
 
   return (
-      <FormElem
-        title={"Добавление объекта"}
-        onSubmit={onSubmit}>
-        <button
-          type="button"
-          className={classNames(styles.button, styles.popup_closeButton)}
-          onClick={() => togglePopup()}
-        />
-        <InputText
-          value={form.name}
-          label={"Наименование"}
-          setValue={(e) => setForm({ ...form, name: e })}
-        />
-        <div className={styles.input_container}>
-          <select
-            size={1}
-            defaultValue={1}
-            id="idFran"
-            className={styles.form_input}
-            required
-            placeholder=" "
-            onChange={(event) =>
-              setForm({ ...form, idFran: event.target.value })
-            }>
-            {franshisesIds.map((id) => (
-              <Option
-                key={id}
-                idFran={id}
-                form={form}
-                setForm={setForm}
-              />
-            ))}
-          </select>
-          <label
-            htmlFor="idFran"
-            className={styles.form_label__select}>
-            Франшиза
-          </label>
-        </div>
-        <InputText
-          value={form.orgOwner}
-          label={"Имя владельца"}
-          setValue={(e) => setForm({ ...form, orgOwner: e })}
-        />
-        <InputPhone
-          label={"Телефон"}
-          value={form.phone}
-          setValue={(e) => setForm({ ...form, phone: e })}
-        />
-        <InputText
-          label={"Специалист"}
-          value={form.worker}
-          setValue={(e) => setForm({ ...form, worker: e })}
-        />
-        <button
-          type="submit"
-          className={classNames(styles.button, styles.form_submit)}>
-          Добавить объект
-        </button>
-      </FormElem>
+    <FormElem
+      title={"Добавление объекта"}
+      onSubmit={onSubmit}>
+      <button
+        type="button"
+        className={classNames(styles.button, styles.popup_closeButton)}
+        onClick={() => togglePopup()}
+      />
+      <InputText
+        value={form.name}
+        label={"Наименование"}
+        setValue={(e) => setForm({ ...form, name: e })}
+      />
+      <div className={styles.input_container}>
+        <select
+          size={1}
+          defaultValue={1}
+          id="idFran"
+          className={styles.form_input}
+          required
+          placeholder=" "
+          onChange={(event) =>
+            setForm({ ...form, idFran: event.target.value })
+          }>
+          {franshisesIds.map((id) => (
+            <Option
+              key={id}
+              idFran={id}
+              form={form}
+              setForm={setForm}
+            />
+          ))}
+        </select>
+        <label
+          htmlFor="idFran"
+          className={styles.form_label__select}>
+          Франшиза
+        </label>
+      </div>
+      <InputText
+        value={form.orgOwner}
+        label={"Имя владельца"}
+        setValue={(e) => setForm({ ...form, orgOwner: e })}
+      />
+      <InputPhone
+        label={"Телефон"}
+        value={form.phone}
+        setValue={(e) => setForm({ ...form, phone: e })}
+      />
+      <InputText
+        label={"Специалист"}
+        value={form.worker}
+        setValue={(e) => setForm({ ...form, worker: e })}
+      />
+      <span className={styles.errorMessage}>{validate.errorMessage}</span>
+      <button
+        type="submit"
+        className={classNames(styles.button, styles.form_submit)}>
+        Добавить объект
+      </button>
+    </FormElem>
   );
 };

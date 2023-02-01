@@ -58,8 +58,9 @@
   background-color: inherit;
   background-position: center;
   background-repeat: no-repeat;
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
 }
 
 .count_input {

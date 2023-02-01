@@ -18,7 +18,7 @@ export const addUser =
       }),
     };
 
-    fetch("http://wsuno.xyz:8111/addUser", options)
+    fetch("https://wsuno.xyz/api/addUser", options)
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {

@@ -15,7 +15,7 @@ export const setNewPassword =
       }),
     };
 
-    fetch("http://wsuno.xyz:8111/setNewPassword", options)
+    fetch("https://wsuno.xyz/api/setNewPassword", options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)

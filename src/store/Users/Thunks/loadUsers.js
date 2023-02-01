@@ -16,7 +16,7 @@ export const loadUsers =
 
     dispatch(usersSliceActions.startLoading());
 
-    const url = new URL("http://wsuno.xyz:8111/getUsers");
+    const url = new URL("https://wsuno.xyz/api/getUsers");
 
     fetch(url, options)
       .then((res) => res.json())

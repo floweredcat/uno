@@ -15,7 +15,7 @@ export const getObjects =
     };
     dispatch(objectsSliceActions.startLoading());
 
-    const url = new URL("http://wsuno.xyz:8111/getObjects");
+    const url = new URL("https://wsuno.xyz/api/getObjects");
 
     fetch(url, options)
       .then((res) => res.json())

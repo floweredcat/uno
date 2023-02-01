@@ -17,7 +17,7 @@ export const editUser =
       }),
     };
 
-    fetch("http://wsuno.xyz:8111/editUser", options)
+    fetch("https://wsuno.xyz/api/editUser", options)
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {

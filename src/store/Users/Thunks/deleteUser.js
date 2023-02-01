@@ -11,7 +11,7 @@ export const loadDeleteUser = ({id}) => (dispatch) => {
         }),
       };
 
-      fetch("http://wsuno.xyz:8111/deleteUser", options)
+      fetch("https://wsuno.xyz/api/deleteUser", options)
       .then((res) => res.json())
       .then(data => {
         if (!data.OK) {

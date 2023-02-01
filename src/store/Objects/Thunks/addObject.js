@@ -11,7 +11,7 @@ export const addObject =
       body: JSON.stringify({ userId, idFran, name, worker, phone, orgOwner }),
     };
 
-    const url = new URL("http://wsuno.xyz:8111/addObject");
+    const url = new URL("https://wsuno.xyz/api/addObject");
 
     fetch(url, options)
       .then((res) => res.json())

@@ -14,7 +14,7 @@ export const getFransheses = ({userId}) => (dispatch) => {
       };
       dispatch(franshisesSliceActions.startLoading())
 
-    fetch("http://wsuno.xyz:8111/getFransheses", options)
+    fetch("https://wsuno.xyz/api/getFransheses", options)
     .then(res => res.json()) 
     .then(data => {
       if (!data.OK) {

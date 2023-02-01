@@ -14,7 +14,7 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
   };
   dispatch(authSliceActions.startLoadingUser());
 
-  fetch("http://wsuno.xyz:8111/authUser", options)
+  fetch("https://wsuno.xyz/api/authUser", options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data)

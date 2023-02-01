@@ -26,7 +26,7 @@ export const AddObjectForm = ({ togglePopup }) => {
   }, [validate.errorMessage]);
   const [form, setForm] = useState({
     name: "",
-    idFran: "",
+    idFran: franshisesIds[0],
     orgOwner: "",
     phone: "",
     worker: "",

@@ -29,9 +29,6 @@ export const Objects = () => {
   const setName = (e) => {
     setFilter({ ...filter, name: e.target.value });
   };
-  // const setCity = (e) => {
-  //   setFilter({...filter, city: e.target.value})
-  // }
   let userId = useSelector((state) => selectUserId(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   useSingleEffect(() => {
@@ -51,49 +48,54 @@ export const Objects = () => {
   }
   return (
     <div className={styles.objects_wrapper}>
-      <table className={styles.table}>
-        <thead className={styles.table_header}>
-          <tr className={styles.table_row}>
-            {OBJECT_HEADERS.map((el) => {
-              return (
-                <th
-                  key={nanoid()}
-                  className={classNames(
-                    styles.table_cell,
-                    styles.table_cell__header
-                  )}>
-                  {el === "Название" ? (
-                    <SearchBar
-                      filter={filter.name}
-                      handleSearch={setName}
-                      placeholder={el}
-                    />
-                  ) : (
-                    el
-                  )}
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody className={styles.table_content}>
-          {objectsIds?.map((id) => (
-            <ObjectDataContainer
-              key={id}
-              id={id}
-              filter={filter}
-              onclick={setIsRowSelected}
-            />
-          ))}
-        </tbody>
-      </table>
+      {!isRowSelected && (
+        <>
+          <table className={styles.table}>
+            <thead className={styles.table_header}>
+              <tr className={styles.table_row}>
+                {OBJECT_HEADERS.map((el) => {
+                  return (
+                    <th
+                      key={nanoid()}
+                      className={classNames(
+                        styles.table_cell,
+                        styles.table_cell__header
+                      )}>
+                      {el === "Название" ? (
+                        <SearchBar
+                          filter={filter.name}
+                          handleSearch={setName}
+                          placeholder={el}
+                        />
+                      ) : (
+                        el
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody className={styles.table_content}>
+              {objectsIds?.map((id) => (
+                <ObjectDataContainer
+                  key={id}
+                  id={id}
+                  filter={filter}
+                  onclick={setIsRowSelected}
+                />
+              ))}
+            </tbody>
+          </table>
+          <ButtonBar onClicks={[togglePopup]} />
+        </>
+      )}
       {isRowSelected && (
         <Object
           toggleObject={setIsRowSelected}
           id={isRowSelected}
         />
       )}
-      <ButtonBar onClicks={[togglePopup]} />
+
       {isPopupOpened && (
         <PopupContainer togglePopup={togglePopup}>
           <AddObjectForm togglePopup={togglePopup} />

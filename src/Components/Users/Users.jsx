@@ -21,10 +21,8 @@ export const Users = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useSingleEffect(() => {
-    if (!usersIds) {
       dispatch(loadUsers({ userId }));
       setIsRowSelected(false);
-    }
   }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);

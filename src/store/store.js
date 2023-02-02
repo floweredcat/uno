@@ -5,7 +5,7 @@ import { objectsSlice } from "./Objects";
 import { objectPricesSlice } from "./ObjectPrices";
 import { franshisesSlice } from "./Franshises";
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   auth: authSlice.reducer,
   users: usersSlice.reducer,
   objects: objectsSlice.reducer,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 });
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: appReducer,
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
 });

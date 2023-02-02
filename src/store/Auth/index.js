@@ -39,12 +39,12 @@ export const authSlice = createSlice({
       };
     },
     logout: (state) => {
-      state = initialState;
+      state = undefined;
 
       localStorage.removeItem("user");
       localStorage.removeItem("userId");
       localStorage.removeItem("userIdAccess");
-
+      
       return state;
     },
     setErrorChangePass: (state, action) => {

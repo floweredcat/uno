@@ -17,7 +17,6 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
   fetch("https://wsuno.xyz/api/authUser", options)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
       if (!data.OK) {
         throw Error('Ошибка запроса на сервер')
       }

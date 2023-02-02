@@ -4,7 +4,6 @@ import { normolizeEntities } from "../../helpers/normalizeEntites";
 export const loadUsers =
   ({ userId }) =>
   (dispatch) => {
-    console.log("UserId: " + userId)
     const options = {
       method: "POST",
       headers: {
@@ -22,7 +21,6 @@ export const loadUsers =
     fetch(url, options)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Data from server: ", data)
         if (data.OK) {
           dispatch(
             usersSliceActions.successLoading(normolizeEntities(data.result))

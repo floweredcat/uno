@@ -8,10 +8,10 @@ import partnerIcon from "./images/partner.svg";
 import phoneIcon from "./images/phone.svg";
 import timerIcon from "./images/timer.svg";
 import endtimerIcon from "./images/endtimer.svg";
-import { getLeftMonth } from "./helpers/getLeftMonth";
+import { getLeftMonth } from "../../helpers/getLeftMonth";
 import { EditPackageForm } from "../EditPackageForm/EditPackageForm";
-import { PackagePopupContainer } from "../../Containers/PackagePopupContainer/PackagePopupContainer";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
+import { separateAmount } from "../../helpers/separateAmount"
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -24,6 +24,10 @@ export const Object = ({ toggleObject, id }) => {
     ? getLeftMonth({ start: objectData?.STARTDT, end: objectData?.ENDDT })
     : null;
 
+  if (!objectData) {
+    return null
+  }
+
   return (
     <div className={styles.objects}>
       <div className={classNames(styles.info, styles.objects_element)}>
@@ -34,7 +38,7 @@ export const Object = ({ toggleObject, id }) => {
         <div className={styles.info_element}>
           <h2 className={styles.title}>Дата создания</h2>
           <p className={styles.content}>
-            {objectData?.DT?.substr(0, objectData?.DT.indexOf("T"))}
+            {objectData.DT}
           </p>
         </div>
         <div className={styles.info_element}>
@@ -147,11 +151,10 @@ export const Object = ({ toggleObject, id }) => {
         <div className={styles.status_element}>
           <h2 className={styles.title}>Сумма</h2>
           <div className={styles.status_info}>
-            {objectData?.AMOUNT}
+            {objectData.AMOUNT ? separateAmount(objectData.AMOUNT) : "0"}
           </div>
         </div>
       </div>
-
       <button
         type="button"
         className={classNames(styles.button, styles.button_exit)}

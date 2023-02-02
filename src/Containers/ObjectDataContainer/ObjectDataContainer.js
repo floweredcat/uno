@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { getDiffDates } from "../../Components/UserData/helpers/getDiffDates";
 import { UserData } from "../../Components/UserData/UserData";
+import { separateAmount } from "../../helpers/separateAmount";
 import { selectObjectById } from "../../store/Objects/selectors";
 import styles from "./styles.module.css";
 
@@ -12,9 +13,9 @@ export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
     object.NAME,
     object.CITY,
     object.PHONE,
-    object.DT.substr(0, object.DT.indexOf("T")),
+    object.DT,
     object.FRAN_NAME,
-    object.AMOUNT,
+    object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
 
   const diffDates = getDiffDates({ start: object.STARTDT, end: object.ENDDT })

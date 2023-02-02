@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectObjectsIds,
@@ -19,6 +19,7 @@ import { ObjectDataContainer } from "../../Containers/ObjectDataContainer/Object
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { OBJECT_HEADERS } from "../../constants/Fixtires";
+import { Table } from "../Table/Table";
 
 export const Objects = () => {
   const dispatch = useDispatch();
@@ -50,42 +51,36 @@ export const Objects = () => {
     <div className={styles.objects_wrapper}>
       {!isRowSelected && (
         <>
-          <table className={styles.table}>
-            <thead className={styles.table_header}>
-              <tr className={styles.table_row}>
-                {OBJECT_HEADERS.map((el) => {
-                  return (
-                    <th
-                      key={nanoid()}
-                      className={classNames(
-                        styles.table_cell,
-                        styles.table_cell__header
-                      )}>
-                      {el === "Название" ? (
-                        <SearchBar
-                          filter={filter.name}
-                          handleSearch={setName}
-                          placeholder={el}
-                        />
-                      ) : (
-                        el
-                      )}
-                    </th>
-                  );
-                })}
-              </tr>
-            </thead>
-            <tbody className={styles.table_content}>
-              {objectsIds?.map((id) => (
-                <ObjectDataContainer
-                  key={id}
-                  id={id}
-                  filter={filter}
-                  onclick={setIsRowSelected}
-                />
-              ))}
-            </tbody>
-          </table>
+          <Table>
+            {OBJECT_HEADERS.map((el) => {
+              return (
+                <th
+                  key={nanoid()}
+                  className={classNames(
+                    styles.table_cell,
+                    styles.table_cell__header
+                  )}>
+                  {el === "Название" ? (
+                    <SearchBar
+                      filter={filter.name}
+                      handleSearch={setName}
+                      placeholder={el}
+                    />
+                  ) : (
+                    el
+                  )}
+                </th>
+              );
+            })}
+            {objectsIds?.map((id) => (
+              <ObjectDataContainer
+                key={id}
+                id={id}
+                filter={filter}
+                onclick={setIsRowSelected}
+              />
+            ))}
+          </Table>
           <ButtonBar onClicks={[togglePopup]} />
         </>
       )}

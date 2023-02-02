@@ -1,14 +1,17 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFranshisesIds } from "../../store/Franshises/selectors";
+import {
+  selectFranshises,
+  selectFranshisesIds,
+} from "../../store/Franshises/selectors";
 import { addObject } from "../../store/Objects/Thunks/addObject";
 import { FormElem } from "../FormElem/FormElem";
 import { InputPhone } from "../InputPhone/InputPhone";
 import { InputText } from "../InputText/InputText";
-import { Option } from "../Option/Option";
 import styles from "./styles.module.css";
 import { isEmpty, isMobilePhone } from "validator";
+import { InputSelect } from "../InputSelect/InputSelect";
 
 export const AddObjectForm = ({ togglePopup }) => {
   const dispatch = useDispatch();
@@ -16,7 +19,7 @@ export const AddObjectForm = ({ togglePopup }) => {
     validate: undefined,
     errorMessage: " ",
   };
-  const franshisesIds = useSelector((state) => selectFranshisesIds(state));
+  const franshises = useSelector((state) => selectFranshises(state));
   const [validate, setValidate] = useState(initialValidate);
   useEffect(() => {
     if (validate.errorMessage.length < 5 && form.phone.length > 7) {
@@ -24,9 +27,16 @@ export const AddObjectForm = ({ togglePopup }) => {
       togglePopup();
     }
   }, [validate.errorMessage]);
+
+  const franshisesMap = Object.values(franshises).map((el) => {
+    return {
+      value: el.ID,
+      label: el.COMPANY,
+    };
+  });
   const [form, setForm] = useState({
     name: "",
-    idFran: franshisesIds[0],
+    idFran: franshisesMap[0]?.value,
     orgOwner: "",
     phone: "",
     worker: "",
@@ -34,12 +44,16 @@ export const AddObjectForm = ({ togglePopup }) => {
 
   const userId = localStorage.userId;
   const handleValidate = () => {
-    if (
-      Object.values(form).some(el => isEmpty(el))
-    ) {
-      setValidate({ errorMessage: "Необходимо заполнить все поля", isValid: false });
-    } else if(!isMobilePhone(form.phone) || form.phone.length < 10) {
-      setValidate({ errorMessage: "Неверный формат номера телефона", isValid: false });
+    if (Object.values(form).some((el) => isEmpty(el))) {
+      setValidate({
+        errorMessage: "Необходимо заполнить все поля",
+        isValid: false,
+      });
+    } else if (!isMobilePhone(form.phone) || form.phone.length < 10) {
+      setValidate({
+        errorMessage: "Неверный формат номера телефона",
+        isValid: false,
+      });
     } else setValidate({ isValid: true, errorMessage: "   " });
     return validate.isValid;
   };
@@ -48,7 +62,6 @@ export const AddObjectForm = ({ togglePopup }) => {
     event.preventDefault();
     handleValidate();
   };
-
   return (
     <FormElem
       title={"Добавление объекта"}
@@ -63,32 +76,12 @@ export const AddObjectForm = ({ togglePopup }) => {
         label={"Наименование"}
         setValue={(e) => setForm({ ...form, name: e })}
       />
-      <div className={styles.input_container}>
-        <select
-          size={1}
-          defaultValue={1}
-          id="idFran"
-          className={styles.form_input}
-          required
-          placeholder=" "
-          onChange={(event) =>
-            setForm({ ...form, idFran: event.target.value })
-          }>
-          {franshisesIds.map((id) => (
-            <Option
-              key={id}
-              idFran={id}
-              form={form}
-              setForm={setForm}
-            />
-          ))}
-        </select>
-        <label
-          htmlFor="idFran"
-          className={styles.form_label__select}>
-          Франшиза
-        </label>
-      </div>
+      <InputSelect
+        mapValues={franshisesMap}
+        setForm={(e) => setForm({ ...form, idFran: e })}
+        label={"Франшиза"}
+        value={form.idFran}
+      />
       <InputText
         value={form.orgOwner}
         label={"Имя владельца"}

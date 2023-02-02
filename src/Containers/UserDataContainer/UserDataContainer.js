@@ -3,6 +3,7 @@ import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 import { selectUserDataById } from "../../store/Users/selectors";
+import { separateAmount } from "../../helpers/separateAmount";
 
 export const UserDataContainer = ({ onclick, id, filter, selectedRow }) => {
   const user = useSelector((state) => selectUserDataById(state, { id }));
@@ -14,7 +15,7 @@ export const UserDataContainer = ({ onclick, id, filter, selectedRow }) => {
     user.ROLENAME,
     "FRAN_NAME",
     user.BALANCE
-      ? user.BALANCE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      ? separateAmount(user.BALANCE)
       : 0,
   ];
 

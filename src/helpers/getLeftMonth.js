@@ -1,4 +1,4 @@
-import { getDiffDates } from "../../UserData/helpers/getDiffDates";
+import { getDiffDates } from "../Components/UserData/helpers/getDiffDates";
 
 export const getLeftMonth = ({ start, end }) => {
   if (!start || !end) {

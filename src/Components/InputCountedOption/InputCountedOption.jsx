@@ -1,7 +1,5 @@
 import classNames from "classnames";
 import React from "react";
-import { useSelector } from "react-redux";
-// import { selectCartOptionCount } from "../../store/Cart/selectors";
 import styles from "./styles.module.css";
 
 export const InputCountedOption = ({ required, label, value, increment, decrement }) => {

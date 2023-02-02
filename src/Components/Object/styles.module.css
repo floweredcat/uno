@@ -157,7 +157,7 @@
   transition: 300ms ease-in-out;
   width: fit-content;
   align-self: flex-end;
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   right: 50px;
 }

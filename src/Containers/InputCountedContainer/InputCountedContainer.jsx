@@ -1,15 +1,15 @@
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { InputCountedOption } from "../../Components/InputCountedOption/InputCountedOption";
 
-export const InputCountedContainer = ({ label, setValue, value, ...props }) => {
+export const InputCountedContainer = ({ label, setValue, value, step=1, ...props }) => {
   const increment = () => {
-    let newValue = value+1;
+    let newValue = value+step;
     setValue(newValue)
   }
   const decrement = () => {
-    let newValue = value-1;
-    setValue(newValue)
+    let newValue = value-step;
+    if (newValue >= 0) {
+      setValue(newValue)
+    }
   }
 
   return (

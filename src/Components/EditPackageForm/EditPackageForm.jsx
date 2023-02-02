@@ -76,6 +76,7 @@ export const EditPackageForm = ({ togglePopup }) => {
         <InputCountedContainer
           label={"QR Меню"}
           value={form.qr}
+          step={10}
           setValue={(val) => {
             setForm({ ...form, qr: val });
           }}

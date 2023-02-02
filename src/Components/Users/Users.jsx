@@ -16,13 +16,14 @@ import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { AddUserForm } from "../AddUserForm/AddUserForm";
 import { EditUserForm } from "../EditUserForm/EditUserForm";
+import { Table } from "../Table/Table";
 
 export const Users = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useSingleEffect(() => {
-      dispatch(loadUsers({ userId }));
-      setIsRowSelected(false);
+    dispatch(loadUsers({ userId }));
+    setIsRowSelected(false);
   }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -69,41 +70,30 @@ export const Users = () => {
 
   return (
     <div className={styles.users_wrapper}>
-      {true ? (
-        <table className={styles.table}>
-          <thead className={styles.table_header}>
-            <tr className={styles.table_row}>
-              {USER_HEADERS.map((el) => {
-                return (
-                  <th
-                    key={nanoid()}
-                    className={classNames(
-                      styles.table_cell,
-                      styles.table_cell__header
-                    )}>
-                    {el}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody className={styles.table_content}>
-            {usersIds?.map((el) => {
-              return (
-                <UserDataContainer
-                  onclick={toggleSelectedRow}
-                  id={el}
-                  selectedRow={selectedRow}
-                  key={nanoid()}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <div className={styles.emptyData}>Данные отсутствуют</div>
-      )}
-
+      <Table>
+          {USER_HEADERS.map((el) => {
+            return (
+              <th
+                key={nanoid()}
+                className={classNames(
+                  styles.table_cell,
+                  styles.table_cell__header
+                )}>
+                {el}
+              </th>
+            );
+          })}
+        {usersIds?.map((el) => {
+          return (
+            <UserDataContainer
+              onclick={toggleSelectedRow}
+              id={el}
+              selectedRow={selectedRow}
+              key={nanoid()}
+            />
+          );
+        })}
+      </Table>
       <ButtonBar
         onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
         disabled={!isRowSelected}
@@ -114,11 +104,11 @@ export const Users = () => {
         </PopupContainer>
       )}
       {isDeletePopupOpened && (
-          <DeletePopup
-            id={selectedRow}
-            toggleDeletePopup={toggleDeletePopup}
-            resetSelectedRow={resetSelectedRow}
-          />
+        <DeletePopup
+          id={selectedRow}
+          toggleDeletePopup={toggleDeletePopup}
+          resetSelectedRow={resetSelectedRow}
+        />
       )}
       {isEditPopupOpened && (
         <PopupContainer togglePopup={toggleEditPopup}>

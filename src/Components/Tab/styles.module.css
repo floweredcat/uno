@@ -29,3 +29,13 @@
   position: relative;
   top: -1px;
 }
+
+@media screen and (max-width: 1360px) {
+  .title {
+    display: none;
+  }
+
+  .tab {
+    justify-content: center;
+  }
+}

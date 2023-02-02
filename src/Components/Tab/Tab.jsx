@@ -12,7 +12,7 @@ export const Tab = ({title, onClick, isActive, img}) => {
         onClick={onClick}
       >
         <img src={img} alt="" className={styles.tab_icon}></img>
-        <div>{title}</div>
+        <div className={styles.title}>{title}</div>
       </button>
     )
 }

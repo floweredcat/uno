@@ -30,7 +30,7 @@
 }
 
 .header_logoWrapper {
-    width: 312px;
+    width: calc(17.5vw - 24px);
     border-bottom: 1px solid white;
     height: 73px;
     display: flex;
@@ -43,7 +43,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 336px;
+    width: 17.5vw;
     background-image: inherit;
     padding: 0;
     margin: 0;
@@ -114,4 +114,23 @@
     position: absolute;
     bottom: 24px;
     left: 24px;
+}
+
+@media screen and (max-width: 1360px) {
+    .navWrapper {
+        width: 118px;
+    }
+
+    .user {
+        display: none;
+    }
+
+    .header_logoWrapper {
+        width: 94px;
+    }
+    .exitButton {
+        color: rgba(0, 0, 0, 0);
+        background-image: url('./images/exit_to_app.svg');
+        background-repeat: no-repeat;
+    }
 }

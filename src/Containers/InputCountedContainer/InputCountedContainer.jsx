@@ -1,16 +1,24 @@
-import { InputCountedOption } from "../../Components/InputCountedOption/InputCountedOption";
+import { InputCountedOption } from "../../UI/InputCountedOption/InputCountedOption";
 
-export const InputCountedContainer = ({ label, setValue, value, step=1, ...props }) => {
+
+export const InputCountedContainer = ({
+  children,
+  label,
+  setValue,
+  value,
+  step = 1,
+  ...props
+}) => {
   const increment = () => {
-    let newValue = value+step;
-    setValue(newValue)
-  }
+    let newValue = value + step;
+    setValue(newValue);
+  };
   const decrement = () => {
-    let newValue = value-step;
+    let newValue = value - step;
     if (newValue >= 0) {
-      setValue(newValue)
+      setValue(newValue);
     }
-  }
+  };
 
   return (
     <InputCountedOption
@@ -18,8 +26,8 @@ export const InputCountedContainer = ({ label, setValue, value, step=1, ...props
       decrement={decrement}
       label={label}
       value={value}
-      setValue={setValue}
-      {...props}
-    />
+      {...props}>
+        {children}
+    </InputCountedOption>
   );
 };

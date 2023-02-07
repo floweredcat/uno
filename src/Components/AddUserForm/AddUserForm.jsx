@@ -1,15 +1,20 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { ROLES } from "../../constants/Fixtires";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import { FormElem } from "../FormElem/FormElem";
-import { InputPass } from "../InputPass/InputPass";
-import { InputPhone } from "../InputPhone/InputPhone";
-import { InputRadio } from "../InputRadio/InputRadio";
-import { InputText } from "../InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText";
+import { InputPhone } from "../../UI/InputPhone/InputPhone";
+import { InputPass } from "../../UI/InputPass/InputPass";
+import { InputRadio } from "../../UI/InputRadio/InputRadio";
 import styles from "./styles.module.css";
 import { isEmpty, isEmail, isMobilePhone, isAlpha } from "validator";
+
+const ROLES = {
+  admin: { content: "admin", id: 1 },
+  user: { content: "user", id: 3 },
+  master: { content: "master", id: 2 },
+};
 
 export const AddUserForm = ({ togglePopup }) => {
   const dispatch = useDispatch();
@@ -58,7 +63,11 @@ export const AddUserForm = ({ togglePopup }) => {
         isValid: false,
         errorMessage: "Неверный формат почты",
       });
-    } else if (!isMobilePhone(phone) || phone.length < 10 || phone.length > 14) {
+    } else if (
+      !isMobilePhone(phone) ||
+      phone.length < 10 ||
+      phone.length > 14
+    ) {
       setValidate({
         isValid: false,
         errorMessage: "Неверный номер телефона",

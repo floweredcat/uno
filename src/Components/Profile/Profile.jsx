@@ -8,8 +8,8 @@ import {
   selectUserPasswordSuccess,
 } from "../../store/Auth/selectors";
 import classNames from "classnames";
-import { InputPass } from "../InputPass/InputPass";
 import {FormElem} from '../FormElem/FormElem'
+import { InputPass } from "../../UI/InputPass/InputPass";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -91,7 +91,6 @@ export const Profile = () => {
           label={"Повторите пароль"}
           setValue={(e) => setForm({ ...form, repeat: e })}
         />
-        
         <button
           type="submit"
           onClick={(e) => onSubmit(e)}

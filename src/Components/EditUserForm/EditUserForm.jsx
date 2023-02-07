@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserDataById } from "../../store/Users/selectors";
 import { editUser } from "../../store/Users/Thunks/editUser";
+import { InputPhone } from "../../UI/InputPhone/InputPhone";
+import { InputText } from "../../UI/InputText/InputText";
 import { FormElem } from "../FormElem/FormElem";
-import { InputPhone } from "../InputPhone/InputPhone";
-import { InputText } from "../InputText/InputText";
 import styles from "./styles.module.css";
 
 export const EditUserForm = ({ togglePopup, id, resetSelectedRow }) => {

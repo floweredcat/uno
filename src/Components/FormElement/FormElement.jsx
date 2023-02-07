@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +9,8 @@ import {
 import logo from "./images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
-import { InputText } from "../InputText/InputText";
-import { InputPassWithHide } from "../InputPassWithHide/InputPassWithHide"
+import { InputText } from "../../UI/InputText/InputText";
+import {InputPassWithHide} from "../../UI/InputPassWithHide/InputPassWithHide"
 
 export const FormElement = () => {
   const [email, setEmail] = useState("");

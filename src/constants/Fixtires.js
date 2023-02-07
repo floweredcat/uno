@@ -14,12 +14,6 @@ export const USER_HEADERS = [
   "Баланс",
 ];
 
-export const ROLES = {
-  admin: { content: "admin", id: 1 },
-  user: { content: "user", id: 3 },
-  master: { content: "master", id: 2 },
-};
-
 export const OBJECT_HEADERS = [
   "ID",
   "Название",

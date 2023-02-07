@@ -11,7 +11,8 @@ import endtimerIcon from "./images/endtimer.svg";
 import { getLeftMonth } from "../../helpers/getLeftMonth";
 import { EditPackageForm } from "../EditPackageForm/EditPackageForm";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
-import { separateAmount } from "../../helpers/separateAmount"
+import { separateAmount } from "../../helpers/separateAmount";
+import { InputCountedOption } from "../../UI/InputCountedOption/InputCountedOption";
 
 export const Object = ({ toggleObject, id }) => {
   const [isPopupOpened, setIsPopupOpened] = useState(false);
@@ -20,12 +21,23 @@ export const Object = ({ toggleObject, id }) => {
     setIsPopupOpened(!isPopupOpened);
   };
 
-  const leftTime = objectData
+  const [form, setForm] = useState({
+    stantion: 1,
+    storage: false,
+    calculation: false,
+    tarifiation: false,
+    waiter: 0,
+    qr: 0,
+  });
+
+  const { months, daysLeft } = objectData
     ? getLeftMonth({ start: objectData?.STARTDT, end: objectData?.ENDDT })
     : null;
 
+  const packageTimeLeft = months ? months : "" + daysLeft ? " " + daysLeft : "";
+
   if (!objectData) {
-    return null
+    return null;
   }
 
   return (
@@ -37,13 +49,11 @@ export const Object = ({ toggleObject, id }) => {
         </div>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Дата создания</h2>
-          <p className={styles.content}>
-            {objectData.DT}
-          </p>
+          <p className={styles.content}>{objectData.DT}</p>
         </div>
         <div className={styles.info_element}>
           <h2 className={styles.title}>Специалист</h2>
-          <p className={styles.content}>{objectData?.WORKER}</p>
+          <p className={styles.content}>{objectData.WORKER}</p>
         </div>
       </div>
       <div className={classNames(styles.info, styles.objects_element)}>
@@ -73,52 +83,57 @@ export const Object = ({ toggleObject, id }) => {
         </div>
       </div>
       <div className={classNames(styles.object_info, styles.objects_element)}>
-        <div className={styles.info_element}>
-          <h2 className={styles.title}>Пакет</h2>
-          <p className={styles.object_name}>{objectData?.PAKET}</p>
-        </div>
-        <div className={styles.object_radios}>
-          <div className={styles.object_radio}>
-            <h2 className={styles.title}>Front</h2>
-            <div className={styles.radio_indicator}>2</div>
-          </div>
-          <div className={styles.object_radio}>
-            <h2 className={styles.title}>Тарификация</h2>
-            <div
-              className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData?.TARIF,
-              })}></div>
-          </div>
-          <div className={styles.object_radio}>
-            <h2 className={styles.title}>Мобильный</h2>
-            <div
-              className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData?.MOB,
-              })}></div>
-          </div>
-          <div className={styles.object_radio}>
-            <h2 className={styles.title}>QR</h2>
-            <div
-              className={classNames(styles.radio_indicator, {
-                [styles.radio_indicator__active]: objectData?.QR,
-              })}></div>
-          </div>
-        </div>
-        <button
-          type="button"
-          className={classNames(styles.button, styles.button_edit)}
-          onClick={() => togglePopup()}>
-          Редактировать пакет
-        </button>
+        <InputCountedOption
+          label={"Станция"}
+          value={form.stantion}
+          required={true}
+        />
+        {form.storage && (
+          <InputCountedOption
+            label={"Склад"}
+            value={form.storage}
+          />
+        )}
+        {form.calculation && (
+          <InputCountedOption
+            label={"Калькуляция"}
+            value={form.calculation}
+          />
+        )}
+        {form.tarifiation && (
+          <InputCountedOption
+            label={"Тарификация"}
+            value={form.tarifiation}
+          />
+        )}
+        {form.waiter !== 0 && (
+          <InputCountedOption
+            label={"Мобильный официант"}
+            value={form.waiter}
+          />
+        )}
+        {form.qr !== 0 && (
+          <InputCountedOption
+            label={"QR меню"}
+            value={form.qr}
+          />
+        )}
       </div>
-      <div className={classNames(styles.info, styles.objects_element)}>
+      <div
+        className={classNames(
+          styles.object_info,
+          styles.info,
+          styles.objects_element
+        )}>
         <div className={styles.info_element}>
           <img
             src={timerIcon}
             alt={timerIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Начало</h2>
-          <p className={styles.content}>{objectData?.STARTDT}</p>
+          <p className={styles.content}>
+            {objectData.STARTDT || "Пакет не активен"}
+          </p>
         </div>
         <div className={styles.info_element}>
           <img
@@ -126,7 +141,9 @@ export const Object = ({ toggleObject, id }) => {
             alt={endtimerIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Конец</h2>
-          <p className={styles.content}>{objectData?.ENDDT}</p>
+          <p className={styles.content}>
+            {objectData.ENDDT || "Пакет не активен"}
+          </p>
         </div>
         <div className={styles.info_element}>
           <img
@@ -134,19 +151,23 @@ export const Object = ({ toggleObject, id }) => {
             alt={timerIcon}
             className={styles.icon}></img>
           <h2 className={styles.title}>Осталось</h2>
-          <p className={styles.content}>
-            {leftTime.months
-              ? leftTime.months
-              : "" + leftTime.leftDays
-              ? " " + leftTime.leftDays
-              : ""}
-          </p>
+          <p className={styles.content}>{packageTimeLeft}</p>
         </div>
       </div>
-      <div className={classNames(styles.status, styles.objects_element)}>
+      <div
+        className={classNames(
+          styles.object_info,
+          styles.status,
+          styles.objects_element
+        )}>
         <div className={styles.status_element}>
           <h2 className={styles.title}>Статус</h2>
-          <div className={styles.status_info}>Активен</div>
+          <div
+            className={classNames(styles.status_info, {
+              [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
+            })}>
+            {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
+          </div>
         </div>
         <div className={styles.status_element}>
           <h2 className={styles.title}>Сумма</h2>
@@ -161,10 +182,19 @@ export const Object = ({ toggleObject, id }) => {
         onClick={() => toggleObject()}>
         Назад
       </button>
+      <button
+        type="button"
+        className={classNames(styles.button, styles.button_edit)}
+        onClick={() => togglePopup()}>
+        Редактировать пакет
+      </button>
       {isPopupOpened && (
-        <PopupContainer
-          togglePopup={togglePopup}>
-          <EditPackageForm togglePopup={togglePopup} />
+        <PopupContainer togglePopup={togglePopup}>
+          <EditPackageForm
+            togglePopup={togglePopup}
+            form={form}
+            setForm={setForm}
+          />
         </PopupContainer>
       )}
     </div>

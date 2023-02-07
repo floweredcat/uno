@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFranshises,
-  selectFranshisesIds,
 } from "../../store/Franshises/selectors";
 import { addObject } from "../../store/Objects/Thunks/addObject";
 import { FormElem } from "../FormElem/FormElem";
-import { InputPhone } from "../InputPhone/InputPhone";
-import { InputText } from "../InputText/InputText";
 import styles from "./styles.module.css";
 import { isEmpty, isMobilePhone } from "validator";
-import { InputSelect } from "../InputSelect/InputSelect";
+import {InputText} from "../../UI/InputText/InputText"
+import {InputSelect} from "../../UI/InputSelect/InputSelect"
+import {InputPhone} from "../../UI/InputPhone/InputPhone"
 
 export const AddObjectForm = ({ togglePopup }) => {
   const dispatch = useDispatch();

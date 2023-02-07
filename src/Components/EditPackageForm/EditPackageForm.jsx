@@ -2,18 +2,10 @@ import classNames from "classnames";
 import { useState } from "react";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
 import { FormElem } from "../FormElem/FormElem";
+import { Toggle } from "../Toggle/Toggle";
 import styles from "./styles.module.css";
-import validator from "validator";
 
-export const EditPackageForm = ({ togglePopup }) => {
-  const [form, setForm] = useState({
-    stantion: 1,
-    storage: 0,
-    calculation: 0,
-    tarifiation: 0,
-    waiter: 0,
-    qr: 0,
-  });
+export const EditPackageForm = ({ togglePopup, form, setForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,44 +26,62 @@ export const EditPackageForm = ({ togglePopup }) => {
         />
         <InputCountedContainer
           label={"Склад"}
-          value={form.storage}
-          setValue={(val) => {
-            setForm({ ...form, storage: val });
-          }}
-        />
+          value={form.storage}>
+          <Toggle
+            checked={form.storage}
+            setValue={() => {
+              setForm({ ...form, storage: !form.storage });
+            }}
+          />
+        </InputCountedContainer>
         <InputCountedContainer
           label={"Калькуляция"}
-          value={form.calculation}
-          setValue={(val) => {
-            setForm({ ...form, calculation: val });
-          }}
-        />
+          value={form.calculation}>
+          <Toggle
+            checked={form.calculation}
+            setValue={() => {
+              setForm({ ...form, calculation: !form.calculation });
+            }}
+          />
+        </InputCountedContainer>
         <InputCountedContainer
           label={"Тарификация"}
-          value={form.tarifiation}
-          setValue={(val) => {
-            setForm({ ...form, tarifiation: val });
-          }}
-        />
-        <div className={classNames(styles.exestintion_container, {
-          [styles.exestintion_container__disable]: form.waiter === 0,
-        })} >
-        <InputCountedContainer
-          label={"Мобильный официант"}
-          value={form.waiter}
-          setValue={(val) => {
-            setForm({ ...form, waiter: val });
-          }}
-        />
-        {form.waiter > 0 && <div className={styles.exestintion}>
-        <h4 className={styles.subtitle}>Период оплаты</h4>
-        <button className={classNames(styles.button_period, {
-          [styles.button_period__active]: true,
-        })}>Month</button>
-        <button className={classNames(styles.button_period, {
-          [styles.button_period__active]: false,
-        })}>Year</button>
-        </div>}
+          value={form.tarifiation}>
+          <Toggle
+            checked={form.tarifiation}
+            setValue={() => {
+              setForm({ ...form, tarifiation: !form.tarifiation });
+            }}
+          />
+        </InputCountedContainer>
+        <div
+          className={classNames(styles.exestintion_container, {
+            [styles.exestintion_container__disable]: form.waiter === 0,
+          })}>
+          <InputCountedContainer
+            label={"Мобильный официант"}
+            value={form.waiter}
+            setValue={(val) => {
+              setForm({ ...form, waiter: val });
+            }}
+          />
+          {form.waiter > 0 && (
+            <div className={styles.exestintion}>
+              <h4 className={styles.subtitle}>Период оплаты</h4>
+              <button
+                className={classNames(styles.button_period, {
+                  [styles.button_period__active]: true,
+                })}>
+                Месяц
+              </button>
+              <button
+                className={classNames(styles.button_period, {
+                  [styles.button_period__active]: false,
+                })}>
+                Год
+              </button>
+            </div>
+          )}
         </div>
         <InputCountedContainer
           label={"QR Меню"}

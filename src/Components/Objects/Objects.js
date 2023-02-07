@@ -14,12 +14,12 @@ import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePric
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 import { ButtonBar } from "../ButtonsBar/ButtonsBar";
 import { AddObjectForm } from "../AddObjectForm/AddObjectForm";
-import { SearchBar } from "../SearchBar/SearchBar";
 import { ObjectDataContainer } from "../../Containers/ObjectDataContainer/ObjectDataContainer";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { OBJECT_HEADERS } from "../../constants/Fixtires";
 import { Table } from "../Table/Table";
+import { SearchBar } from "../../UI/SearchBar/SearchBar";
 
 export const Objects = () => {
   const dispatch = useDispatch();

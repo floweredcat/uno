@@ -29,7 +29,8 @@
 .info:nth-child(4) {
   padding-left: 44px;
   justify-content: flex-start;
-  gap: 90px
+  column-gap: 90px;
+  row-gap: 24px;
 }
 
 .info:nth-child(4) .info_element {
@@ -44,7 +45,7 @@
 .icon {
   position: absolute;
   left: -20px;
-  height: 80%;
+  height: 24px;
   top: 4px;
 }
 
@@ -94,9 +95,11 @@
 }
 
 .object_info {
-  padding: 80px 24px;
-  flex-direction: column;
-  gap: 24px;
+  padding: 48px 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
 }
 
 .object_radios {
@@ -173,6 +176,10 @@
   font-size: 17px;
   transition: 300ms ease-in-out;
   width: fit-content;
+  align-self: flex-end;
+  position: fixed;
+  bottom: 50px;
+  right: 174px;
 }
 
 .button_edit:disabled {
@@ -203,6 +210,10 @@
   border-radius: 83.2px;
   color: white;
   padding: 12px 50px;
+}
+
+.status_info__inactive {
+  background-color: red;
 }
 
 .status_element:last-of-type .status_info{

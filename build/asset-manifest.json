@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.9b3e3782.css",
-    "main.js": "/static/js/main.8fc98e45.js",
+    "main.css": "/static/css/main.2d953891.css",
+    "main.js": "/static/js/main.bf299dbe.js",
     "static/media/Inter-Bold.ttf": "/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
     "static/media/Inter-Regular.ttf": "/static/media/Inter-Regular.e89cb19905e7db5591b0.ttf",
     "static/media/Group 179.svg": "/static/media/Group 179.76c0b73f77927639454a.svg",
+    "static/media/exit_to_app.svg": "/static/media/exit_to_app.c775fe6c2b8064ed453e.svg",
     "static/media/timer.svg": "/static/media/timer.ea24bd39732e4f0903e3173a3956e7a9.svg",
     "static/media/Users.svg": "/static/media/Users.c8ee78d41ebd28d5a068eabedeef620b.svg",
     "static/media/bi_eye-slash-fill.svg": "/static/media/bi_eye-slash-fill.48cbafe6c8e4cd0de321.svg",
@@ -23,11 +24,11 @@
     "static/media/partner.svg": "/static/media/partner.c3f8ab701775cc2e26336e2920a41f06.svg",
     "static/media/incremet.svg": "/static/media/incremet.c31e19d10867b08b35ec.svg",
     "static/media/decrement.svg": "/static/media/decrement.4311f13f65cee6b9cf00.svg",
-    "main.9b3e3782.css.map": "/static/css/main.9b3e3782.css.map",
-    "main.8fc98e45.js.map": "/static/js/main.8fc98e45.js.map"
+    "main.2d953891.css.map": "/static/css/main.2d953891.css.map",
+    "main.bf299dbe.js.map": "/static/js/main.bf299dbe.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b3e3782.css",
-    "static/js/main.8fc98e45.js"
+    "static/css/main.2d953891.css",
+    "static/js/main.bf299dbe.js"
   ]
 }

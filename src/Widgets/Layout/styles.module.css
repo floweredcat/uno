@@ -1,0 +1,99 @@
+.link {
+    display: block;
+    appearance: none;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  
+  .button {
+    appearance: none;
+    margin: auto 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .header {
+    margin: 0;
+    background-color: inherit;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    top: 0;
+    left: 17.5vw;
+    right: 0;
+    height: 24px;
+    padding: 25px;
+    width: fit-content;
+    transition: all 200ms ease;
+    border-left: 1px solid white;
+  }
+  
+  .header_moved {
+    left: 0;
+    transition: all 200ms ease;
+    border-left: none;
+  }
+  
+  .header_button {
+    background-image: url('../../assets/images/keyboard_tab.png');
+    height: 24px;
+    width: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: inherit;
+  }
+  
+  .content {
+    background-color: white;
+    width: 82.5vw;
+    margin: 0;
+    position: absolute;
+    top: 73px;
+    right: 0;
+    left: 17.5vw;
+    height: calc(100vh - 73px);
+    overflow-x: hidden;
+    transition: all 200ms ease;
+    display: flex;
+    z-index: 5;
+  }
+  
+  .content::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .content_moved {
+    left: 0;
+    transition: all 200ms ease;
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 1360px) {
+    .header {
+      left: 118px;
+    }
+  
+    .content {
+      width: calc(100vw - 118px);
+      left: 118px;
+    }
+  
+    .content_moved {
+      left: 0;
+      transition: all 200ms ease;
+      width: 100%;
+    }
+  
+    .header_moved {
+      left: 0;
+      transition: all 200ms ease;
+      border-left: none;
+    }
+  }
+  
+  

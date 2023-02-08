@@ -6,16 +6,16 @@ import {
   selectUserErrorMessage,
   selectUserAuthenticated,
 } from "../../store/Auth/selectors";
-import logo from "./images/logo.png";
+import logo from "../../assets/images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
 import { InputText } from "../../UI/InputText/InputText";
-import {InputPassWithHide} from "../../UI/InputPassWithHide/InputPassWithHide"
+import { InputPassWithHide } from "../../UI/InputPassWithHide/InputPassWithHide";
+import { isEmail } from "validator";
 
 export const FormElement = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [validate, setValidate] = useState({
     isValid: true,
     errorMessage: " ",
@@ -27,25 +27,15 @@ export const FormElement = () => {
   const user = localStorage.userId;
   useEffect(() => {
     if (user) {
-      navigate("/cabinet");
+      navigate("/users");
     }
     setValidate({ ...validate, isValid: true });
   }, [isSuccessAuth]);
 
   const handleValidate = () => {
-    let lastAtPos = email.lastIndexOf("@");
-    let lastDotPos = email.lastIndexOf(".");
     if (!email || !password) {
       setValidate({ isValid: false, errorMessage: "Введите логин и пароль!" });
-    } else if (
-      !(
-        lastAtPos < lastDotPos &&
-        lastAtPos > 0 &&
-        email.indexOf("@@") === -1 &&
-        lastDotPos > 2 &&
-        email.length - lastDotPos > 2
-      )
-    ) {
+    } else if (!isEmail(email)) {
       setValidate({
         isValid: false,
         errorMessage: "Неверный формат электронной почты",
@@ -66,21 +56,35 @@ export const FormElement = () => {
     handleValidate();
   };
 
-  const togglePasswordVisible = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
   return (
     <div className={styles.login_formWrapper}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <img src={logo} alt="logo" className={styles.form_logo} />
-        <InputText label={"Логин"} value={email} setValue={setEmail} />
-        <InputPassWithHide label={"Пароль"} value={password} setValue={setPassword} />
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}>
+        <img
+          src={logo}
+          alt="logo"
+          className={styles.form_logo}
+        />
+        <InputText
+          label={"Логин"}
+          value={email}
+          setValue={setEmail}
+        />
+        <InputPassWithHide
+          label={"Пароль"}
+          value={password}
+          setValue={setPassword}
+        />
         <span className={styles.errorMessage}>{validate.errorMessage}</span>
-        <button className={styles.form_submit} type="submit">
+        <button
+          className={styles.form_submit}
+          type="submit">
           Войти
         </button>
-        <button className={styles.form_forget} type="button">
+        <button
+          className={styles.form_forget}
+          type="button">
           Забыли пароль?
         </button>
       </form>

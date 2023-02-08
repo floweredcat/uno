@@ -2,15 +2,15 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import usersIMG from "./images/person.svg";
-import objectIMG from "./images/domain.svg";
-import profileIMG from "./images/Users.svg";
+import usersIMG from "../../assets/images/person.svg";
+import objectIMG from "../../assets/images/domain.svg";
+import profileIMG from "../../assets/images/Users.svg";
 import { authSliceActions } from "../../store/Auth";
 import { selectUserName } from "../../store/Auth/selectors";
-import { FOLDERS } from "../../constants/Fixtires";
 import { Tab } from "../Tab/Tab";
+import { FOLDERS } from "../../assets/constants/Fixtires";
 
-export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
+export const Menu = ({ asideIsOpened }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let userName = useSelector((state) => selectUserName(state));
@@ -22,12 +22,6 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
     navigate("/");
   };
 
-  const isActive = (folderName) => {
-    if (activeFolder === folderName) {
-      return true;
-    } else return false;
-  };
-
   return (
     <aside
       className={classNames(styles.navWrapper, {
@@ -35,30 +29,27 @@ export const Menu = ({ asideIsOpened, activeFolder, setActiveFolder }) => {
       })}>
       <div className={styles.header_logoWrapper}>
         <div
-          onClick={() => setActiveFolder(FOLDERS.users)}
+          onClick={() => navigate("/users")}
           className={classNames(styles.link, styles.header_link)}></div>
       </div>
       <div className={styles.user}>
-          <div className={styles.user_name}>{userName}</div>
+        <div className={styles.user_name}>{userName}</div>
       </div>
       <nav className={styles.tabs_container}>
         <Tab
-          title={"Пользователи"}
+          title={FOLDERS.users}
           img={usersIMG}
-          onClick={() => setActiveFolder(FOLDERS.users)}
-          isActive={isActive(FOLDERS.users)}
+          link={"/users"}
         />
         <Tab
-          title={"Профиль"}
+          title={FOLDERS.profile}
           img={profileIMG}
-          onClick={() => setActiveFolder(FOLDERS.profile)}
-          isActive={isActive(FOLDERS.profile)}
+          link={"/profile"}
         />
         <Tab
-          title={"Объекты"}
+          title={FOLDERS.objects}
           img={objectIMG}
-          onClick={() => setActiveFolder(FOLDERS.objects)}
-          isActive={isActive(FOLDERS.objects)}
+          link={"/objects"}
         />
       </nav>
       <button

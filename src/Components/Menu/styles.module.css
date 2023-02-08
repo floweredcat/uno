@@ -24,7 +24,7 @@
 .header_link {
     width: 70px;
     height: 24px;
-    background-image: url('./images/Group\ 179.svg');
+    background-image: url('../../assets/images/Group\ 179.svg');
     background-position: center;
     background-size: cover;
 }
@@ -130,7 +130,7 @@
     }
     .exitButton {
         color: rgba(0, 0, 0, 0);
-        background-image: url('./images/exit_to_app.svg');
+        background-image: url('../../assets/images/exit_to_app.svg');
         background-repeat: no-repeat;
     }
 }

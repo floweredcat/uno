@@ -1,12 +1,14 @@
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import { getDiffDates } from "../../Components/UserData/helpers/getDiffDates";
+import { useNavigate } from "react-router-dom";
 import { UserData } from "../../Components/UserData/UserData";
+import { getDiffDates } from "../../helpers/getDiffDates";
 import { separateAmount } from "../../helpers/separateAmount";
 import { selectObjectById } from "../../store/Objects/selectors";
 import styles from "./styles.module.css";
 
 export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
+  const navigate = useNavigate()
   const object = useSelector((state) => selectObjectById(state, { id }));
   const data = [
     object.IDSRV,
@@ -18,7 +20,7 @@ export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
 
-  const diffDates = getDiffDates({ start: object.STARTDT, end: object.ENDDT })
+  const diffDates = getDiffDates({ start: object.STARTDT, end: object.ENDDT });
 
   const getStyleByLeftMonths = () => {
     if (diffDates < 1) {
@@ -31,17 +33,19 @@ export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
       return styles.green;
     }
   };
-  
+
   if (!object.NAME.toLowerCase().includes(filter.name.toLowerCase())) {
-    return null
+    return null;
   }
 
   return (
     <tr
       className={classNames(styles.table_row, getStyleByLeftMonths())}
-      onDoubleClick={() => onclick(data[0])}
-    >
-      <UserData data={data} selectedRow={selectedRow} />
+      onDoubleClick={() => navigate(`/objects/${id}`)}>
+      <UserData
+        data={data}
+        selectedRow={selectedRow}
+      />
     </tr>
   );
 };

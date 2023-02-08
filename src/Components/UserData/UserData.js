@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 export const UserData = ({ data }) => {
   return data.map((el, idx) => {
-    if (idx === data.length - 1) {
+    if (idx === 6) {
       return (
         <td
           key={nanoid()}
@@ -14,7 +14,7 @@ export const UserData = ({ data }) => {
         </td>
       );
     }
-    if ([0, 3, 4, data.length - 1].includes(idx)) {
+    if ([0, 3, 4, data.length -1].includes(idx)) {
       return (
         <td
           key={nanoid()}

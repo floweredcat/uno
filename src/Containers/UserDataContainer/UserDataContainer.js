@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { selectUserDataById } from "../../store/Users/selectors";
 import { separateAmount } from "../../helpers/separateAmount";
 
-export const UserDataContainer = ({ onclick, id, filter, selectedRow }) => {
+export const UserDataContainer = ({ onclick=()=>{}, onDoubleClick=()=>{}, id, selectedRow }) => {
   const user = useSelector((state) => selectUserDataById(state, { id }));
   const data = [
     user.ID,
@@ -13,12 +13,16 @@ export const UserDataContainer = ({ onclick, id, filter, selectedRow }) => {
     user.EMAIL,
     user.PHONE,
     user.ROLENAME,
-    "FRAN_NAME",
+    user.FRANCH ? user.FRANCH : " - ",
     user.BALANCE
       ? separateAmount(user.BALANCE)
       : 0,
   ];
 
+  const onClickHandler = e => {
+      if (e.detail === 1) onclick(id);
+      if (e.detail === 2) onDoubleClick();
+    }
   
 
   return (
@@ -26,7 +30,7 @@ export const UserDataContainer = ({ onclick, id, filter, selectedRow }) => {
       className={classNames(styles.table_row, {
         [styles.table_row__selected]: selectedRow ? selectedRow === id : false,
       })}
-      onClick={() => onclick(id)}
+      onClick={onClickHandler}
     >
       <UserData data={data} selectedRow={selectedRow} />
     </tr>

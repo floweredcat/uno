@@ -1,0 +1,153 @@
+.objects {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
+  z-index: 99;
+}
+
+.objects div:nth-child(1) div:nth-child(1) div:nth-child(1) p {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.objects_element {
+  border-bottom: 1px solid #bcbcbc;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.objects_element:last-of-type {
+  border-bottom: none;
+}
+
+.objects_element:first-of-type .info_element {
+  align-self: flex-end;
+}
+.content {
+  color: black;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+
+.object_name {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  padding: 0;
+  margin: 0;
+}
+
+.object_info {
+  padding: 48px 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button_exit {
+  background-color: #0353a4;
+  line-height: 36px;
+  font-family: "Inter";
+  padding: 0 24px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  transition: 300ms ease-in-out;
+  width: fit-content;
+  align-self: flex-end;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+
+.button_edit {
+  background-color: #0353a4;
+  line-height: 36px;
+  font-family: "Inter";
+  padding: 0 24px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  transition: 300ms ease-in-out;
+  width: fit-content;
+  align-self: flex-end;
+  position: fixed;
+  bottom: 50px;
+  right: 174px;
+}
+
+.button_edit:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.button_edit:disabled:hover {
+  cursor: default;
+  opacity: 1;
+}
+
+.button_edit:hover,
+.button_exit:hover {
+  opacity: 0.7;
+  transition: 300ms ease-in-out;
+}
+
+.status {
+  justify-content: flex-start;
+  gap: 36px;
+  margin-top: 12px;
+}
+
+.status_info {
+  font-size: 24px;
+  line-height: 29px;
+  background-color: #00bb1e;
+  border-radius: 83.2px;
+  color: white;
+  padding: 12px 50px;
+}
+
+.status_info__inactive {
+  background-color: red;
+}
+
+.status_element:last-of-type .status_info {
+  background-color: #0353a4;
+}
+
+.status_element {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tableTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  margin-left: 24px;
+}

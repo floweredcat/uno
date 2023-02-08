@@ -3,11 +3,9 @@ import styles from './styles.module.css'
 
 export const Table = ({children}) => {
     return (
-        <table className={styles.table}>
+        <table className={children[0].props?.headers.length === 5 ? styles.table_lite : styles.table}>
             <thead className={styles.table_header}>
-              <tr className={styles.table_row}>
                 {children[0]}
-              </tr>
             </thead>
             <tbody className={styles.table_content}>
               {children[1]}

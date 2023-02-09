@@ -3,7 +3,7 @@ import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 import { selectUserDataById } from "../../store/Users/selectors";
-import { separateAmount } from "../../helpers/separateAmount";
+import { separateAmount } from "../../helpers/separateAmount.ts";
 
 export const UserDataContainer = ({ onclick=()=>{}, onDoubleClick=()=>{}, id, selectedRow }) => {
   const user = useSelector((state) => selectUserDataById(state, { id }));

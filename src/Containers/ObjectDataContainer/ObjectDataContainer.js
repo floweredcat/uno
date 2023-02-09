@@ -2,13 +2,13 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../../Components/UserData/UserData";
-import { getDiffDates } from "../../helpers/getDiffDates";
-import { separateAmount } from "../../helpers/separateAmount";
+import { getDiffDates } from "../../helpers/getDiffDates.ts";
+import { separateAmount } from "../../helpers/separateAmount.ts";
 import { selectObjectById } from "../../store/Objects/selectors";
 import styles from "./styles.module.css";
 
 export const ObjectDataContainer = ({ onclick, id, filter, selectedRow }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const object = useSelector((state) => selectObjectById(state, { id }));
   const data = [
     object.IDSRV,

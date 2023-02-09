@@ -16,6 +16,7 @@ import { EditUserForm } from "../../Components/EditUserForm/EditUserForm";
 import { Table } from "../../Components/Table/Table";
 import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import {DeletePopup} from "../../Components/DeletePopup/DeletePopup"
+import { useNavigate } from "react-router-dom";
 
 const USER_HEADERS = [
   "#",
@@ -28,6 +29,7 @@ const USER_HEADERS = [
 ];
 
 export const Users = () => {
+  const navigate = useNavigate( )
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useSingleEffect(() => {
@@ -92,11 +94,12 @@ export const Users = () => {
               </th>
             );
           })}
-        {usersIds?.map((el) => {
+        {usersIds?.map((id) => {
           return (
             <UserDataContainer
               onclick={toggleSelectedRow}
-              id={el}
+              onDoubleClick={() => navigate(`/users/${id}`)}
+              id={id}
               selectedRow={selectedRow}
               key={nanoid()}
             />

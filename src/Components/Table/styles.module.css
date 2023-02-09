@@ -26,6 +26,12 @@ thead,
 tbody,
 tr {
   display: contents;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; /* disable selectable labels */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 th,

@@ -5,6 +5,7 @@ import { Menu } from "../../Components/Menu/Menu";
 import { Object } from "../../Pages/Object/Object";
 import { Objects } from "../../Pages/Objects/Objects";
 import { Profile } from "../../Pages/Profile/Profile";
+import { User } from "../../Pages/User/User";
 import { Users } from "../../Pages/Users/Users";
 import styles from "./styles.module.css";
 
@@ -38,23 +39,27 @@ export const Layout = () => {
           [styles.content_moved]: !asideIsOpened,
         })}>
         <Routes>
-                <Route
-                  path="/users"
-                  element={<Users />}
-                />
-                <Route
-                  path="/profile"
-                  element={<Profile />}
-                />
-                <Route
-                  path="/objects"
-                  element={<Objects />}
-                />
-                <Route
-                  path="/objects/:id"
-                  element={<Object />}
-                />
-              </Routes>
+          <Route
+            path="/users"
+            element={<Users />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile />}
+          />
+          <Route
+            path="/objects"
+            element={<Objects />}
+          />
+          <Route
+            path="/objects/:id"
+            element={<Object />}
+          />
+          <Route
+            path="users/:id"
+            element={<User />}
+          />
+        </Routes>
       </section>
     </div>
   );

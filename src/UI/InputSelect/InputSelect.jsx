@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Option } from "../Option/Option";
+import { Option } from "../Option/Option.tsx";
 import styles from "./styles.module.css";
 
 export const InputSelect = ({ mapValues, setForm, size = 1, label, value }) => {

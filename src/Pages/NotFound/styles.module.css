@@ -1,0 +1,45 @@
+.wrapper {
+  background-image: url(../../assets/images/404_background.png);
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+}
+
+.wrapper h2 {
+  font-weight: 700;
+  font-size: 500px;
+  line-height: 500px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 42.167px;
+  line-height: 51px;
+  color: #120d07;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  background-color: #0353a4;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+  color: #ffffff;
+  padding: 20px 30px;
+  appearance: none;
+  text-decoration: none;
+}

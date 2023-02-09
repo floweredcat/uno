@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2d953891.css",
-    "main.js": "/static/js/main.bf299dbe.js",
+    "main.css": "/static/css/main.1c72888f.css",
+    "main.js": "/static/js/main.de76a56b.js",
     "static/media/Inter-Bold.ttf": "/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
     "static/media/Inter-Regular.ttf": "/static/media/Inter-Regular.e89cb19905e7db5591b0.ttf",
     "static/media/Group 179.svg": "/static/media/Group 179.76c0b73f77927639454a.svg",
@@ -20,15 +20,14 @@
     "static/media/add.svg": "/static/media/add.f8a9a3affb56df7d082c490b6aa3f964.svg",
     "static/media/phone.svg": "/static/media/phone.b3c160f012b7c3b6d93fa3cb80b041f5.svg",
     "static/media/person.svg": "/static/media/person.7b25b8bb5575442d6078fd9c4e6ad1f0.svg",
-    "static/media/radio_active.svg": "/static/media/radio_active.77ff79fd24decb78ac25.svg",
     "static/media/partner.svg": "/static/media/partner.c3f8ab701775cc2e26336e2920a41f06.svg",
     "static/media/incremet.svg": "/static/media/incremet.c31e19d10867b08b35ec.svg",
     "static/media/decrement.svg": "/static/media/decrement.4311f13f65cee6b9cf00.svg",
-    "main.2d953891.css.map": "/static/css/main.2d953891.css.map",
-    "main.bf299dbe.js.map": "/static/js/main.bf299dbe.js.map"
+    "main.1c72888f.css.map": "/static/css/main.1c72888f.css.map",
+    "main.de76a56b.js.map": "/static/js/main.de76a56b.js.map"
   },
   "entrypoints": [
-    "static/css/main.2d953891.css",
-    "static/js/main.bf299dbe.js"
+    "static/css/main.1c72888f.css",
+    "static/js/main.de76a56b.js"
   ]
 }

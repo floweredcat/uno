@@ -8,9 +8,10 @@ import profileIMG from "../../assets/images/Users.svg";
 import { authSliceActions } from "../../store/Auth";
 import { selectUserName } from "../../store/Auth/selectors";
 import { Tab } from "../Tab/Tab";
-import { FOLDERS } from "../../assets/constants/Fixtires";
+import { FOLDERS, ROUTES } from "../../assets/constants/Fixtires";
 
 export const Menu = ({ asideIsOpened }) => {
+  const userAccess = localStorage.userIdAccess;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let userName = useSelector((state) => selectUserName(state));
@@ -19,7 +20,7 @@ export const Menu = ({ asideIsOpened }) => {
   }
   const logout = () => {
     dispatch(authSliceActions.logout());
-    navigate("/");
+    navigate(ROUTES.auth);
   };
 
   return (
@@ -29,18 +30,18 @@ export const Menu = ({ asideIsOpened }) => {
       })}>
       <div className={styles.header_logoWrapper}>
         <div
-          onClick={() => navigate("/users")}
+          onClick={() => navigate(userAccess != 3 ? ROUTES.users : ROUTES.objects)}
           className={classNames(styles.link, styles.header_link)}></div>
       </div>
       <div className={styles.user}>
         <div className={styles.user_name}>{userName}</div>
       </div>
       <nav className={styles.tabs_container}>
-        <Tab
+        {userAccess != 3 && <Tab
           title={FOLDERS.users}
           img={usersIMG}
           link={"/users"}
-        />
+        />}
         <Tab
           title={FOLDERS.profile}
           img={profileIMG}

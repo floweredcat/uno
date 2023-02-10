@@ -3,27 +3,15 @@ import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 import { selectUserDataById } from "../../store/Users/selectors";
-import { separateAmount } from "../../helpers/separateAmount.ts";
+import { useUserData } from "./hooks/useUserData";
 
 export const UserDataContainer = ({ onclick=()=>{}, onDoubleClick=()=>{}, id, selectedRow }) => {
   const user = useSelector((state) => selectUserDataById(state, { id }));
-  const data = [
-    user.ID,
-    user.NAME,
-    user.EMAIL,
-    user.PHONE,
-    user.ROLENAME,
-    user.FRANCH ? user.FRANCH : " - ",
-    user.BALANCE
-      ? separateAmount(user.BALANCE)
-      : 0,
-  ];
-
+  const data = Object.values(useUserData(user))
   const onClickHandler = e => {
       if (e.detail === 1) onclick(id);
       if (e.detail === 2) onDoubleClick();
     }
-  
 
   return (
     <tr

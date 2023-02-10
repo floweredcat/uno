@@ -8,22 +8,18 @@ import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { InputPass } from "../../UI/InputPass/InputPass";
 import { InputRadio } from "../../UI/InputRadio/InputRadio";
 import styles from "./styles.module.css";
-import { isEmpty, isEmail, isMobilePhone, isAlpha } from "validator";
-
-const ROLES = {
-  admin: { content: "admin", id: 1 },
-  user: { content: "user", id: 3 },
-  master: { content: "master", id: 2 },
-};
+import { isEmpty, isEmail, isMobilePhone } from "validator";
+import { ROLES } from "../../assets/constants/Fixtires";
 
 export const AddUserForm = ({ togglePopup }) => {
+  const { userId, userIdAccess } = localStorage;
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [pass, setPass] = useState("");
-  const [role, setRole] = useState(ROLES.user.id);
+  const [role, setRole] = useState(ROLES[0].id);
   const initialValidate = {
     validate: undefined,
     errorMessage: " ",
@@ -36,7 +32,6 @@ export const AddUserForm = ({ togglePopup }) => {
       resetForm();
     }
   }, [validate.errorMessage]);
-  const userId = localStorage.userId;
 
   const resetForm = () => {
     setCity("");
@@ -44,7 +39,7 @@ export const AddUserForm = ({ togglePopup }) => {
     setName("");
     setPass("");
     setPhone("");
-    setRole(ROLES.user.id);
+    setRole(ROLES[0].id);
   };
   const handleValidate = () => {
     if (
@@ -109,27 +104,24 @@ export const AddUserForm = ({ togglePopup }) => {
         label={"Пароль"}
         setValue={setPass}
       />
-      <span className={styles.radios_label}>Выберите роль:</span>
-      <div className={styles.radios_container}>
-        <InputRadio
-          label={ROLES.user.content}
-          value={ROLES.user.id}
-          checked={role === ROLES.user.id}
-          setValue={setRole}
-        />
-        <InputRadio
-          label={ROLES.master.content}
-          value={ROLES.master.id}
-          checked={role === ROLES.master.id}
-          setValue={setRole}
-        />
-        <InputRadio
-          label={ROLES.admin.content}
-          value={ROLES.admin.id}
-          checked={role === ROLES.admin.id}
-          setValue={setRole}
-        />
-      </div>
+      {(
+        <>
+          <span className={styles.radios_label}>Выберите роль:</span>
+          <div className={styles.radios_container}>
+            { ROLES.slice(userIdAccess == 1 ? 0 : userIdAccess).map((el) => {
+              const { content, id } = el;
+              return (
+                <InputRadio
+                  label={content}
+                  value={id}
+                  checked={role === id}
+                  setValue={setRole}
+                />
+              );
+            })}
+          </div>
+        </>
+      )}
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button
         type="submit"

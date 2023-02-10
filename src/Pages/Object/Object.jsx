@@ -3,12 +3,6 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
-import geoIcon from "../../assets/images/geo.svg";
-import partnerIcon from "../../assets/images/partner.svg";
-import phoneIcon from "../../assets/images/phone.svg";
-import timerIcon from "../../assets/images/timer.svg";
-import endtimerIcon from "../../assets/images/endtimer.svg";
-import { getLeftMonth } from "../../helpers/getLeftMonth.ts";
 import { EditPackageForm } from "../../Components/EditPackageForm/EditPackageForm";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { separateAmount } from "../../helpers/separateAmount.ts";
@@ -17,14 +11,16 @@ import { Table } from "../../Components/Table/Table";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { UserData } from "../../Components/UserData/UserData";
 import { ObjectInfoContainer } from "../../Containers/ObjectInfoContainer/ObjectInfoContainer";
-import { ObjectInfoElement } from "../../Components/ObjectInfoElement/ObjectDataElement";
 import { useNavigate, useParams } from "react-router-dom";
+import { useInfoEntities } from "./hooks/useInfoEntities.ts";
+import {ROUTES} from "../../assets/constants/Fixtires"
 
 export const Object = () => {
-  const navigate = useNavigate()
-  const {id} = useParams()
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const objectData = useSelector((state) => selectObjectById(state, { id }));
+  const infoEntities = useInfoEntities(objectData)
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
@@ -38,80 +34,14 @@ export const Object = () => {
     qr: 0,
   });
 
-  const { months, daysLeft } = objectData
-    ? getLeftMonth({ start: objectData?.STARTDT, end: objectData?.ENDDT })
-    : null;
-
-  const packageTimeLeft = months ? months : "" + daysLeft ? " " + daysLeft : "";
-  const infoEntities = [
-    [
-      {
-        img: null,
-        title: "Название",
-        content: objectData?.NAME,
-      },
-      {
-        img: null,
-        title: "Дата создания",
-        content: objectData?.DT,
-      },
-      {
-        img: null,
-        title: "Специалист",
-        content: objectData.WORKER,
-      },
-    ],
-    [
-      {
-        img: geoIcon,
-        title: "Город/Страна",
-        content: objectData?.CITY,
-      },
-      {
-        img: partnerIcon,
-        title: "Партнер",
-        content: "UM System Group",
-      },
-      {
-        img: phoneIcon,
-        title: "Телефон",
-        content: objectData?.PHONE,
-      },
-    ],
-    [
-      {
-        img: timerIcon,
-        title: "Начало",
-        content: objectData.STARTDT || "Пакет не активен",
-      },
-      {
-        img: endtimerIcon,
-        title: "Конец",
-        content: objectData.ENDDT || "Пакет не активен",
-      },
-      {
-        img: timerIcon,
-        title: "Осталось",
-        content: packageTimeLeft,
-      },
-    ],
-  ];
   if (!objectData) {
     return null;
   }
 
   return (
     <div className={styles.objects}>
-      <ObjectInfoContainer>
-        {infoEntities[0].map(el => {
-          return <ObjectInfoElement objectData={el} />
-        })}
-      </ObjectInfoContainer>
-      <ObjectInfoContainer>
-        {infoEntities[1].map(el => {
-          return <ObjectInfoElement objectData={el} />
-        })}
-      </ObjectInfoContainer>
+      <ObjectInfoContainer data={infoEntities[0]} />
+      <ObjectInfoContainer data={infoEntities[1]} />
       <div className={classNames(styles.object_info, styles.objects_element)}>
         <InputCountedOption
           label={"Станция"}
@@ -149,11 +79,7 @@ export const Object = () => {
           />
         )}
       </div>
-      <ObjectInfoContainer>
-        {infoEntities[2].map(el => {
-          return <ObjectInfoElement objectData={el} />
-        })}
-      </ObjectInfoContainer>
+      <ObjectInfoContainer data={infoEntities[2]} />
       <div
         className={classNames(
           styles.object_info,
@@ -179,7 +105,7 @@ export const Object = () => {
       <button
         type="button"
         className={classNames(styles.button, styles.button_exit)}
-        onClick={() => navigate('/objects')}>
+        onClick={() => navigate(ROUTES.objects)}>
         Назад
       </button>
       <button
@@ -208,15 +134,17 @@ export const Object = () => {
             "Списано",
           ]}
         />
-        <UserData
-          data={[
-            "Дата операции",
-            "Пользователь",
-            "Номер операции",
-            "Поступило",
-            "Списано",
-          ]}
-        />
+        <tr className={styles.table_row}>
+          <UserData
+            data={[
+              "Дата операции",
+              "Пользователь",
+              "Номер операции",
+              "Поступило",
+              "Списано",
+            ]}
+          />
+        </tr>
       </Table>
     </div>
   );

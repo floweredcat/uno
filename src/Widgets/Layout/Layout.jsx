@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { ROUTES } from "../../assets/constants/Fixtires";
 import { Menu } from "../../Components/Menu/Menu";
 import { Object } from "../../Pages/Object/Object";
 import { Objects } from "../../Pages/Objects/Objects";
@@ -14,7 +15,7 @@ export const Layout = () => {
   const [asideIsOpened, setAsideIsOpened] = useState(true);
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate(ROUTES.auth);
     }
   }, []);
   const toggleAside = () => {
@@ -40,23 +41,23 @@ export const Layout = () => {
         })}>
         <Routes>
           <Route
-            path="/users"
+            path={ROUTES.users}
             element={<Users />}
           />
           <Route
-            path="/profile"
+            path={ROUTES.profile}
             element={<Profile />}
           />
           <Route
-            path="/objects"
+            path={ROUTES.objects}
             element={<Objects />}
           />
           <Route
-            path="/objects/:id"
+            path={ROUTES.object}
             element={<Object />}
           />
           <Route
-            path="users/:id"
+            path={ROUTES.user}
             element={<User />}
           />
         </Routes>

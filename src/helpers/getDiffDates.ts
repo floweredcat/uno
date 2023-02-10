@@ -3,12 +3,11 @@ interface Dates {
   end: Date;
 }
 
-export const getDiffDates = ({ start, end }: Dates) => {
+export const getDiffInMonths = ({ start, end }: Dates): number => {
   if (!start || !end) {
     return 0;
   }
-  const diff: number = new Date(end).getTime() - new Date(start).getTime();
-  const days: number = diff / 86400000;
-  let months: number = Math.floor(days / 30);
-  return months;
+  const diffInMilliseconds: number = new Date(end).getTime() - new Date(start).getTime();
+  const diffInDays: number = diffInMilliseconds / 86400000;
+  return Math.floor(diffInDays / 30);
 };

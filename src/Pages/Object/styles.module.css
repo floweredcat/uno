@@ -151,3 +151,11 @@
   line-height: 29px;
   margin-left: 24px;
 }
+
+.table_row {
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+}

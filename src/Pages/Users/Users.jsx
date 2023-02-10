@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import styles from "./styles.module.css";
 import { nanoid } from "nanoid";
 import { useState } from "react";
@@ -17,6 +16,8 @@ import { Table } from "../../Components/Table/Table";
 import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import {DeletePopup} from "../../Components/DeletePopup/DeletePopup"
 import { useNavigate } from "react-router-dom";
+import { TableHeader } from "../../Components/TableHeader/TableHeader";
+import { ROUTES } from "../../assets/constants/Fixtires";
 
 const USER_HEADERS = [
   "#",
@@ -82,23 +83,12 @@ export const Users = () => {
   return (
     <div className={styles.users_wrapper}>
       <Table>
-          {USER_HEADERS.map((el) => {
-            return (
-              <th
-                key={nanoid()}
-                className={classNames(
-                  styles.table_cell,
-                  styles.table_cell__header
-                )}>
-                {el}
-              </th>
-            );
-          })}
+        <TableHeader headers={USER_HEADERS} />
         {usersIds?.map((id) => {
           return (
             <UserDataContainer
               onclick={toggleSelectedRow}
-              onDoubleClick={() => navigate(`/users/${id}`)}
+              onDoubleClick={() => navigate(ROUTES.users + `/${id}`)}
               id={id}
               selectedRow={selectedRow}
               key={nanoid()}

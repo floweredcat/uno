@@ -12,8 +12,10 @@ import { useEffect } from "react";
 import { InputText } from "../../UI/InputText/InputText";
 import { InputPassWithHide } from "../../UI/InputPassWithHide/InputPassWithHide";
 import { isEmail } from "validator";
+import { ROUTES } from "../../assets/constants/Fixtires";
 
 export const FormElement = () => {
+  const userIdAccess = localStorage.userIdAccess
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validate, setValidate] = useState({
@@ -27,7 +29,7 @@ export const FormElement = () => {
   const user = localStorage.userId;
   useEffect(() => {
     if (user) {
-      navigate("/users");
+      navigate(userIdAccess != 3 ? ROUTES.users : ROUTES.objects);
     }
     setValidate({ ...validate, isValid: true });
   }, [isSuccessAuth]);

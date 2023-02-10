@@ -16,6 +16,7 @@ export const addObject =
     fetch(url, options)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         if (!data.OK) {
           throw Error(data.error)
         }

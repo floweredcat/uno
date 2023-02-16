@@ -13,7 +13,6 @@ import {InputSelect} from "../../UI/InputSelect/InputSelect"
 import {InputPhone} from "../../UI/InputPhone/InputPhone"
 
 export const AddObjectForm = ({ togglePopup }) => {
-  const userAccess = localStorage.userIdAccess
   const dispatch = useDispatch();
   const initialValidate = {
     validate: undefined,
@@ -76,12 +75,12 @@ export const AddObjectForm = ({ togglePopup }) => {
         label={"Наименование"}
         setValue={(e) => setForm({ ...form, name: e })}
       />
-      {userAccess == "1" && <InputSelect
+      <InputSelect
         mapValues={franshisesMap}
         setForm={(e) => setForm({ ...form, idFran: e })}
         label={"Франшиза"}
         value={form.idFran}
-      />}
+      />
       <InputText
         value={form.orgOwner}
         label={"Имя владельца"}

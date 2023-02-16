@@ -1,7 +1,7 @@
 import { loadUsers } from "./loadUsers";
 
 export const addUser =
-  ({ userId, email, role, name, phone, pass }) =>
+  ({ userId, email, role, name, phone, pass, cities }) =>
   (dispatch) => {
     const options = {
       method: "POST",
@@ -15,8 +15,10 @@ export const addUser =
         phone,
         pas: pass,
         role,
+        cities
       }),
     };
+    console.log(cities)
 
     fetch("https://wsuno.xyz/api/addUser", options)
       .then((res) => res.json())

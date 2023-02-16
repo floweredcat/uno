@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import { FormElem } from "../FormElem/FormElem";
 import { InputText } from "../../UI/InputText/InputText";
@@ -8,26 +8,43 @@ import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { InputPass } from "../../UI/InputPass/InputPass";
 import { InputRadio } from "../../UI/InputRadio/InputRadio";
 import styles from "./styles.module.css";
-import { isEmpty, isEmail, isMobilePhone } from "validator";
 import { ROLES } from "../../assets/constants/Fixtires";
+import { getCityFransheses } from "../../store/CityFranshises/Thunks/getCityFransheses";
+import {
+  selectCityFranshises,
+  selectCityFranshisesIds,
+} from "../../store/CityFranshises/selectors";
+import { InputDataSelect } from "../InputDataList/InputDataSelect";
+import { onSubmit } from "./helpers/onSubmit";
+import { SelectedCity } from "../SelectedCities/SelectedCities";
+import { nanoid } from "nanoid";
 
 export const AddUserForm = ({ togglePopup }) => {
+  const cityFranIds = useSelector((state) => selectCityFranshisesIds(state));
+  const cityFran = useSelector((state) => selectCityFranshises(state));
   const { userId, userIdAccess } = localStorage;
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState([]);
   const [pass, setPass] = useState("");
   const [role, setRole] = useState(ROLES[0].id);
   const initialValidate = {
     validate: undefined,
     errorMessage: " ",
   };
+
+  const availableCities = cityFranIds.filter(el => !city.includes(el))
+
   const [validate, setValidate] = useState(initialValidate);
   useEffect(() => {
+    dispatch(getCityFransheses({ userId }));
+  }, [userId]);
+  useEffect(() => {
     if (validate.errorMessage.length < 5 && phone.length > 8) {
-      dispatch(addUser({ userId, email, role, name, phone, pass }));
+      const cities = Object.values(cityFran).filter(el => city.includes(el.NAME)).map(el => el.ID)
+      dispatch(addUser({ userId, email, role, name, phone, pass, cities }));
       togglePopup();
       resetForm();
     }
@@ -41,44 +58,13 @@ export const AddUserForm = ({ togglePopup }) => {
     setPhone("");
     setRole(ROLES[0].id);
   };
-  const handleValidate = () => {
-    if (
-      isEmpty(email) ||
-      isEmpty(phone) ||
-      isEmpty(city) ||
-      isEmpty(pass) ||
-      isEmpty(name)
-    ) {
-      setValidate({
-        isValid: false,
-        errorMessage: "Пожалуйста, заполните все поля",
-      });
-    } else if (!isEmail(email)) {
-      setValidate({
-        isValid: false,
-        errorMessage: "Неверный формат почты",
-      });
-    } else if (
-      !isMobilePhone(phone) ||
-      phone.length < 10 ||
-      phone.length > 14
-    ) {
-      setValidate({
-        isValid: false,
-        errorMessage: "Неверный номер телефона",
-      });
-    } else setValidate({ isValid: true, errorMessage: "   " });
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    handleValidate();
-  };
 
   return (
     <FormElem
       title={"Добавление пользователя"}
-      onSubmit={onSubmit}>
+      onSubmit={(e) =>
+        onSubmit(e, setValidate, { phone, email, pass, name, city, role })
+      }>
       <InputText
         value={name}
         label={"Наименование"}
@@ -94,21 +80,29 @@ export const AddUserForm = ({ togglePopup }) => {
         label={"Телефон"}
         setValue={setPhone}
       />
-      <InputText
-        value={city}
+      {city.map((id) => 
+          <SelectedCity
+            id={id}
+            key={nanoid()}
+          />
+        )}
+      <InputDataSelect
+        city={city}
+        cityFranIds={cityFranIds}
+        setForm={setCity}
         label={"Город"}
-        setValue={setCity}
+        availableCities={availableCities}
       />
       <InputPass
         value={pass}
         label={"Пароль"}
         setValue={setPass}
       />
-      {(
+      {
         <>
           <span className={styles.radios_label}>Выберите роль:</span>
           <div className={styles.radios_container}>
-            { ROLES.slice(userIdAccess == 1 ? 0 : userIdAccess).map((el) => {
+            {ROLES.slice(userIdAccess == 1 ? 0 : userIdAccess).map((el) => {
               const { content, id } = el;
               return (
                 <InputRadio
@@ -116,12 +110,13 @@ export const AddUserForm = ({ togglePopup }) => {
                   value={id}
                   checked={role === id}
                   setValue={setRole}
+                  key={nanoid()}
                 />
               );
             })}
           </div>
         </>
-      )}
+      }
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button
         type="submit"

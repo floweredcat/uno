@@ -6,7 +6,6 @@ import {
   selectObjectsIsLoading,
 } from "../../../src/store/Objects/selectors";
 import { Table } from "../../Components/Table/Table";
-import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { ObjectDataContainer } from "../../Containers/ObjectDataContainer/ObjectDataContainer";
 import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
@@ -15,6 +14,7 @@ import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
+import { TableHeaderFiltered } from "../../Components/TableHeaderFiltered/TableHeaderFiltered";
 
 const OBJECT_HEADERS = [
   "ID",
@@ -36,10 +36,6 @@ export const Objects = () => {
   }, []);
   const isLoading = useSelector((state) => selectObjectsIsLoading(state));
   const objectsIds = useSelector((state) => selectObjectsIds(state));
-  const [filter, setFilter] = useState({ name: "", city: "" });
-  const setName = (e) => {
-    setFilter({ ...filter, name: e.target.value });
-  };
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
@@ -52,13 +48,11 @@ export const Objects = () => {
     <div className={styles.objects_wrapper}>
       <>
         <Table>
-          <TableHeader headers={OBJECT_HEADERS}
-              handleSearch={setName} filter={filter.name}/>
+          <TableHeaderFiltered headers={OBJECT_HEADERS}/>
           {objectsIds?.map((id) => (
             <ObjectDataContainer
               key={id}
               id={id}
-              filter={filter}
             />
           ))}
         </Table>

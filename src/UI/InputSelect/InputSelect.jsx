@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { Option } from "../Option/Option.tsx";
+import { Option } from "../Option/Option";
 import styles from "./styles.module.css";
 
 export const InputSelect = ({ mapValues, setForm, size = 1, label, value }) => {
@@ -7,7 +7,7 @@ export const InputSelect = ({ mapValues, setForm, size = 1, label, value }) => {
     <div className={styles.input_container}>
       <select
         size={size}
-        id="idFran"
+        id={label}
         className={styles.form_input}
         value={value}
         placeholder=" "
@@ -21,7 +21,7 @@ export const InputSelect = ({ mapValues, setForm, size = 1, label, value }) => {
         ))}
       </select>
       <label
-        htmlFor="idFran"
+        htmlFor={label}
         className={styles.form_label__select}>
         {label}
       </label>

@@ -4,13 +4,16 @@
   -webkit-appearance: none;
   appearance: none;
   height: 47px;
-  width: 384px;
+  width: 374px;
   margin: 0;
-  padding: 0;
+  padding: 0 5px;
   font-family: "Inter";
   font-weight: 400;
   font-size: 15px;
   line-height: 41px;
+  background-color: white;
 }
 
-
+.option:hover {
+  background-color: rgb(212, 212, 212);
+}

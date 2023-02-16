@@ -4,6 +4,8 @@ import { usersSlice } from "./Users";
 import { objectsSlice } from "./Objects";
 import { objectPricesSlice } from "./ObjectPrices";
 import { franshisesSlice } from "./Franshises";
+import { onjectFilterSlice } from "./ObjectFilter";
+import { cityFranshisesSlice } from "./CityFranshises";
 
 const appReducer = combineReducers({
   auth: authSlice.reducer,
@@ -11,6 +13,8 @@ const appReducer = combineReducers({
   objects: objectsSlice.reducer,
   objectsPrices: objectPricesSlice.reducer,
   franshises: franshisesSlice.reducer,
+  objectFilter: onjectFilterSlice.reducer,
+  cityFranshises: cityFranshisesSlice.reducer,
 });
 
 export const store = configureStore({

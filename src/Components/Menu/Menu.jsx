@@ -30,14 +30,14 @@ export const Menu = ({ asideIsOpened }) => {
       })}>
       <div className={styles.header_logoWrapper}>
         <div
-          onClick={() => navigate(userAccess != 3 ? ROUTES.users : ROUTES.objects)}
+          onClick={() => navigate(userAccess != 4 ? ROUTES.users : ROUTES.objects)}
           className={classNames(styles.link, styles.header_link)}></div>
       </div>
       <div className={styles.user}>
         <div className={styles.user_name}>{userName}</div>
       </div>
       <nav className={styles.tabs_container}>
-        {userAccess != 3 && <Tab
+        {userAccess != 4 && <Tab
           title={FOLDERS.users}
           img={usersIMG}
           link={"/users"}

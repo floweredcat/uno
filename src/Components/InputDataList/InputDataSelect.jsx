@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { useState } from "react";
 import styles from "./styles.module.css";
 import { Option } from "../../UI/Option/Option";
+import { SelectedCity } from "../SelectedCities/SelectedCities";
 
 export const InputDataSelect = ({
   setForm,
@@ -23,13 +24,24 @@ export const InputDataSelect = ({
     }
   };
 
+  function deleteCity(item) {
+    const newCityValue = city.filter((el) => el !== item);
+    setForm(newCityValue);
+  }
+
   return (
     <div className={styles.input_container}>
       <div
         onClick={() => toggleIsOpen()}
         onChange={handleChange}
         className={styles.form_input}>
-        {label}
+        {city.map((id) => (
+          <SelectedCity
+            id={id}
+            key={nanoid()}
+            onclick={deleteCity}
+          />
+        ))}
       </div>
       {isOpen && (
         <div
@@ -46,7 +58,12 @@ export const InputDataSelect = ({
             );
           })}
         </div>
-      )}
+      )}{" "}
+      <label
+        htmlFor={label}
+        className={styles.form_label__select}>
+        {label}
+      </label>
     </div>
   );
 };

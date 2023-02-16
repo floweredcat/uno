@@ -35,7 +35,7 @@ export const AddUserForm = ({ togglePopup }) => {
     errorMessage: " ",
   };
 
-  const availableCities = cityFranIds.filter(el => !city.includes(el))
+  const availableCities = cityFranIds.filter((el) => !city.includes(el));
 
   const [validate, setValidate] = useState(initialValidate);
   useEffect(() => {
@@ -43,7 +43,9 @@ export const AddUserForm = ({ togglePopup }) => {
   }, [userId]);
   useEffect(() => {
     if (validate.errorMessage.length < 5 && phone.length > 8) {
-      const cities = Object.values(cityFran).filter(el => city.includes(el.NAME)).map(el => el.ID)
+      const cities = Object.values(cityFran)
+        .filter((el) => city.includes(el.NAME))
+        .map((el) => el.ID);
       dispatch(addUser({ userId, email, role, name, phone, pass, cities }));
       togglePopup();
       resetForm();
@@ -80,12 +82,6 @@ export const AddUserForm = ({ togglePopup }) => {
         label={"Телефон"}
         setValue={setPhone}
       />
-      {city.map((id) => 
-          <SelectedCity
-            id={id}
-            key={nanoid()}
-          />
-        )}
       <InputDataSelect
         city={city}
         cityFranIds={cityFranIds}

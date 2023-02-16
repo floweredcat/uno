@@ -15,7 +15,6 @@
 .popup {
     background-color: white;
     border-radius: 12px;
-    /* padding: 36px 24px; */
     position: relative;
 }
 
@@ -30,7 +29,7 @@
 }
 
 .popup_closeButton {
-  background-image: url("./images/close.svg");
+  background-image: url("../../assets/images/close.svg");
   width: 24px;
   height: 24px;
   position: absolute;

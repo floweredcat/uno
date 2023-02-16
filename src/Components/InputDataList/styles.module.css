@@ -10,10 +10,15 @@
     font-family: "Inter";
     font-weight: 400;
     font-size: 15px;
-    line-height: 41px;
     z-index: 99;
     cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    overflow-x: scroll;
   }
+
+  .form_input::-webkit-scrollbar { width: 0; }
   
   .input_container {
     position: relative;
@@ -35,6 +40,7 @@
 
   .optionContainer {
     position: absolute;
+    top: 46px;
     z-index: 99;
     width: 384px;
     height: 40vh;

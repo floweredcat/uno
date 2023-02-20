@@ -15,18 +15,17 @@ export const addUser =
         phone,
         pas: pass,
         role,
-        cities
+        cities,
       }),
     };
-    console.log(cities)
 
     fetch("https://wsuno.xyz/api/addUser", options)
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {
-          throw Error('Ошибка запроса на сервер')
+          throw Error("Ошибка запроса на сервер");
         }
-        dispatch(loadUsers({userId}))
+        dispatch(loadUsers({ userId }));
       })
       .catch((err) => console.log(err));
   };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { authUserIfUserExist } from "../../store/Auth/Thunks/authUserIfUserExist";
 import {
   selectUserErrorMessage,
@@ -84,11 +84,11 @@ export const FormElement = () => {
           type="submit">
           Войти
         </button>
-        <button
+        <Link to="/forgot"
           className={styles.form_forget}
           type="button">
           Забыли пароль?
-        </button>
+        </Link>
       </form>
     </div>
   );

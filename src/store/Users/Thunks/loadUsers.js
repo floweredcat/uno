@@ -29,7 +29,6 @@ export const loadUsers =
         else throw Error(data.error)
       })
       .catch((err) => {
-        console.log(err)
         dispatch(usersSliceActions.failLoading(err));
       });
   };

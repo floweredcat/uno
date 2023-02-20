@@ -15,6 +15,7 @@ import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 import { TableHeaderFiltered } from "../../Components/TableHeaderFiltered/TableHeaderFiltered";
+import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 
 const OBJECT_HEADERS = [
   "ID",
@@ -40,6 +41,7 @@ export const Objects = () => {
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
+  const resetFilter = () => dispatch(onjectFilterSliceActions.resetFilter());
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -47,8 +49,13 @@ export const Objects = () => {
   return (
     <div className={styles.objects_wrapper}>
       <>
+        <button
+          type="button"
+          onClick={resetFilter}
+          className={styles.reset}
+        >сбросить фильтр</button>
         <Table>
-          <TableHeaderFiltered headers={OBJECT_HEADERS}/>
+          <TableHeaderFiltered headers={OBJECT_HEADERS} />
           {objectsIds?.map((id) => (
             <ObjectDataContainer
               key={id}

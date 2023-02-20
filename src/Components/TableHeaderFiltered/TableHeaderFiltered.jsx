@@ -1,17 +1,17 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
 import styles from "./styles.module.css";
-import { SearchBar } from "../../UI/SearchBar/SearchBar";
-import { useDispatch, useSelector } from "react-redux";
-import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
-import { onjectFilterSliceActions } from "../../store/ObjectFilter";
+import { useSelector } from "react-redux";
+import { selectObjectData } from "../../store/Objects/selectors";
+import { SearchBarContainer } from "../../Containers/SearchBarContainer/SearchBarContainer";
+import { SelectHeaderContainer } from "../../Containers/SelectHeaderContainer/SelectHeaderContainer";
 
 export const TableHeaderFiltered = ({ headers }) => {
-  const dispatch = useDispatch();
-  const filters = useSelector((state) => selectObjectFilters(state));
+  const objects = useSelector((state) => selectObjectData(state));
+  const availableCityes = Array.from(
+    new Set(Object.values(objects).map((el) => el.CITY))
+  );
 
-  const handleSearch = (e, name) =>
-    dispatch(onjectFilterSliceActions.setFilter([e, name]));
   return (
     <tr className={styles.table_row}>
       {headers.map((el, idx) => {
@@ -24,16 +24,14 @@ export const TableHeaderFiltered = ({ headers }) => {
                   styles.table_cell,
                   styles.table_cell__header
                 )}>
-                <SearchBar
+                <SearchBarContainer
                   placeholder={el}
-                  handleSearch={handleSearch}
-                  filter={filters.NAME}
                   name={"NAME"}
                   id={nanoid()}
                 />
               </th>
             );
-          case 2:
+          case 2: 
             return (
               <th
                 key={nanoid()}
@@ -41,11 +39,25 @@ export const TableHeaderFiltered = ({ headers }) => {
                   styles.table_cell,
                   styles.table_cell__header
                 )}>
-                <SearchBar
-                  placeholder={el}
-                  handleSearch={handleSearch}
-                  filter={filters.CITY}
+                <SelectHeaderContainer
+                  availableCityes={availableCityes}
                   name={"CITY"}
+                  label={"Город"}
+                />
+              </th>
+            );
+          case 3:
+            return (
+              <th
+                key={nanoid()}
+                className={classNames(
+                  styles.table_cell,
+                  styles.table_cell__header,
+                  styles.table_cell__number
+                )}>
+                <SearchBarContainer
+                  placeholder={el}
+                  name={"PHONE"}
                   id={nanoid()}
                 />
               </th>

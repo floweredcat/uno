@@ -45,9 +45,9 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
   const isSelected = () => {
     return filterTitles.every((el) => {
       return dataForFilter[el]
-        .toString()
-        .toLowerCase()
-        .includes(filter[el].toString());
+        ?.toString()
+        ?.toLowerCase()
+        ?.includes(filter[el]?.toString().toLowerCase());
     });
   };
   if (isSelected()) {

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f5253151.css",
-    "main.js": "/static/js/main.6eb1f6a2.js",
+    "main.css": "/static/css/main.bd4f52dd.css",
+    "main.js": "/static/js/main.97fb38ec.js",
     "static/media/Inter-Bold.ttf": "/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
     "static/media/Inter-Regular.ttf": "/static/media/Inter-Regular.e89cb19905e7db5591b0.ttf",
     "static/media/Group 179.svg": "/static/media/Group 179.76c0b73f77927639454a.svg",
@@ -23,11 +23,11 @@
     "static/media/partner.svg": "/static/media/partner.c3f8ab701775cc2e26336e2920a41f06.svg",
     "static/media/incremet.svg": "/static/media/incremet.c31e19d10867b08b35ec.svg",
     "static/media/decrement.svg": "/static/media/decrement.4311f13f65cee6b9cf00.svg",
-    "main.f5253151.css.map": "/static/css/main.f5253151.css.map",
-    "main.6eb1f6a2.js.map": "/static/js/main.6eb1f6a2.js.map"
+    "main.bd4f52dd.css.map": "/static/css/main.bd4f52dd.css.map",
+    "main.97fb38ec.js.map": "/static/js/main.97fb38ec.js.map"
   },
   "entrypoints": [
-    "static/css/main.f5253151.css",
-    "static/js/main.6eb1f6a2.js"
+    "static/css/main.bd4f52dd.css",
+    "static/js/main.97fb38ec.js"
   ]
 }

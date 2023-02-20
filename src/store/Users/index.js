@@ -31,10 +31,7 @@ export const usersSlice = createSlice({
       };
     },
     addUser: (state) => {
-      console.log('hello!')
-      return {...state,
-      entities: {...state.entities,
-      qwew: 'qwewe'}}
+      return { ...state, entities: { ...state.entities } };
     },
   },
 });

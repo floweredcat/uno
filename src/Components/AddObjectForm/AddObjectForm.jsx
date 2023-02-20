@@ -29,8 +29,8 @@ export const AddObjectForm = ({ togglePopup }) => {
 
   const franshisesMap = Object.values(franshises).map((el) => {
     return {
-      value: el.ID,
-      label: el.COMPANY,
+      value: el.ID.toString(),
+      label: el.CITY,
     };
   });
   const [form, setForm] = useState({

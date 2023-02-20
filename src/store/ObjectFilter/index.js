@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  IDSRV: "", NAME: "", CITY: "", PHONE: "", FRAN_NAME: "" ,
+  IDSRV: "",
+  NAME: "",
+  CITY: "",
+  PHONE: "",
+  FRAN_NAME: "",
 };
 
 export const onjectFilterSlice = createSlice({
@@ -12,13 +16,11 @@ export const onjectFilterSlice = createSlice({
       const [value, name] = action.payload;
       return {
         ...state,
-        [name]: value
+        [name]: value,
       };
-  },
+    },
     resetFilter: () => {
-      return {
-        initialState,
-      };
+      return initialState;
     },
   },
 });

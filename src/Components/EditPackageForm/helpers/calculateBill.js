@@ -16,21 +16,4 @@ export function calculateBull({ form, packagesPrices }) {
     case "Start":
       bill.package = packagesPrices.Start.PRICE * packagePeriod;
   }
-
-  
-
-  console.log(bill);
 }
-
-// const [form, setForm] = useState({
-//     pack: packs.start,
-//     packagePeriod: undefined,
-//     officePeriod: undefined,
-//     office: false,
-//     packageDate: undefined,
-//     qr: false,
-//     frontOffice: undefined,
-//     tarification: false,
-//     mobile: undefined,
-//     officeCount: undefined,
-//   });

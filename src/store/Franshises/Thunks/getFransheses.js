@@ -23,7 +23,6 @@ export const getFransheses = ({userId}) => (dispatch) => {
         dispatch(franshisesSliceActions.successLoading(normolizeEntities(data.result)))
     })
     .catch(err => {
-      console.log(err)
       dispatch(franshisesSliceActions.failLoading(err))
     })
 }

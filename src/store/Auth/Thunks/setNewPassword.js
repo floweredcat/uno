@@ -18,7 +18,6 @@ export const setNewPassword =
     fetch("https://wsuno.xyz/api/setNewPassword", options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (!data.OK) {
           throw Error('Неверный текущий пароль')
         }

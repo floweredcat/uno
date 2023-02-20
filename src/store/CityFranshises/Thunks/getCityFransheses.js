@@ -33,7 +33,6 @@ export const getCityFransheses =
         );
       })
       .catch((err) => {
-        console.log(err);
         dispatch(cityFranshisesSliceActions.failLoading(err));
       });
   };

@@ -10,7 +10,7 @@ export const InputText = ({label, value, setValue }) => {
         className={styles.form_input}
         placeholder=" "
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}  
       />
       <label
         htmlFor={label}

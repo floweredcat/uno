@@ -16,14 +16,14 @@ interface ObjectData {
 }
 
 export function useInfoEntities(objectData: ObjectData) {
-  const { DT, NAME, WORKER, CITY, PHONE, STARTDT, ENDDT } = objectData;
+  const { DT, NAME, WORKER, CITY, PHONE, STARTDT, ENDDT } = objectData || {};
 
   const { months, daysLeft } = getLeftTime({
     start: objectData?.STARTDT,
     end: objectData?.ENDDT,
   });
 
-  const packageTimeLeft = months ? months : "" + daysLeft ? " " + daysLeft : "";
+  const packageTimeLeft = months ? months : "" + daysLeft ? " " + daysLeft : " ";
 
   return [
     [

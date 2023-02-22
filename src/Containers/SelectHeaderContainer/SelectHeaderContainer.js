@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { InputSelectTable } from "../../UI/InputSelectTable/InputSelectTable";
 
-export const SelectHeaderContainer = ({ availableCityes, label, name }) => {
-  const mapValues = [''].concat(availableCityes) 
-  const [value, setValue] = useState(mapValues[0]);
+export const SelectHeaderContainer = ({ availableValues, label, name }) => {
+  const mapValues = [""].concat(availableValues);
+  const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const setFilter = useCallback(
     (value) => dispatch(onjectFilterSliceActions.setFilter([value, name]))[name]

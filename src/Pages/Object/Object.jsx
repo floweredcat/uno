@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
 import { EditPackageForm } from "../../Components/EditPackageForm/EditPackageForm";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
@@ -13,17 +13,35 @@ import { UserData } from "../../Components/UserData/UserData";
 import { ObjectInfoContainer } from "../../Containers/ObjectInfoContainer/ObjectInfoContainer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useInfoEntities } from "./hooks/useInfoEntities.ts";
-import {ROUTES} from "../../assets/constants/Fixtires"
+import { ROUTES } from "../../assets/constants/Fixtires";
+import { getHistoryObjectIfNotExist } from "../../store/ObjectHistory/Thunks/getHistoryObjectIfNotExist";
+import { selectObjectHistoryById } from "../../store/ObjectHistory/selectors";
+import { nanoid } from "nanoid";
 
 export const Object = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const objectData = useSelector((state) => selectObjectById(state, { id }));
-  const infoEntities = useInfoEntities(objectData)
+  const history = useSelector((state) =>
+    selectObjectHistoryById(state, { id })
+  );
+
+  const infoEntities = useInfoEntities(objectData);
   const togglePopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
+
+  useEffect(() => {
+    dispatch(getHistoryObjectIfNotExist({ id }));
+  }, [id]);
+
+  useEffect(() => {
+    if (!objectData) {
+      navigate(ROUTES.objects);
+    }
+  }, []);
 
   const [form, setForm] = useState({
     station: 1,
@@ -123,29 +141,33 @@ export const Object = () => {
           />
         </PopupContainer>
       )}
-      <h2 className={styles.tableTitle}>История точки</h2>
-      <Table>
-        <TableHeader
-          headers={[
-            "Дата операции",
-            "Пользователь",
-            "Номер операции",
-            "Поступило",
-            "Списано",
-          ]}
-        />
-        <tr className={styles.table_row}>
-          <UserData
-            data={[
-              "Дата операции",
-              "Пользователь",
-              "Номер операции",
-              "Поступило",
-              "Списано",
-            ]}
-          />
-        </tr>
-      </Table>
+      {history.length > 0 && (
+        <>
+          <h2 className={styles.tableTitle}>История точки</h2>
+          <Table>
+            <TableHeader
+              headers={[
+                "Дата операции",
+                "Вид операции",
+                "Наименование",
+                "Вид оплаты",
+                "Сумма",
+              ]}
+            />
+            <tr className={styles.table_row}>
+              {history.map((el) => {
+                const { AMOUNT, USR, DT, OPER, PERIOD } = el;
+                return (
+                  <UserData
+                    data={[DT, OPER, USR, PERIOD, AMOUNT]}
+                    key={nanoid()}
+                  />
+                );
+              })}
+            </tr>
+          </Table>
+        </>
+      )}
     </div>
   );
 };

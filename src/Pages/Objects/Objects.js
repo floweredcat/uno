@@ -12,10 +12,9 @@ import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { AddObjectForm } from "../../Components/AddObjectForm/AddObjectForm";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
-import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
-import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 import { TableHeaderFiltered } from "../../Components/TableHeaderFiltered/TableHeaderFiltered";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
+import { nanoid } from "nanoid";
 
 const OBJECT_HEADERS = [
   "ID",
@@ -32,8 +31,6 @@ export const Objects = () => {
   const userId = localStorage.userId;
   useSingleEffect(() => {
     dispatch(getObjects({ userId }));
-    dispatch(getPackagePrices);
-    dispatch(getFransheses({ userId }));
   }, []);
   const isLoading = useSelector((state) => selectObjectsIsLoading(state));
   const objectsIds = useSelector((state) => selectObjectsIds(state));
@@ -52,13 +49,14 @@ export const Objects = () => {
         <button
           type="button"
           onClick={resetFilter}
-          className={styles.reset}
-        >сбросить фильтр</button>
+          className={styles.reset}>
+          сбросить фильтр
+        </button>
         <Table>
           <TableHeaderFiltered headers={OBJECT_HEADERS} />
           {objectsIds?.map((id) => (
             <ObjectDataContainer
-              key={id}
+              key={nanoid()}
               id={id}
             />
           ))}

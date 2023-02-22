@@ -24,7 +24,7 @@ export const getObjects =
           throw Error(data.error)
         }
         dispatch(
-          objectsSliceActions.successLoading(normolizeEntities(data.result, "IDSRV"))
+          objectsSliceActions.successLoading(normolizeEntities(data.result, "ID"))
         );
       })
       .catch((err) => {

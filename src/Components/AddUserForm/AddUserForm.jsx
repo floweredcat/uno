@@ -16,7 +16,6 @@ import {
 } from "../../store/CityFranshises/selectors";
 import { InputDataSelect } from "../InputDataList/InputDataSelect";
 import { onSubmit } from "./helpers/onSubmit";
-import { SelectedCity } from "../SelectedCities/SelectedCities";
 import { nanoid } from "nanoid";
 
 export const AddUserForm = ({ togglePopup }) => {

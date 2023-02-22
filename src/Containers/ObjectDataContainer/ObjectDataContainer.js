@@ -23,10 +23,11 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
   const dataForFilter = object;
+  const [start, end] = [object.STARTDT, object.ENDDT];
 
   const diffDates = getDiffInMonths({
-    start: object.STARTDT,
-    end: object.ENDDT,
+    start,
+    end,
   });
   const filterTitles = Object.keys(filter);
 
@@ -41,20 +42,25 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
       return styles.green;
     }
   };
+  const filterByLeftDate =
+    filter.IDSRV.length > 0
+      ? filter.IDSRV <= 1
+        ? filter.IDSRV == diffDates
+        : filter.IDSRV < diffDates
+      : true;
 
-  const isSelected = () => {
-    return filterTitles.every((el) => {
+  const isSelected =
+    filterTitles.slice(1).every((el) => {
       return dataForFilter[el]
         ?.toString()
         ?.toLowerCase()
         ?.includes(filter[el]?.toString().toLowerCase());
-    });
-  };
-  if (isSelected()) {
+    }) && filterByLeftDate;
+  if (isSelected) {
     return (
       <tr
         className={classNames(styles.table_row, getStyleByLeftMonths())}
-        onDoubleClick={() => navigate(ROUTES.objects + `/${object.IDSRV}`)}>
+        onDoubleClick={() => navigate(ROUTES.objects + `/${id}`)}>
         <UserData
           data={data}
           selectedRow={selectedRow}

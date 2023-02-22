@@ -1,18 +1,19 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectFranshises,
-} from "../../store/Franshises/selectors";
+import { selectFranshises } from "../../store/Franshises/selectors";
 import { addObject } from "../../store/Objects/Thunks/addObject";
 import { FormElem } from "../FormElem/FormElem";
 import styles from "./styles.module.css";
 import { isEmpty, isMobilePhone } from "validator";
-import {InputText} from "../../UI/InputText/InputText"
-import {InputSelect} from "../../UI/InputSelect/InputSelect"
-import {InputPhone} from "../../UI/InputPhone/InputPhone"
+import { InputText } from "../../UI/InputText/InputText";
+import { InputSelect } from "../../UI/InputSelect/InputSelect";
+import { InputPhone } from "../../UI/InputPhone/InputPhone";
+import { useSingleEffect } from "../../hooks/UseSingleEffect";
+import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
 
 export const AddObjectForm = ({ togglePopup }) => {
+  const userId = localStorage.userId;
   const dispatch = useDispatch();
   const initialValidate = {
     validate: undefined,
@@ -20,6 +21,9 @@ export const AddObjectForm = ({ togglePopup }) => {
   };
   const franshises = useSelector((state) => selectFranshises(state));
   const [validate, setValidate] = useState(initialValidate);
+  useSingleEffect(() => {
+    dispatch(getFransheses({ userId }));
+  }, [userId]);
   useEffect(() => {
     if (validate.errorMessage.length < 5 && form.phone.length > 7) {
       dispatch(addObject({ ...form, userId }));
@@ -35,13 +39,11 @@ export const AddObjectForm = ({ togglePopup }) => {
   });
   const [form, setForm] = useState({
     name: "",
-    idFran: franshisesMap[0]?.value || ' ',
+    idFran: franshisesMap[0]?.value || " ",
     orgOwner: "",
     phone: "",
     worker: "",
   });
-
-  const userId = localStorage.userId;
   const handleValidate = () => {
     if (Object.values(form).some((el) => isEmpty(el))) {
       setValidate({

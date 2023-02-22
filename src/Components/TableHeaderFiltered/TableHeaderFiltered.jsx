@@ -5,17 +5,38 @@ import { useSelector } from "react-redux";
 import { selectObjectData } from "../../store/Objects/selectors";
 import { SearchBarContainer } from "../../Containers/SearchBarContainer/SearchBarContainer";
 import { SelectHeaderContainer } from "../../Containers/SelectHeaderContainer/SelectHeaderContainer";
+import { getDiffInMonths } from "../../helpers/getDiffDates.ts";
 
 export const TableHeaderFiltered = ({ headers }) => {
   const objects = useSelector((state) => selectObjectData(state));
-  const availableCityes = Array.from(
-    new Set(Object.values(objects).map((el) => el.CITY))
-  );
+  const availableCityes = [
+    ...new Set(Object.values(objects).map((el) => el.CITY)),
+  ];
+  const availableFrans = [
+    ...new Set(Object.values(objects).map((el) => el.FRAN_NAME)),
+  ];
+
+  const availableIds = [0, 1, 2];
 
   return (
     <tr className={styles.table_row}>
       {headers.map((el, idx) => {
         switch (idx) {
+          case 0:
+            return (
+              <th
+                key={nanoid()}
+                className={classNames(
+                  styles.table_cell,
+                  styles.table_cell__header
+                )}>
+                <SelectHeaderContainer
+                  availableValues={availableIds}
+                  name={"IDSRV"}
+                  label={"ID"}
+                />
+              </th>
+            );
           case 1:
             return (
               <th
@@ -31,7 +52,7 @@ export const TableHeaderFiltered = ({ headers }) => {
                 />
               </th>
             );
-          case 2: 
+          case 2:
             return (
               <th
                 key={nanoid()}
@@ -40,7 +61,7 @@ export const TableHeaderFiltered = ({ headers }) => {
                   styles.table_cell__header
                 )}>
                 <SelectHeaderContainer
-                  availableCityes={availableCityes}
+                  availableValues={availableCityes}
                   name={"CITY"}
                   label={"Город"}
                 />
@@ -59,6 +80,21 @@ export const TableHeaderFiltered = ({ headers }) => {
                   placeholder={el}
                   name={"PHONE"}
                   id={nanoid()}
+                />
+              </th>
+            );
+          case 5:
+            return (
+              <th
+                key={nanoid()}
+                className={classNames(
+                  styles.table_cell,
+                  styles.table_cell__header
+                )}>
+                <SelectHeaderContainer
+                  availableValues={availableFrans}
+                  name={"FRAN_NAME"}
+                  label={"Франшиза"}
                 />
               </th>
             );

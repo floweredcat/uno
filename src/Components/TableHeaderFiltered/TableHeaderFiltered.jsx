@@ -6,6 +6,8 @@ import { selectObjectData } from "../../store/Objects/selectors";
 import { SearchBarContainer } from "../../Containers/SearchBarContainer/SearchBarContainer";
 import { SelectHeaderContainer } from "../../Containers/SelectHeaderContainer/SelectHeaderContainer";
 import { getDiffInMonths } from "../../helpers/getDiffDates.ts";
+import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
+import { FilterDateSelectContainer } from "../../Containers/FilterDateSelectContainer/FilterDateSelectContainer";
 
 export const TableHeaderFiltered = ({ headers }) => {
   const objects = useSelector((state) => selectObjectData(state));
@@ -81,6 +83,18 @@ export const TableHeaderFiltered = ({ headers }) => {
                   name={"PHONE"}
                   id={nanoid()}
                 />
+              </th>
+            );
+          case 4:
+            return (
+              <th
+                key={nanoid()}
+                className={classNames(
+                  styles.table_cell,
+                  styles.table_cell__header,
+                  styles.table_cell__number
+                )}>
+                <FilterDateSelectContainer />
               </th>
             );
           case 5:

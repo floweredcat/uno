@@ -8,6 +8,7 @@ import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { selectObjectById } from "../../store/Objects/selectors";
 import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
+import { formatDate } from "../../helpers/formatDate";
 
 export const ObjectDataContainer = ({ id, selectedRow }) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     object.NAME,
     object.CITY,
     object.PHONE,
-    object.DT,
+    formatDate(new Date(object.DT)),
     object.FRAN_NAME,
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
@@ -42,6 +43,13 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
       return styles.green;
     }
   };
+
+  const filterByCalendar =
+    filter.DT.length > 0
+      ? new Date(filter.DT[0]) <= new Date(object.DT) &&
+        new Date(filter.DT[1]) >= new Date(object.DT)
+      : true;
+
   const filterByLeftDate =
     filter.IDSRV.length > 0
       ? filter.IDSRV <= 1
@@ -50,12 +58,14 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
       : true;
 
   const isSelected =
-    filterTitles.slice(1).every((el) => {
+    filterTitles.slice(2).every((el) => {
       return dataForFilter[el]
         ?.toString()
         ?.toLowerCase()
         ?.includes(filter[el]?.toString().toLowerCase());
-    }) && filterByLeftDate;
+    }) &&
+    filterByLeftDate &&
+    filterByCalendar;
   if (isSelected) {
     return (
       <tr

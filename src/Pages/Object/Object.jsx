@@ -17,6 +17,17 @@ import { ROUTES } from "../../assets/constants/Fixtires";
 import { getHistoryObjectIfNotExist } from "../../store/ObjectHistory/Thunks/getHistoryObjectIfNotExist";
 import { selectObjectHistoryById } from "../../store/ObjectHistory/selectors";
 import { nanoid } from "nanoid";
+import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
+import back from "../../assets/images/back.png";
+import edit from "../../assets/images/edit.svg";
+const images = [back, edit];
+const HISTORY_HEADERS = [
+  "Дата операции",
+  "Вид операции",
+  "Наименование",
+  "Вид оплаты",
+  "Сумма",
+];
 
 export const Object = () => {
   const dispatch = useDispatch();
@@ -52,122 +63,110 @@ export const Object = () => {
     qr: 0,
   });
 
+  const onclicks = [() => navigate(ROUTES.objects), () => togglePopup()];
+
   if (!objectData) {
     return null;
   }
 
   return (
-    <div className={styles.objects}>
-      <ObjectInfoContainer data={infoEntities[0]} />
-      <ObjectInfoContainer data={infoEntities[1]} />
-      <div className={classNames(styles.object_info, styles.objects_element)}>
-        <InputCountedOption
-          label={"Станция"}
-          value={form.station}
-          required={true}
-        />
-        {form.storage && (
+    <div className={styles.object_wrapper}>
+      <div className={styles.objects}>
+        <ObjectInfoContainer data={infoEntities[0]} />
+        <ObjectInfoContainer data={infoEntities[1]} />
+        <div className={classNames(styles.object_info, styles.objects_element)}>
           <InputCountedOption
-            label={"Склад"}
-            value={form.storage}
+            label={"Станция"}
+            value={form.station}
+            required={true}
           />
-        )}
-        {form.calculation && (
-          <InputCountedOption
-            label={"Калькуляция"}
-            value={form.calculation}
-          />
-        )}
-        {form.tarifiation && (
-          <InputCountedOption
-            label={"Тарификация"}
-            value={form.tarifiation}
-          />
-        )}
-        {form.waiter !== 0 && (
-          <InputCountedOption
-            label={"Мобильный официант"}
-            value={form.waiter}
-          />
-        )}
-        {form.qr !== 0 && (
-          <InputCountedOption
-            label={"QR меню"}
-            value={form.qr}
-          />
-        )}
-      </div>
-      <ObjectInfoContainer data={infoEntities[2]} />
-      <div
-        className={classNames(
-          styles.object_info,
-          styles.status,
-          styles.objects_element
-        )}>
-        <div className={styles.status_element}>
-          <h2 className={styles.title}>Статус</h2>
-          <div
-            className={classNames(styles.status_info, {
-              [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
-            })}>
-            {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
-          </div>
-        </div>
-        <div className={styles.status_element}>
-          <h2 className={styles.title}>Сумма</h2>
-          <div className={styles.status_info}>
-            {objectData.AMOUNT ? separateAmount(objectData.AMOUNT) : "0"}
-          </div>
-        </div>
-      </div>
-      <button
-        type="button"
-        className={classNames(styles.button, styles.button_exit)}
-        onClick={() => navigate(ROUTES.objects)}>
-        Назад
-      </button>
-      <button
-        type="button"
-        className={classNames(styles.button, styles.button_edit)}
-        onClick={() => togglePopup()}>
-        Редактировать пакет
-      </button>
-      {isPopupOpened && (
-        <PopupContainer togglePopup={togglePopup}>
-          <EditPackageForm
-            togglePopup={togglePopup}
-            form={form}
-            setForm={setForm}
-          />
-        </PopupContainer>
-      )}
-      {history.length > 0 && (
-        <>
-          <h2 className={styles.tableTitle}>История точки</h2>
-          <Table>
-            <TableHeader
-              headers={[
-                "Дата операции",
-                "Вид операции",
-                "Наименование",
-                "Вид оплаты",
-                "Сумма",
-              ]}
+          {form.storage && (
+            <InputCountedOption
+              label={"Склад"}
+              value={form.storage}
             />
-            <tr className={styles.table_row}>
-              {history.map((el) => {
-                const { AMOUNT, USR, DT, OPER, PERIOD } = el;
-                return (
-                  <UserData
-                    data={[DT, OPER, USR, PERIOD, AMOUNT]}
-                    key={nanoid()}
-                  />
-                );
-              })}
-            </tr>
-          </Table>
-        </>
-      )}
+          )}
+          {form.calculation && (
+            <InputCountedOption
+              label={"Калькуляция"}
+              value={form.calculation}
+            />
+          )}
+          {form.tarifiation && (
+            <InputCountedOption
+              label={"Тарификация"}
+              value={form.tarifiation}
+            />
+          )}
+          {form.waiter !== 0 && (
+            <InputCountedOption
+              label={"Мобильный официант"}
+              value={form.waiter}
+            />
+          )}
+          {form.qr !== 0 && (
+            <InputCountedOption
+              label={"QR меню"}
+              value={form.qr}
+            />
+          )}
+        </div>
+        <ObjectInfoContainer data={infoEntities[2]} />
+        <div
+          className={classNames(
+            styles.object_info,
+            styles.status,
+            styles.objects_element
+          )}>
+          <div className={styles.status_element}>
+            <h2 className={styles.title}>Статус</h2>
+            <div
+              className={classNames(styles.status_info, {
+                [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
+              })}>
+              {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
+            </div>
+          </div>
+          <div className={styles.status_element}>
+            <h2 className={styles.title}>Сумма</h2>
+            <div className={styles.status_info}>
+              {separateAmount(objectData.AMOUNT)}
+            </div>
+          </div>
+        </div>
+        {isPopupOpened && (
+          <PopupContainer togglePopup={togglePopup}>
+            <EditPackageForm
+              togglePopup={togglePopup}
+              form={form}
+              setForm={setForm}
+            />
+          </PopupContainer>
+        )}
+        {history.length > 0 && (
+          <>
+            <h2 className={styles.tableTitle}>История точки</h2>
+            <Table>
+              <TableHeader headers={HISTORY_HEADERS} />
+              <tr className={styles.table_row}>
+                {history.map((el) => {
+                  const { AMOUNT, USR, DT, OPER, PERIOD } = el;
+                  return (
+                    <UserData
+                      data={[DT, OPER, USR, PERIOD, AMOUNT]}
+                      key={nanoid()}
+                    />
+                  );
+                })}
+              </tr>
+            </Table>
+          </>
+        )}
+      </div>
+      <ButtonBar
+        onClicks={onclicks}
+        images={images}
+      />
     </div>
   );
 };

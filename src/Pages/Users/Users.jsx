@@ -14,7 +14,7 @@ import { AddUserForm } from "../../Components/AddUserForm/AddUserForm";
 import { EditUserForm } from "../../Components/EditUserForm/EditUserForm";
 import { Table } from "../../Components/Table/Table";
 import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
-import {DeletePopup} from "../../Components/DeletePopup/DeletePopup"
+import { DeletePopup } from "../../Components/DeletePopup/DeletePopup";
 import { useNavigate } from "react-router-dom";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { ROUTES } from "../../assets/constants/Fixtires";
@@ -30,7 +30,7 @@ const USER_HEADERS = [
 ];
 
 export const Users = () => {
-  const navigate = useNavigate( )
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => selectUsersIsLoading(state));
   useSingleEffect(() => {

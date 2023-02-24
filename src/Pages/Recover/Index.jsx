@@ -11,7 +11,9 @@ export function Recover() {
   const [pass, setPass] = useState("");
   const [repeatPass, setRepeatPass] = useState("");
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    console.log(hash);
+  };
 
   return (
     <section className={styles.forgot}>
@@ -30,7 +32,8 @@ export function Recover() {
           />
           <button
             type="submit"
-            className={classNames(styles.button, styles.form_submit)}>
+            className={classNames(styles.button, styles.form_submit)}
+          >
             Восстановить пароль
           </button>
         </FormElem>

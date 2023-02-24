@@ -11,18 +11,13 @@ export const InputSelect = ({ mapValues, setForm, size = 1, label, value }) => {
         className={styles.form_input}
         value={value}
         placeholder=" "
-        onChange={(e) => setForm(e.target.value)}>
+        onChange={(e) => setForm(e.target.value)}
+      >
         {mapValues?.map((el) => (
-          <Option
-            key={nanoid()}
-            label={el.label}
-            value={el.value}
-          />
+          <Option key={nanoid()} label={el.label} value={el.value} />
         ))}
       </select>
-      <label
-        htmlFor={label}
-        className={styles.form_label__select}>
+      <label htmlFor={label} className={styles.form_label__select}>
         {label}
       </label>
     </div>

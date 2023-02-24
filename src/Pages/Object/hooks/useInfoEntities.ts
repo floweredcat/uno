@@ -23,7 +23,11 @@ export function useInfoEntities(objectData: ObjectData) {
     end: objectData?.ENDDT,
   });
 
-  const packageTimeLeft = months ? months : "" + daysLeft ? " " + daysLeft : " ";
+  const packageTimeLeft = months
+    ? months
+    : "" + daysLeft
+    ? " " + daysLeft
+    : " ";
 
   return [
     [

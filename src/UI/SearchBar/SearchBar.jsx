@@ -1,8 +1,6 @@
 import styles from "./styles.module.css";
 
 export const SearchBar = ({ value, placeholder, updateState }) => {
-
-
   return (
     <input
       type="text"

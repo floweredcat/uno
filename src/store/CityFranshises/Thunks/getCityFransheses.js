@@ -28,7 +28,7 @@ export const getCityFransheses =
         }
         dispatch(
           cityFranshisesSliceActions.successLoading(
-            normolizeEntities(data.result, 'NAME')
+            normolizeEntities(data.result, "NAME")
           )
         );
       })

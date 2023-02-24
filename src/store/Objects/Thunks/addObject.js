@@ -17,9 +17,9 @@ export const addObject =
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {
-          throw Error(data.error)
+          throw Error(data.error);
         }
-        dispatch(getObjects({userId}))
+        dispatch(getObjects({ userId }));
       })
       .catch((err) => {
         console.log(err);

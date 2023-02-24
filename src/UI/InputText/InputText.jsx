@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-export const InputText = ({label, value, setValue }) => {
+export const InputText = ({ label, value, setValue }) => {
   return (
     <div className={styles.input_container}>
       <input
@@ -10,11 +10,9 @@ export const InputText = ({label, value, setValue }) => {
         className={styles.form_input}
         placeholder=" "
         value={value}
-        onChange={(event) => setValue(event.target.value)}  
+        onChange={(event) => setValue(event.target.value)}
       />
-      <label
-        htmlFor={label}
-        className={styles.form_label}>
+      <label htmlFor={label} className={styles.form_label}>
         {label}
       </label>
     </div>

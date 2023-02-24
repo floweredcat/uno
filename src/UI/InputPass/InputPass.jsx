@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-export const InputPass = ({label, value, setValue }) => {
+export const InputPass = ({ label, value, setValue }) => {
   return (
     <div className={styles.input_container}>
       <input
@@ -12,9 +12,7 @@ export const InputPass = ({label, value, setValue }) => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
-      <label
-        htmlFor={label}
-        className={styles.form_label}>
+      <label htmlFor={label} className={styles.form_label}>
         {label}
       </label>
     </div>

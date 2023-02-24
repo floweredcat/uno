@@ -18,9 +18,7 @@ export const InputPassWithHide = ({ label, value, setValue }) => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
-      <label
-        htmlFor={label}
-        className={styles.form_label}>
+      <label htmlFor={label} className={styles.form_label}>
         {label}
       </label>
       <button
@@ -29,7 +27,8 @@ export const InputPassWithHide = ({ label, value, setValue }) => {
           [styles.form_hidePuttonFilled]: !passwordVisible,
         })}
         type="button"
-        onClick={togglePasswordVisible}></button>
+        onClick={togglePasswordVisible}
+      ></button>
     </div>
   );
 };

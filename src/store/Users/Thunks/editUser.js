@@ -21,7 +21,7 @@ export const editUser =
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {
-          throw Error('Ошибка запроса на сервер')
+          throw Error("Ошибка запроса на сервер");
         }
         dispatch(loadUsers({ userId: localStorage.userId / 1 }));
       })

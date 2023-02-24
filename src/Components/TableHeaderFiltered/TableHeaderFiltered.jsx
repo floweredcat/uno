@@ -31,7 +31,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                 className={classNames(
                   styles.table_cell,
                   styles.table_cell__header
-                )}>
+                )}
+              >
                 <SelectHeaderContainer
                   availableValues={availableIds}
                   name={"IDSRV"}
@@ -46,7 +47,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                 className={classNames(
                   styles.table_cell,
                   styles.table_cell__header
-                )}>
+                )}
+              >
                 <SearchBarContainer
                   placeholder={el}
                   name={"NAME"}
@@ -61,7 +63,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                 className={classNames(
                   styles.table_cell,
                   styles.table_cell__header
-                )}>
+                )}
+              >
                 <SelectHeaderContainer
                   availableValues={availableCityes}
                   name={"CITY"}
@@ -77,7 +80,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                   styles.table_cell,
                   styles.table_cell__header,
                   styles.table_cell__number
-                )}>
+                )}
+              >
                 <SearchBarContainer
                   placeholder={el}
                   name={"PHONE"}
@@ -93,7 +97,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                   styles.table_cell,
                   styles.table_cell__header,
                   styles.table_cell__number
-                )}>
+                )}
+              >
                 <FilterDateSelectContainer />
               </th>
             );
@@ -104,7 +109,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                 className={classNames(
                   styles.table_cell,
                   styles.table_cell__header
-                )}>
+                )}
+              >
                 <SelectHeaderContainer
                   availableValues={availableFrans}
                   name={"FRAN_NAME"}
@@ -119,7 +125,8 @@ export const TableHeaderFiltered = ({ headers }) => {
                 className={classNames(
                   styles.table_cell,
                   styles.table_cell__header
-                )}>
+                )}
+              >
                 {el}
               </th>
             );

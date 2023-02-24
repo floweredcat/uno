@@ -1,0 +1,11 @@
+.table_row {
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+}
+
+.table_row td {
+  font-weight: 400;
+}

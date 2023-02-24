@@ -63,7 +63,7 @@ export const Users = () => {
 
   const toggleSelectedRow = (el) => {
     if (userId / 1 !== el) {
-      if (!!el) {
+      if (el) {
         if (selectedRow === el) {
           resetSelectedRow();
         } else {

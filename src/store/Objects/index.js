@@ -34,12 +34,12 @@ export const objectsSlice = createSlice({
       };
     },
     addFranshises: (state, action) => {
-      const franchises = action.payload
+      const franchises = action.payload;
       return {
         ...state,
         franchises,
-      }
-    }
+      };
+    },
   },
 });
 

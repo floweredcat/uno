@@ -30,7 +30,7 @@ export const objectPricesSlice = createSlice({
       return {
         entities: [],
         status: "fail",
-        errorMessage: err
+        errorMessage: err,
       };
     },
   },

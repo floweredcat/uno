@@ -16,7 +16,8 @@ export const InputCountedOption = ({
         [styles.input_requered]: required,
         [styles.input_notRequered]: !required,
         [styles.input_active]: value && !required,
-      })}>
+      })}
+    >
       <h4 className={styles.title}>{label}</h4>
       {!children && (
         <div className={styles.count_container}>

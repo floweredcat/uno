@@ -11,7 +11,18 @@ tr:nth-child(even) .table_cell,
   padding: 0 10px;
   margin: 0;
   border-left: 1px solid white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all .5s;
 }
+
+.table_cell:hover {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
+  height: auto;
+}
+
 
 .table_cell__num {
   display: flex;

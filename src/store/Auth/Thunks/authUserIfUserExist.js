@@ -18,9 +18,8 @@ export const authUserIfUserExist = (userData) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       if (!data.OK) {
-        throw Error('Ошибка запроса на сервер')
-      }
-      else if (data.result.length === 0) {
+        throw Error("Ошибка запроса на сервер");
+      } else if (data.result.length === 0) {
         dispatch(
           authSliceActions.errorLoading({ err: "Пользователя не существует" })
         );

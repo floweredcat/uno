@@ -70,11 +70,9 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     return (
       <tr
         className={classNames(styles.table_row, getStyleByLeftMonths())}
-        onDoubleClick={() => navigate(ROUTES.objects + `/${id}`)}>
-        <UserData
-          data={data}
-          selectedRow={selectedRow}
-        />
+        onDoubleClick={() => navigate(ROUTES.objects + `/${id}`)}
+      >
+        <UserData data={data} selectedRow={selectedRow} />
       </tr>
     );
   } else return null;

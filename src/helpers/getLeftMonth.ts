@@ -5,7 +5,10 @@ interface Dates {
   end: Date;
 }
 
-export const getLeftTime = ({ start, end }: Dates): { months: string; leftDays: string } => {
+export const getLeftTime = ({
+  start,
+  end,
+}: Dates): { months: string; leftDays: string } => {
   if (!start || !end) {
     return {
       months: "0 Месяцев",

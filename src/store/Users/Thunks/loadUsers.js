@@ -25,8 +25,7 @@ export const loadUsers =
           dispatch(
             usersSliceActions.successLoading(normolizeEntities(data.result))
           );
-        }
-        else throw Error(data.error)
+        } else throw Error(data.error);
       })
       .catch((err) => {
         dispatch(usersSliceActions.failLoading(err));

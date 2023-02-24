@@ -5,13 +5,18 @@ import classNames from "classnames";
 import { selectUserDataById } from "../../store/Users/selectors";
 import { useUserData } from "./hooks/useUserData";
 
-export const UserDataContainer = ({ onclick=()=>{}, onDoubleClick=()=>{}, id, selectedRow }) => {
+export const UserDataContainer = ({
+  onclick = () => {},
+  onDoubleClick = () => {},
+  id,
+  selectedRow,
+}) => {
   const user = useSelector((state) => selectUserDataById(state, { id }));
-  const data = Object.values(useUserData(user))
-  const onClickHandler = e => {
-      if (e.detail === 1) onclick(id);
-      if (e.detail === 2) onDoubleClick();
-    }
+  const data = Object.values(useUserData(user));
+  const onClickHandler = (e) => {
+    if (e.detail === 1) onclick(id);
+    if (e.detail === 2) onDoubleClick();
+  };
 
   return (
     <tr

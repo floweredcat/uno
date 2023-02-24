@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
 
 const initialState = {
   entities: {},
@@ -26,11 +25,10 @@ export const objectHistorySlice = createSlice({
       state.status = "success";
       return state;
     },
-    failLoading: (err) => {
+    failLoading: () => {
       return {
         entities: [],
         status: "fail",
-        errorMessage: err,
       };
     },
   },

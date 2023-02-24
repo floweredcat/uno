@@ -6,9 +6,7 @@ export const Auth = () => {
   return (
     <>
       <div className={styles.header}>
-        <a
-          href="#"
-          className={classNames(styles.header_link, styles.link)}>
+        <a href="#" className={classNames(styles.header_link, styles.link)}>
           <div className={classNames(styles.header_logo, styles.logo)} />
         </a>
       </div>

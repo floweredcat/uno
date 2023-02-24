@@ -14,6 +14,7 @@
         "classnames": "^2.3.2",
         "formik": "^2.2.9",
         "nanoid": "^4.0.0",
+        "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-calendar": "^4.0.0",
         "react-dom": "^18.2.0",
@@ -48,5 +49,14 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.53.0",
+        "@typescript-eslint/parser": "^5.53.0",
+        "eslint": "^8.34.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.32.2",
+        "prettier": "^2.8.4"
     }
 }

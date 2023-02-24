@@ -74,8 +74,7 @@ export const Profile = () => {
   return (
     <div className={styles.profile}>
       <h2 className={styles.title}>Сбросить пароль </h2>
-      <FormElem
-        onSubmit={onSubmit}>
+      <FormElem onSubmit={onSubmit}>
         <InputPass
           value={form.password}
           label={"Старый пароль"}
@@ -94,13 +93,15 @@ export const Profile = () => {
         <button
           type="submit"
           onClick={(e) => onSubmit(e)}
-          className={styles.submit}>
+          className={styles.submit}
+        >
           Сохранить
         </button>
         <span
           className={classNames(styles.errorMessage, {
             [styles.successMessage]: validate.mess,
-          })}>
+          })}
+        >
           {validate.mess ? mess : validate.errorMessage}
         </span>
       </FormElem>

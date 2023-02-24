@@ -28,38 +28,26 @@ export const Layout = () => {
       <header
         className={classNames(styles.header, {
           [styles.header_moved]: !asideIsOpened,
-        })}>
+        })}
+      >
         <button
           type="button"
           className={classNames(styles.button, styles.header_button)}
-          onClick={() => toggleAside()}></button>
+          onClick={() => toggleAside()}
+        ></button>
       </header>
       <Menu asideIsOpened={asideIsOpened} />
       <section
         className={classNames(styles.content, {
           [styles.content_moved]: !asideIsOpened,
-        })}>
+        })}
+      >
         <Routes>
-          <Route
-            path={ROUTES.users}
-            element={<Users />}
-          />
-          <Route
-            path={ROUTES.profile}
-            element={<Profile />}
-          />
-          <Route
-            path={ROUTES.objects}
-            element={<Objects />}
-          />
-          <Route
-            path={ROUTES.object}
-            element={<Object />}
-          />
-          <Route
-            path={ROUTES.user}
-            element={<User />}
-          />
+          <Route path={ROUTES.users} element={<Users />} />
+          <Route path={ROUTES.profile} element={<Profile />} />
+          <Route path={ROUTES.objects} element={<Objects />} />
+          <Route path={ROUTES.object} element={<Object />} />
+          <Route path={ROUTES.user} element={<User />} />
         </Routes>
       </section>
     </div>

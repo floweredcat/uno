@@ -46,19 +46,13 @@ export const Objects = () => {
   return (
     <div className={styles.objects_wrapper}>
       <>
-        <button
-          type="button"
-          onClick={resetFilter}
-          className={styles.reset}>
+        <button type="button" onClick={resetFilter} className={styles.reset}>
           сбросить фильтр
         </button>
         <Table>
           <TableHeaderFiltered headers={OBJECT_HEADERS} />
           {objectsIds?.map((id) => (
-            <ObjectDataContainer
-              key={nanoid()}
-              id={id}
-            />
+            <ObjectDataContainer key={nanoid()} id={id} />
           ))}
         </Table>
         <ButtonBar onClicks={[togglePopup]} />

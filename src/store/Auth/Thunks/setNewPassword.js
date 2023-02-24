@@ -19,13 +19,13 @@ export const setNewPassword =
       .then((res) => res.json())
       .then((data) => {
         if (!data.OK) {
-          throw Error('Неверный текущий пароль')
+          throw Error("Неверный текущий пароль");
         }
-        dispatch(authSliceActions.successChangePass('Пароль изменен успешно'))
+        dispatch(authSliceActions.successChangePass("Пароль изменен успешно"));
       })
       .catch((err) => {
         dispatch(
-          authSliceActions.setErrorChangePass('Неверный текущий пароль')
+          authSliceActions.setErrorChangePass("Неверный текущий пароль")
         );
       });
   };

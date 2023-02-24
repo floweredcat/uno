@@ -29,10 +29,10 @@ export const franshisesSlice = createSlice({
       return {
         entities: [],
         status: "fail",
-        errorMessage: err
+        errorMessage: err,
       };
     },
   },
 });
 
-export const franshisesSliceActions = franshisesSlice.actions
+export const franshisesSliceActions = franshisesSlice.actions;

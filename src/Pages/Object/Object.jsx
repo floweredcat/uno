@@ -20,6 +20,7 @@ import { nanoid } from "nanoid";
 import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import back from "../../assets/images/back.png";
 import edit from "../../assets/images/edit.svg";
+import { getObjects } from "../../store/Objects/Thunks/getObjects";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -45,14 +46,12 @@ export const Object = () => {
   };
 
   useEffect(() => {
-    dispatch(getHistoryObjectIfNotExist({ id }));
-  }, [id]);
-
-  useEffect(() => {
     if (!objectData) {
-      navigate(ROUTES.objects);
+      dispatch(getObjects({ userId: localStorage.userId / 1 }));
+    } else {
+      dispatch(getHistoryObjectIfNotExist({ id }));
     }
-  }, []);
+  }, [id, objectData]);
 
   const [form, setForm] = useState({
     station: 1,
@@ -81,10 +80,7 @@ export const Object = () => {
             required={true}
           />
           {form.storage && (
-            <InputCountedOption
-              label={"Склад"}
-              value={form.storage}
-            />
+            <InputCountedOption label={"Склад"} value={form.storage} />
           )}
           {form.calculation && (
             <InputCountedOption
@@ -105,10 +101,7 @@ export const Object = () => {
             />
           )}
           {form.qr !== 0 && (
-            <InputCountedOption
-              label={"QR меню"}
-              value={form.qr}
-            />
+            <InputCountedOption label={"QR меню"} value={form.qr} />
           )}
         </div>
         <ObjectInfoContainer data={infoEntities[2]} />
@@ -117,13 +110,15 @@ export const Object = () => {
             styles.object_info,
             styles.status,
             styles.objects_element
-          )}>
+          )}
+        >
           <div className={styles.status_element}>
             <h2 className={styles.title}>Статус</h2>
             <div
               className={classNames(styles.status_info, {
                 [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
-              })}>
+              })}
+            >
               {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
             </div>
           </div>
@@ -163,10 +158,7 @@ export const Object = () => {
           </>
         )}
       </div>
-      <ButtonBar
-        onClicks={onclicks}
-        images={images}
-      />
+      <ButtonBar onClicks={onclicks} images={images} />
     </div>
   );
 };

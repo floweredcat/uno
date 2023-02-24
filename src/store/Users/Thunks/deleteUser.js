@@ -1,23 +1,25 @@
 import { loadUsers } from "./loadUsers";
 
-export const loadDeleteUser = ({id}) => (dispatch) => {
+export const loadDeleteUser =
+  ({ id }) =>
+  (dispatch) => {
     const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify({
-          id,
-        }),
-      };
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    };
 
-      fetch("https://wsuno.xyz/api/deleteUser", options)
+    fetch("https://wsuno.xyz/api/deleteUser", options)
       .then((res) => res.json())
-      .then(data => {
+      .then((data) => {
         if (!data.OK) {
-          throw Error('Ошибка запроса на сервер')
+          throw Error("Ошибка запроса на сервер");
         }
-        dispatch(loadUsers({userId: localStorage.userId/1}))
+        dispatch(loadUsers({ userId: localStorage.userId / 1 }));
       })
-      .catch(err => console.log(err))
-}
+      .catch((err) => console.log(err));
+  };

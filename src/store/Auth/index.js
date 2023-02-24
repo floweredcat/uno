@@ -44,11 +44,10 @@ export const authSlice = createSlice({
       localStorage.removeItem("user");
       localStorage.removeItem("userId");
       localStorage.removeItem("userIdAccess");
-      
+
       return state;
     },
     setErrorChangePass: (state, action) => {
-
       return {
         ...state,
         errorMessage: action.payload,
@@ -58,7 +57,7 @@ export const authSlice = createSlice({
       const mess = action.payload;
       return {
         ...state,
-        mess: '123'
+        mess: "123",
       };
     },
   },

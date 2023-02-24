@@ -21,17 +21,13 @@ export const FilterDateSelectContainer = () => {
 
   useEffect(() => {
     dispatch(onjectFilterSliceActions.setFilter([date, "DT"]));
+    if (date.length > 0) {
+        toggleOpen();
+    }
   }, [getDateString]);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
-  };
-
-  const onChange = (e) => {
-    if (date.length > 0) {
-      toggleOpen();
-    }
-    setDate(e);
   };
 
   return (
@@ -40,11 +36,14 @@ export const FilterDateSelectContainer = () => {
         onClick={() => toggleOpen()}
         type="button"
         className={styles.toggleButton}>
-        {filterDate.length > 0 ? getDateString : ''}
+        {filterDate.length > 0 ? getDateString : ""}
       </button>
       {isOpen && (
         <div className={styles.calendar_wrapper}>
-          <CustomCalendar setDate={onChange} date={date} />
+          <CustomCalendar
+            setDate={setDate}
+            date={date}
+          />
         </div>
       )}
     </>

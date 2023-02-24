@@ -31,27 +31,14 @@ export const EditUserForm = ({ togglePopup, id, resetSelectedRow }) => {
   };
 
   return (
-    <FormElem
-      onSubmit={onSubmit}
-      title={"Редактирование пользователя"}>
-      <InputText
-        value={name}
-        setValue={setName}
-        label={"Наименование"}
-      />
-      <InputText
-        value={email}
-        setValue={setEmail}
-        label={"Email"}
-      />
-      <InputPhone
-        value={phone}
-        setValue={setPhone}
-        label={"Телефон"}
-      />
+    <FormElem onSubmit={onSubmit} title={"Редактирование пользователя"}>
+      <InputText value={name} setValue={setName} label={"Наименование"} />
+      <InputText value={email} setValue={setEmail} label={"Email"} />
+      <InputPhone value={phone} setValue={setPhone} label={"Телефон"} />
       <button
         type="submit"
-        className={classNames(styles.button, styles.form_submit)}>
+        className={classNames(styles.button, styles.form_submit)}
+      >
         Изменить данные
       </button>
     </FormElem>

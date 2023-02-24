@@ -1,6 +1,5 @@
 import { InputCountedOption } from "../../UI/InputCountedOption/InputCountedOption";
 
-
 export const InputCountedContainer = ({
   children,
   label,
@@ -26,8 +25,9 @@ export const InputCountedContainer = ({
       decrement={decrement}
       label={label}
       value={value}
-      {...props}>
-        {children}
+      {...props}
+    >
+      {children}
     </InputCountedOption>
   );
 };

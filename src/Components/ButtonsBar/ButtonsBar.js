@@ -27,7 +27,8 @@ export const ButtonBar = ({
                 : classNames(styles.bar_button, styles.button)
             }
             disabled={idx === 0 ? false : disabled}
-            key={nanoid()}>
+            key={nanoid()}
+          >
             <img
               src={images[idx]}
               alt={images[idx]}

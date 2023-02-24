@@ -64,9 +64,7 @@ export const AddObjectForm = ({ togglePopup }) => {
     handleValidate();
   };
   return (
-    <FormElem
-      title={"Добавление объекта"}
-      onSubmit={onSubmit}>
+    <FormElem title={"Добавление объекта"} onSubmit={onSubmit}>
       <button
         type="button"
         className={classNames(styles.button, styles.popup_closeButton)}
@@ -101,7 +99,8 @@ export const AddObjectForm = ({ togglePopup }) => {
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button
         type="submit"
-        className={classNames(styles.button, styles.form_submit)}>
+        className={classNames(styles.button, styles.form_submit)}
+      >
         Добавить объект
       </button>
     </FormElem>

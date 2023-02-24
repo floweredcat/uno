@@ -12,18 +12,9 @@ function App() {
   return (
     <Provider store={store}>
       <Routes>
-        <Route
-          index
-          element={<Auth />}
-        />
-        <Route
-          path={ROUTES.forgot}
-          element={<Forgot />}
-        />
-        <Route
-          path={ROUTES.recover}
-          element={<Recover />}
-        />
+        <Route index element={<Auth />} />
+        <Route path={ROUTES.forgot} element={<Forgot />} />
+        <Route path={ROUTES.recover} element={<Recover />} />
         <Route
           path="/*"
           element={<Layout />} // nested routes for folders

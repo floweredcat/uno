@@ -27,36 +27,31 @@ export const Menu = ({ asideIsOpened }) => {
     <aside
       className={classNames(styles.navWrapper, {
         [styles.navWrapper_visible]: asideIsOpened,
-      })}>
+      })}
+    >
       <div className={styles.header_logoWrapper}>
         <div
-          onClick={() => navigate(userAccess != 4 ? ROUTES.users : ROUTES.objects)}
-          className={classNames(styles.link, styles.header_link)}></div>
+          onClick={() =>
+            navigate(userAccess != 4 ? ROUTES.users : ROUTES.objects)
+          }
+          className={classNames(styles.link, styles.header_link)}
+        ></div>
       </div>
       <div className={styles.user}>
         <div className={styles.user_name}>{userName}</div>
       </div>
       <nav className={styles.tabs_container}>
-        {userAccess != 4 && <Tab
-          title={FOLDERS.users}
-          img={usersIMG}
-          link={"/users"}
-        />}
-        <Tab
-          title={FOLDERS.profile}
-          img={profileIMG}
-          link={"/profile"}
-        />
-        <Tab
-          title={FOLDERS.objects}
-          img={objectIMG}
-          link={"/objects"}
-        />
+        {userAccess != 4 && (
+          <Tab title={FOLDERS.users} img={usersIMG} link={"/users"} />
+        )}
+        <Tab title={FOLDERS.profile} img={profileIMG} link={"/profile"} />
+        <Tab title={FOLDERS.objects} img={objectIMG} link={"/objects"} />
       </nav>
       <button
         to="/"
         className={classNames(styles.button, styles.exitButton)}
-        onClick={() => logout()}>
+        onClick={() => logout()}
+      >
         Выйти
       </button>
     </aside>

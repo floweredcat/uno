@@ -7,7 +7,7 @@ import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 
 export const SearchBarContainer = ({ name, placeholder }) => {
-  const initialValue = useSelector(state => selectObjectFilters(state)[name]);
+  const initialValue = useSelector((state) => selectObjectFilters(state)[name]);
   const [value, setValue] = useState(initialValue);
   const dispatch = useDispatch();
 

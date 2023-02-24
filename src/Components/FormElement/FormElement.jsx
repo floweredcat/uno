@@ -15,7 +15,7 @@ import { isEmail } from "validator";
 import { ROUTES } from "../../assets/constants/Fixtires";
 
 export const FormElement = () => {
-  const userIdAccess = localStorage.userIdAccess
+  const userIdAccess = localStorage.userIdAccess;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validate, setValidate] = useState({
@@ -60,33 +60,19 @@ export const FormElement = () => {
 
   return (
     <div className={styles.login_formWrapper}>
-      <form
-        onSubmit={handleSubmit}
-        className={styles.form}>
-        <img
-          src={logo}
-          alt="logo"
-          className={styles.form_logo}
-        />
-        <InputText
-          label={"Логин"}
-          value={email}
-          setValue={setEmail}
-        />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <img src={logo} alt="logo" className={styles.form_logo} />
+        <InputText label={"Логин"} value={email} setValue={setEmail} />
         <InputPassWithHide
           label={"Пароль"}
           value={password}
           setValue={setPassword}
         />
         <span className={styles.errorMessage}>{validate.errorMessage}</span>
-        <button
-          className={styles.form_submit}
-          type="submit">
+        <button className={styles.form_submit} type="submit">
           Войти
         </button>
-        <Link to="/forgot"
-          className={styles.form_forget}
-          type="button">
+        <Link to="/forgot" className={styles.form_forget} type="button">
           Забыли пароль?
         </Link>
       </form>

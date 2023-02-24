@@ -34,19 +34,14 @@ export const InputDataSelect = ({
       <div
         onClick={() => toggleIsOpen()}
         onChange={handleChange}
-        className={styles.form_input}>
+        className={styles.form_input}
+      >
         {city.map((id) => (
-          <SelectedCity
-            id={id}
-            key={nanoid()}
-            onclick={deleteCity}
-          />
+          <SelectedCity id={id} key={nanoid()} onclick={deleteCity} />
         ))}
       </div>
       {isOpen && (
-        <div
-          id={label}
-          className={styles.optionContainer}>
+        <div id={label} className={styles.optionContainer}>
           {availableCities?.map((el) => {
             return (
               <Option
@@ -59,9 +54,7 @@ export const InputDataSelect = ({
           })}
         </div>
       )}{" "}
-      <label
-        htmlFor={label}
-        className={styles.form_label__select}>
+      <label htmlFor={label} className={styles.form_label__select}>
         {label}
       </label>
     </div>

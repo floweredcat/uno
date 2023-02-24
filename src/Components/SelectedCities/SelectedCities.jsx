@@ -6,7 +6,7 @@ export function SelectedCity({ id, onclick }) {
   const selectedCity = useSelector((state) =>
     selectCityFranshisesById(state, { id })
   );
-  const {NAME} = selectedCity
+  const { NAME } = selectedCity;
 
   return (
     <div className={styles.container}>

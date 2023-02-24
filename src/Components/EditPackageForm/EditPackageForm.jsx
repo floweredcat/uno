@@ -6,15 +6,12 @@ import { Toggle } from "../Toggle/Toggle";
 import styles from "./styles.module.css";
 
 export const EditPackageForm = ({ togglePopup, form, setForm }) => {
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
-    <FormElem
-      onSubmit={handleSubmit}
-      title={"Смена тарифа"}>
+    <FormElem onSubmit={handleSubmit} title={"Смена тарифа"}>
       <div className={styles.options_container}>
         <InputCountedContainer
           label={"Станция"}
@@ -24,9 +21,7 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
             setForm({ ...form, stantion: val });
           }}
         />
-        <InputCountedContainer
-          label={"Склад"}
-          value={form.storage}>
+        <InputCountedContainer label={"Склад"} value={form.storage}>
           <Toggle
             checked={form.storage}
             setValue={() => {
@@ -34,9 +29,7 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
             }}
           />
         </InputCountedContainer>
-        <InputCountedContainer
-          label={"Калькуляция"}
-          value={form.calculation}>
+        <InputCountedContainer label={"Калькуляция"} value={form.calculation}>
           <Toggle
             checked={form.calculation}
             setValue={() => {
@@ -44,9 +37,7 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
             }}
           />
         </InputCountedContainer>
-        <InputCountedContainer
-          label={"Тарификация"}
-          value={form.tarifiation}>
+        <InputCountedContainer label={"Тарификация"} value={form.tarifiation}>
           <Toggle
             checked={form.tarifiation}
             setValue={() => {
@@ -57,7 +48,8 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
         <div
           className={classNames(styles.exestintion_container, {
             [styles.exestintion_container__disable]: form.waiter === 0,
-          })}>
+          })}
+        >
           <InputCountedContainer
             label={"Мобильный официант"}
             value={form.waiter}
@@ -71,13 +63,15 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
               <button
                 className={classNames(styles.button_period, {
                   [styles.button_period__active]: true,
-                })}>
+                })}
+              >
                 Месяц
               </button>
               <button
                 className={classNames(styles.button_period, {
                   [styles.button_period__active]: false,
-                })}>
+                })}
+              >
                 Год
               </button>
             </div>

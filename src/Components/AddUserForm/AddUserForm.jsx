@@ -65,22 +65,11 @@ export const AddUserForm = ({ togglePopup }) => {
       title={"Добавление пользователя"}
       onSubmit={(e) =>
         onSubmit(e, setValidate, { phone, email, pass, name, city, role })
-      }>
-      <InputText
-        value={name}
-        label={"Наименование"}
-        setValue={setName}
-      />
-      <InputText
-        value={email}
-        label={"email"}
-        setValue={setEmail}
-      />
-      <InputPhone
-        value={phone}
-        label={"Телефон"}
-        setValue={setPhone}
-      />
+      }
+    >
+      <InputText value={name} label={"Наименование"} setValue={setName} />
+      <InputText value={email} label={"email"} setValue={setEmail} />
+      <InputPhone value={phone} label={"Телефон"} setValue={setPhone} />
       <InputDataSelect
         city={city}
         cityFranIds={cityFranIds}
@@ -88,11 +77,7 @@ export const AddUserForm = ({ togglePopup }) => {
         label={"Город"}
         availableCities={availableCities}
       />
-      <InputPass
-        value={pass}
-        label={"Пароль"}
-        setValue={setPass}
-      />
+      <InputPass value={pass} label={"Пароль"} setValue={setPass} />
       {
         <>
           <span className={styles.radios_label}>Выберите роль:</span>
@@ -115,7 +100,8 @@ export const AddUserForm = ({ togglePopup }) => {
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button
         type="submit"
-        className={classNames(styles.button, styles.form_submit)}>
+        className={classNames(styles.button, styles.form_submit)}
+      >
         Добавить ползователя
       </button>
     </FormElem>

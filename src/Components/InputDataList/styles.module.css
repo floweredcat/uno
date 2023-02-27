@@ -43,9 +43,11 @@
 
 .optionContainer {
   position: absolute;
+  left: 0;
+  right: 0;
   top: 46px;
   z-index: 99;
-  width: 384px;
+  width: 100%;
   height: 40vh;
   overflow-y: scroll;
   overflow-x: hidden;

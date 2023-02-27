@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { useState } from "react";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
@@ -16,9 +15,9 @@ export const EditPackageForm = ({ togglePopup, form, setForm }) => {
         <InputCountedContainer
           label={"Станция"}
           required={true}
-          value={form.stantion}
+          value={form.station}
           setValue={(val) => {
-            setForm({ ...form, stantion: val });
+            setForm({ ...form, station: val });
           }}
         />
         <InputCountedContainer label={"Склад"} value={form.storage}>

@@ -11,9 +11,11 @@ export const SearchBarContainer = ({ name, placeholder }) => {
   const [value, setValue] = useState(initialValue);
   const dispatch = useDispatch();
 
-  const setFilter = useCallback(
-    (value) => dispatch(onjectFilterSliceActions.setFilter([value, name]))[name]
-  );
+  const setFilter = useCallback((value) => {
+    if (initialValue !== value) {
+      dispatch(onjectFilterSliceActions.setFilter([value, name]))[name];
+    }
+  });
 
   useEffect(() => {
     setFilter(value);

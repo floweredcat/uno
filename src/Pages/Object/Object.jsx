@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
@@ -51,15 +51,6 @@ export const Object = () => {
     }
   }, [id, objectData]);
 
-  const [form, setForm] = useState({
-    station: 1,
-    storage: false,
-    calculation: false,
-    tarifiation: false,
-    waiter: 0,
-    qr: 0,
-  });
-
   const onclicks = [() => navigate(ROUTES.objects), () => setIsPopupOpened()];
 
   if (!objectData) {
@@ -71,7 +62,7 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        <TariffShowingContainer form={form} />
+        <TariffShowingContainer id={id} />
         <ObjectInfoContainer data={infoEntities[2]} />
         <div
           className={classNames(
@@ -87,7 +78,7 @@ export const Object = () => {
                 [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
               })}
             >
-              {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
+              {objectData.ENDDT < Date.now() ? "Пакет не активен" : "Активен"}
             </div>
           </div>
           <div className={styles.status_element}>
@@ -99,11 +90,7 @@ export const Object = () => {
         </div>
         {isPopupOpened && (
           <PopupContainer togglePopup={setIsPopupOpened}>
-            <EditPackageForm
-              togglePopup={setIsPopupOpened}
-              form={form}
-              setForm={setForm}
-            />
+            <EditPackageForm togglePopup={setIsPopupOpened} idorg={id} />
           </PopupContainer>
         )}
         {history.length > 0 && (

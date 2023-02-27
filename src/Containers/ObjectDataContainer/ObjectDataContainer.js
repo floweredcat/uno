@@ -8,7 +8,7 @@ import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { selectObjectById } from "../../store/Objects/selectors";
 import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate } from "../../helpers/formatDate.ts";
 
 export const ObjectDataContainer = ({ id, selectedRow }) => {
   const navigate = useNavigate();

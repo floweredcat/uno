@@ -8,7 +8,9 @@ export function UserHistoryContainer({ data, id }) {
   const navigate = useNavigate();
 
   const onDbClick = useCallback(() => {
-    navigate(ROUTES.objects + "/" + id);
+    if (id) {
+      navigate(ROUTES.objects + "/" + id);
+    }
   }, [id]);
   return (
     <tr className={styles.table_row} onDoubleClick={() => onDbClick()}>

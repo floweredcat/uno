@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate } from "../../helpers/formatDate.ts";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { CustomCalendar } from "../../Widgets/Calendar/Calendar";

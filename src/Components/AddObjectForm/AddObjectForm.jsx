@@ -6,7 +6,7 @@ import { addObject } from "../../store/Objects/Thunks/addObject";
 import { FormElem } from "../FormElem/FormElem";
 import styles from "./styles.module.css";
 import { isEmpty, isMobilePhone } from "validator";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { InputSelect } from "../../UI/InputSelect/InputSelect";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";

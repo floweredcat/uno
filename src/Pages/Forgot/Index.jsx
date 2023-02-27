@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { FormElem } from "../../Components/FormElem/FormElem";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { Logo } from "../../UI/Logo/Logo";
 import styles from "./styles.module.css";
 import { isEmail, isEmpty } from "validator";

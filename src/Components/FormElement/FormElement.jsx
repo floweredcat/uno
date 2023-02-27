@@ -9,7 +9,7 @@ import {
 import logo from "../../assets/images/logo.png";
 import styles from "./styles.module.css";
 import { useEffect } from "react";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { InputPassWithHide } from "../../UI/InputPassWithHide/InputPassWithHide";
 import { isEmail } from "validator";
 import { ROUTES } from "../../assets/constants/Fixtires";

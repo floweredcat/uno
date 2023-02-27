@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import { FormElem } from "../FormElem/FormElem";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { InputPass } from "../../UI/InputPass/InputPass";
 import { InputRadio } from "../../UI/InputRadio/InputRadio";

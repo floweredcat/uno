@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserDataById } from "../../store/Users/selectors";
 import { editUser } from "../../store/Users/Thunks/editUser";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { FormElem } from "../FormElem/FormElem";
 import styles from "./styles.module.css";
 

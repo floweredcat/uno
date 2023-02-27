@@ -6,7 +6,6 @@ import { selectObjectById } from "../../store/Objects/selectors";
 import { EditPackageForm } from "../../Components/EditPackageForm/EditPackageForm";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { separateAmount } from "../../helpers/separateAmount.ts";
-import { InputCountedOption } from "../../UI/InputCountedOption/InputCountedOption";
 import { Table } from "../../Components/Table/Table";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { UserData } from "../../Components/UserData/UserData";
@@ -21,6 +20,8 @@ import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import back from "../../assets/images/back.png";
 import edit from "../../assets/images/edit.svg";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
+import { TariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
+import { useToggleState } from "../../hooks/UseToggleState";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -34,16 +35,13 @@ export const Object = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
   const objectData = useSelector((state) => selectObjectById(state, { id }));
   const history = useSelector((state) =>
     selectObjectHistoryById(state, { id })
   );
 
   const infoEntities = useInfoEntities(objectData);
-  const togglePopup = () => {
-    setIsPopupOpened(!isPopupOpened);
-  };
 
   useEffect(() => {
     if (!objectData) {
@@ -62,7 +60,7 @@ export const Object = () => {
     qr: 0,
   });
 
-  const onclicks = [() => navigate(ROUTES.objects), () => togglePopup()];
+  const onclicks = [() => navigate(ROUTES.objects), () => setIsPopupOpened()];
 
   if (!objectData) {
     return null;
@@ -73,37 +71,7 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        <div className={classNames(styles.object_info, styles.objects_element)}>
-          <InputCountedOption
-            label={"Станция"}
-            value={form.station}
-            required={true}
-          />
-          {form.storage && (
-            <InputCountedOption label={"Склад"} value={form.storage} />
-          )}
-          {form.calculation && (
-            <InputCountedOption
-              label={"Калькуляция"}
-              value={form.calculation}
-            />
-          )}
-          {form.tarifiation && (
-            <InputCountedOption
-              label={"Тарификация"}
-              value={form.tarifiation}
-            />
-          )}
-          {form.waiter !== 0 && (
-            <InputCountedOption
-              label={"Мобильный официант"}
-              value={form.waiter}
-            />
-          )}
-          {form.qr !== 0 && (
-            <InputCountedOption label={"QR меню"} value={form.qr} />
-          )}
-        </div>
+        <TariffShowingContainer form={form} />
         <ObjectInfoContainer data={infoEntities[2]} />
         <div
           className={classNames(
@@ -130,9 +98,9 @@ export const Object = () => {
           </div>
         </div>
         {isPopupOpened && (
-          <PopupContainer togglePopup={togglePopup}>
+          <PopupContainer togglePopup={setIsPopupOpened}>
             <EditPackageForm
-              togglePopup={togglePopup}
+              togglePopup={setIsPopupOpened}
               form={form}
               setForm={setForm}
             />

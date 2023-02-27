@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.css";
 import {
@@ -15,6 +14,7 @@ import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { TableHeaderFiltered } from "../../Components/TableHeaderFiltered/TableHeaderFiltered";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { nanoid } from "nanoid";
+import { useToggleState } from "../../hooks/UseToggleState";
 
 const OBJECT_HEADERS = [
   "ID",
@@ -34,10 +34,7 @@ export const Objects = () => {
   }, []);
   const isLoading = useSelector((state) => selectObjectsIsLoading(state));
   const objectsIds = useSelector((state) => selectObjectsIds(state));
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const togglePopup = () => {
-    setIsPopupOpened(!isPopupOpened);
-  };
+  const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
   const resetFilter = () => dispatch(onjectFilterSliceActions.resetFilter());
 
   if (isLoading) {
@@ -55,11 +52,11 @@ export const Objects = () => {
             <ObjectDataContainer key={nanoid()} id={id} />
           ))}
         </Table>
-        <ButtonBar onClicks={[togglePopup]} />
+        <ButtonBar onClicks={[setIsPopupOpened]} />
       </>
       {isPopupOpened && (
-        <PopupContainer togglePopup={togglePopup}>
-          <AddObjectForm togglePopup={togglePopup} />
+        <PopupContainer togglePopup={setIsPopupOpened}>
+          <AddObjectForm togglePopup={setIsPopupOpened} />
         </PopupContainer>
       )}
     </div>

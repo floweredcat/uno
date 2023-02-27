@@ -1,0 +1,22 @@
+.objects_element {
+  border-bottom: 1px solid #bcbcbc;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.objects_element:last-of-type {
+  border-bottom: none;
+}
+
+.objects_element:first-of-type .info_element {
+  align-self: flex-end;
+}
+
+.object_info {
+  padding: 48px 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}

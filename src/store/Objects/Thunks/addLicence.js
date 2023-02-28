@@ -17,12 +17,14 @@ export const addLicence = ({ params }) => {
       items,
     }),
   };
+  console.log(options.body);
 
   const url = new URL("https://wsuno.xyz/api/addlicense");
 
   fetch(url, options)
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (!data.OK) {
         throw Error(data.error);
       }

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { cityFranshisesSliceActions } from "..";
 import { normolizeEntities } from "../../helpers/normalizeEntites";
 import { selectCityFranshisesIds } from "../selectors";

@@ -1,19 +1,6 @@
-export function calculateBull({ form, packagesPrices }) {
-  const { pack, packagePeriod, office, officePeriod,  } = form;
-  const bill = {};
+export function calculateBill({ form, packagePrices }) {
+  console.log(packagePrices, form);
 
-  switch (pack) {
-    default: {
-      bill.error = "Error calculate";
-      break;
-    }
-    case "Max":
-      bill.package = packagesPrices.Max.PRICE * packagePeriod;
-      break;
-    case "Base":
-      bill.package = packagesPrices.Base.PRICE * packagePeriod;
-      break;
-    case "Start":
-      bill.package = packagesPrices.Start.PRICE * packagePeriod;
-  }
+  const pricesValues = Object.values(packagePrices);
+  pricesValues.reduce((acc, item, idx) => {}, 0);
 }

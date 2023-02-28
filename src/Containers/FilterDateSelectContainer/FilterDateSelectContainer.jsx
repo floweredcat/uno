@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate.ts";
+import { useToggleState } from "../../hooks/UseToggleState";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
@@ -9,7 +10,7 @@ import styles from "./styles.module.css";
 export const FilterDateSelectContainer = () => {
   const dispatch = useDispatch();
   const filterDate = useSelector((state) => selectObjectFilters(state).DT);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useToggleState(false);
 
   const [date, setDate] = useState("");
 
@@ -22,18 +23,14 @@ export const FilterDateSelectContainer = () => {
   useEffect(() => {
     dispatch(onjectFilterSliceActions.setFilter([date, "DT"]));
     if (date.length > 0) {
-      toggleOpen();
+      setIsOpen();
     }
   }, [getDateString]);
-
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <>
       <button
-        onClick={() => toggleOpen()}
+        onClick={() => setIsOpen()}
         type="button"
         className={styles.toggleButton}
       >

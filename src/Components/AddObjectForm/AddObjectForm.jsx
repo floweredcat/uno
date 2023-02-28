@@ -11,6 +11,7 @@ import { InputSelect } from "../../UI/InputSelect/InputSelect";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
+import { InputDate } from "../../UI/InputDate/InputDate";
 
 export const AddObjectForm = ({ togglePopup }) => {
   const userId = localStorage.userId;
@@ -43,6 +44,7 @@ export const AddObjectForm = ({ togglePopup }) => {
     orgOwner: "",
     phone: "",
     worker: "",
+    date: new Date(),
   });
   const handleValidate = () => {
     if (Object.values(form).some((el) => isEmpty(el))) {
@@ -95,6 +97,11 @@ export const AddObjectForm = ({ togglePopup }) => {
         label={"Специалист"}
         value={form.worker}
         setValue={(e) => setForm({ ...form, worker: e })}
+      />
+      <InputDate
+        date={form.date}
+        setDate={(e) => setForm({ ...form, date: e })}
+        label={"Дата создания"}
       />
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button

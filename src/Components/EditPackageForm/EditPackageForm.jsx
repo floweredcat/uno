@@ -1,14 +1,21 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
+import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
 import { addLicence } from "../../store/Objects/Thunks/addLicence";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
+import { calculateBill } from "./helpers/calculateBill";
 import styles from "./styles.module.css";
 
 export const EditPackageForm = ({ togglePopup, idorg }) => {
+  const packagePrices = useSelector((state) =>
+    selectObjectPricePackages(state)
+  );
   const handleSubmit = (e) => {
     e.preventDefault();
+    calculateBill({ form, packagePrices });
     addLicence({
       params: {
         idorg,
@@ -31,22 +38,27 @@ export const EditPackageForm = ({ togglePopup, idorg }) => {
   };
 
   const [form, setForm] = useState({
-    station: { klv: 1 },
+    station: { klv: 1, ID: 1 },
     storage: {
       klv: 0,
+      ID: 2,
     },
     calculation: {
       klv: 0,
+      ID: 3,
     },
     tarifiation: {
       klv: 0,
+      ID: 4,
     },
     waiter: {
       klv: 0,
       period: 1,
+      ID: 5,
     },
     qr: {
       klv: 0,
+      ID: 6,
     },
   });
   return (

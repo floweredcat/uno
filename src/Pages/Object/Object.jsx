@@ -22,6 +22,7 @@ import edit from "../../assets/images/edit.svg";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { TariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
 import { useToggleState } from "../../hooks/UseToggleState";
+import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -47,6 +48,7 @@ export const Object = () => {
     if (!objectData) {
       dispatch(getObjects({ userId: localStorage.userId / 1 }));
     } else {
+      dispatch(getPackagePrices);
       dispatch(getHistoryObjectIfNotExist({ id }));
     }
   }, [id, objectData]);

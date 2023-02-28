@@ -24,7 +24,7 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
   const dataForFilter = object;
-  const [start, end] = [object.STARTDT, object.ENDDT];
+  const [start, end] = [object.lic[0]?.DTSTART, object.lic[0]?.DTEND];
 
   const diffDates = getDiffInMonths({
     start,

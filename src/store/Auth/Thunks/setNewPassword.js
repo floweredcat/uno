@@ -23,7 +23,7 @@ export const setNewPassword =
         }
         dispatch(authSliceActions.successChangePass("Пароль изменен успешно"));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           authSliceActions.setErrorChangePass("Неверный текущий пароль")
         );

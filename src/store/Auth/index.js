@@ -53,8 +53,7 @@ export const authSlice = createSlice({
         errorMessage: action.payload,
       };
     },
-    successChangePass: (state, action) => {
-      const mess = action.payload;
+    successChangePass: (state) => {
       return {
         ...state,
         mess: "123",

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../../helpers/formatDate.ts";
@@ -13,6 +14,7 @@ export const FilterDateSelectContainer = () => {
   const [isOpen, setIsOpen] = useToggleState(false);
 
   const [date, setDate] = useState("");
+  const ref = useRef(null);
 
   const getDateString = date
     ? date.length > 0
@@ -27,6 +29,17 @@ export const FilterDateSelectContainer = () => {
     }
   }, [getDateString]);
 
+  useEffect(() => {
+    const handleClickOutSide = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpen();
+      }
+    };
+    document.addEventListener("click", handleClickOutSide, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutSide, true);
+  }, [date]);
+
   return (
     <>
       <button
@@ -37,7 +50,7 @@ export const FilterDateSelectContainer = () => {
         {filterDate.length > 0 ? getDateString : ""}
       </button>
       {isOpen && (
-        <div className={styles.calendar_wrapper}>
+        <div className={styles.calendar_wrapper} ref={ref}>
           <CustomCalendar setDate={setDate} date={date} />
         </div>
       )}

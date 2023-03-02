@@ -38,6 +38,7 @@ export const AddObjectForm = ({ togglePopup }) => {
       label: el.CITY,
     };
   });
+
   const [form, setForm] = useState({
     name: "",
     idFran: franshisesMap[0]?.value || " ",
@@ -46,6 +47,13 @@ export const AddObjectForm = ({ togglePopup }) => {
     worker: "",
     date: new Date(),
   });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const handleValidate = () => {
     if (Object.values(form).some((el) => isEmpty(el))) {
       setValidate({
@@ -73,30 +81,35 @@ export const AddObjectForm = ({ togglePopup }) => {
         onClick={() => togglePopup()}
       />
       <InputText
+        name={"name"}
         value={form.name}
         label={"Наименование"}
-        setValue={(e) => setForm({ ...form, name: e })}
+        setValue={handleChange}
       />
       <InputSelect
+        name={"idFran"}
         mapValues={franshisesMap}
-        setForm={(e) => setForm({ ...form, idFran: e })}
+        setForm={handleChange}
         label={"Франшиза"}
         value={form.idFran}
       />
       <InputText
+        name={"orgOwner"}
         value={form.orgOwner}
         label={"Имя владельца"}
-        setValue={(e) => setForm({ ...form, orgOwner: e })}
+        setValue={handleChange}
       />
       <InputPhone
+        name={"phone"}
         label={"Телефон"}
         value={form.phone}
-        setValue={(e) => setForm({ ...form, phone: e })}
+        setValue={handleChange}
       />
       <InputText
+        name={"worker"}
         label={"Специалист"}
         value={form.worker}
-        setValue={(e) => setForm({ ...form, worker: e })}
+        setValue={handleChange}
       />
       <InputDate
         date={form.date}

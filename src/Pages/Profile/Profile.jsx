@@ -48,6 +48,14 @@ export const Profile = () => {
     repeat: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleValidate = () => {
     const regularExpression =
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&+=*]{6,30}$/;
@@ -76,19 +84,22 @@ export const Profile = () => {
       <h2 className={styles.title}>Сбросить пароль </h2>
       <FormElem onSubmit={onSubmit}>
         <InputPass
+          name={"password"}
           value={form.password}
           label={"Старый пароль"}
-          setValue={(e) => setForm({ ...form, password: e })}
+          setValue={handleChange}
         />
         <InputPass
+          name={"newPassword"}
           value={form.newPassword}
           label={"Новый пароль"}
-          setValue={(e) => setForm({ ...form, newPassword: e })}
+          setValue={handleChange}
         />
         <InputPass
+          name={"repeat"}
           value={form.repeat}
           label={"Повторите пароль"}
-          setValue={(e) => setForm({ ...form, repeat: e })}
+          setValue={handleChange}
         />
         <button
           type="submit"

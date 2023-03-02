@@ -9,14 +9,17 @@ export const TariffShowingContainer = ({ id }) => {
   const tarif = useSelector((state) => selectObjectTarifById(state, { id }));
   return (
     <div className={classNames(styles.object_info, styles.objects_element)}>
-      {tarif.map((el, idx) => (
-        <InputCountedOption
-          label={el.NAME}
-          value={el.KLV}
-          required={idx == 0}
-          key={nanoid()}
-        />
-      ))}
+      {tarif.map(
+        (el, idx) =>
+          !!el.KLV && (
+            <InputCountedOption
+              label={el.NAME}
+              value={el.KLV}
+              required={idx == 0}
+              key={nanoid()}
+            />
+          )
+      )}
     </div>
   );
 };

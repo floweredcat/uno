@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 
-export const InputPassWithHide = ({ label, value, setValue }) => {
+export const InputPassWithHide = ({ label, value, setValue, name }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => {
     setPasswordVisible(!passwordVisible);
@@ -10,13 +10,14 @@ export const InputPassWithHide = ({ label, value, setValue }) => {
   return (
     <div className={styles.input_container}>
       <input
+        name={name}
         autoComplete="new-password"
         id={label}
         type={passwordVisible ? "text" : "password"}
         className={styles.form_input}
         placeholder=" "
         value={value}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={setValue}
       />
       <label htmlFor={label} className={styles.form_label}>
         {label}

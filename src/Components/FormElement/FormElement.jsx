@@ -16,12 +16,18 @@ import { ROUTES } from "../../assets/constants/Fixtires";
 
 export const FormElement = () => {
   const userIdAccess = localStorage.userIdAccess;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [validate, setValidate] = useState({
     isValid: true,
     errorMessage: " ",
   });
+  const [form, setForm] = useState({ password: "", email: "" });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const isSuccessAuth = useSelector((state) => selectUserAuthenticated(state));
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,9 +41,9 @@ export const FormElement = () => {
   }, [isSuccessAuth]);
 
   const handleValidate = () => {
-    if (!email || !password) {
+    if (!form.email || !form.password) {
       setValidate({ isValid: false, errorMessage: "Введите логин и пароль!" });
-    } else if (!isEmail(email)) {
+    } else if (!isEmail(form.email)) {
       setValidate({
         isValid: false,
         errorMessage: "Неверный формат электронной почты",
@@ -53,7 +59,7 @@ export const FormElement = () => {
   };
 
   const handleSubmit = (event) => {
-    dispatch(authUserIfUserExist({ email, password }));
+    dispatch(authUserIfUserExist(form));
     event.preventDefault();
     handleValidate();
   };
@@ -62,11 +68,17 @@ export const FormElement = () => {
     <div className={styles.login_formWrapper}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <img src={logo} alt="logo" className={styles.form_logo} />
-        <InputText label={"Логин"} value={email} setValue={setEmail} />
+        <InputText
+          label={"Логин"}
+          name={"email"}
+          value={form.email}
+          setValue={handleChange}
+        />
         <InputPassWithHide
+          name={"password"}
           label={"Пароль"}
-          value={password}
-          setValue={setPassword}
+          value={form.password}
+          setValue={handleChange}
         />
         <span className={styles.errorMessage}>{validate.errorMessage}</span>
         <button className={styles.form_submit} type="submit">

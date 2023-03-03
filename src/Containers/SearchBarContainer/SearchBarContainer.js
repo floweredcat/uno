@@ -11,11 +11,14 @@ export const SearchBarContainer = ({ name, placeholder }) => {
   const [value, setValue] = useState(initialValue);
   const dispatch = useDispatch();
 
-  const setFilter = useCallback((value) => {
-    if (initialValue !== value) {
-      dispatch(onjectFilterSliceActions.setFilter([value, name]))[name];
-    }
-  });
+  const setFilter = useCallback(
+    (value) => {
+      if (initialValue !== value) {
+        dispatch(onjectFilterSliceActions.setFilter([value, name]))[name];
+      }
+    },
+    [placeholder]
+  );
 
   useEffect(() => {
     setFilter(value);
@@ -27,7 +30,7 @@ export const SearchBarContainer = ({ name, placeholder }) => {
 
   return (
     <SearchBar
-      value={initialValue}
+      value={value}
       updateState={updateState}
       placeholder={placeholder}
     />

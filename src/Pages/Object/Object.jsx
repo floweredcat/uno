@@ -41,6 +41,7 @@ export const Object = () => {
   const history = useSelector((state) =>
     selectObjectHistoryById(state, { id })
   );
+  const idlic = objectData?.lic[0].IDLIC || 0;
 
   const infoEntities = useInfoEntities(objectData);
 
@@ -92,7 +93,7 @@ export const Object = () => {
         </div>
         {isPopupOpened && (
           <PopupContainer togglePopup={setIsPopupOpened}>
-            <EditPackageForm togglePopup={setIsPopupOpened} idorg={id} />
+            <EditPackageForm togglePopup={setIsPopupOpened} idlic={idlic} />
           </PopupContainer>
         )}
         {history.length > 0 && (

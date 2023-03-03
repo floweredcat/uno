@@ -55,7 +55,7 @@ export const AddObjectForm = ({ togglePopup }) => {
     }));
   };
   const handleValidate = () => {
-    if (Object.values(form).some((el) => isEmpty(el))) {
+    if (Object.values(form).some((el) => isEmpty(el.toString()))) {
       setValidate({
         errorMessage: "Необходимо заполнить все поля",
         isValid: false,

@@ -8,21 +8,19 @@ export const InputSelectTable = ({
   size = 1,
   label,
   value,
-}) => {
-  return (
-    <div className={styles.input_container}>
-      <select
-        size={size}
-        id={label}
-        className={styles.form_input}
-        value={value}
-        placeholder={label}
-        onChange={(e) => setForm(e.target.value)}
-      >
-        {mapValues?.map((el) => (
-          <Option key={nanoid()} label={el} value={el} />
-        ))}
-      </select>
-    </div>
-  );
-};
+}) => (
+  <div className={styles.input_container}>
+    <label className={styles.label}>{value.length == 0 && label}</label>
+    <select
+      size={size}
+      id={label}
+      className={styles.form_input}
+      value={value}
+      onChange={(e) => setForm(e.target.value)}
+    >
+      {mapValues?.map((el) => (
+        <Option key={nanoid()} label={el} value={el} />
+      ))}
+    </select>
+  </div>
+);

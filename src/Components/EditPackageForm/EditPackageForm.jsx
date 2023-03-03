@@ -3,37 +3,43 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
 import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
-import { addLicence } from "../../store/Objects/Thunks/addLicence";
+import { editLicence } from "../../store/Objects/Thunks/editLicence";
+import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
 import { calculateBill } from "./helpers/calculateBill";
 import styles from "./styles.module.css";
 
-export const EditPackageForm = ({ togglePopup, idorg }) => {
+export const EditPackageForm = ({ togglePopup, idlic }) => {
   const packagePrices = useSelector((state) =>
     selectObjectPricePackages(state)
   );
+  const formatDate = (date) => {
+    const month = date.getMonth() + 1;
+    return date.getFullYear() + "-" + month + "-" + date.getDate();
+  };
+  const formatData = async function () {
+    return Object.values(form)
+      .slice(0, -1)
+      .map((el) => ({
+        iditem: el.ID,
+        klv: el.klv,
+        price: 10000,
+        dtstart: formatDate(form.date[0]),
+        dtend: formatDate(form.date[1]),
+      }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    calculateBill({ form, packagePrices });
-    addLicence({
-      params: {
-        idorg,
-        iditem: 1,
-        klv: 1,
-        dtstart: "2023-02-27",
-        dtend: "2024-02-27",
-        price: 72000,
-        amount: 134000,
-        items: Object.values(form).map((el, idx) => ({
-          iditem: idx + 1,
-          klv: el.klv,
-          price: 10000,
-          dtstart: "2023-02-27",
-          dtend: "2024-02-27",
-        })),
-      },
+    formatData().then((res) => {
+      editLicence({
+        params: {
+          id: idlic,
+          items: res,
+        },
+      });
     });
+
     togglePopup();
   };
 
@@ -60,6 +66,7 @@ export const EditPackageForm = ({ togglePopup, idorg }) => {
       klv: 0,
       ID: 6,
     },
+    date: "",
   });
   return (
     <FormElem onSubmit={handleSubmit} title={"Смена тарифа"}>
@@ -149,6 +156,13 @@ export const EditPackageForm = ({ togglePopup, idorg }) => {
           setValue={(val) => {
             setForm({ ...form, qr: { klv: val } });
           }}
+        />
+        <CustomCalendar
+          date={form.date}
+          setDate={(e) => {
+            setForm({ ...form, date: e });
+          }}
+          selectRange={true}
         />
         <button
           type="submit"

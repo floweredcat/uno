@@ -8,8 +8,18 @@ import styles from "./styles.module.css";
 
 export function Recover() {
   const { hash } = useParams();
-  const [pass, setPass] = useState("");
-  const [repeatPass, setRepeatPass] = useState("");
+  const [form, setForm] = useState({
+    pass: "",
+    repeatPass: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const onSubmit = () => {
     console.log(hash);
@@ -21,14 +31,16 @@ export function Recover() {
         <Logo />
         <FormElem onSubmit={onSubmit}>
           <InputPassWithHide
+            name={"pass"}
             label={"Новый пароль"}
-            value={pass}
-            setValue={setPass}
+            value={form.pass}
+            setValue={handleChange}
           />
           <InputPassWithHide
+            name={"repeatPass"}
             label={"Повторите новый пароль"}
-            value={repeatPass}
-            setValue={setRepeatPass}
+            value={form.repeatPass}
+            setValue={handleChange}
           />
           <button
             type="submit"

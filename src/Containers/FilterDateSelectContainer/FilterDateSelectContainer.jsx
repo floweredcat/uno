@@ -1,6 +1,8 @@
+import classNames from "classnames";
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate } from "../../helpers/formatDate.ts";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
@@ -12,6 +14,7 @@ export const FilterDateSelectContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [date, setDate] = useState("");
+  const ref = useRef(null);
 
   const getDateString = date
     ? date.length > 0
@@ -22,28 +25,40 @@ export const FilterDateSelectContainer = () => {
   useEffect(() => {
     dispatch(onjectFilterSliceActions.setFilter([date, "DT"]));
     if (date.length > 0) {
-      toggleOpen();
+      setIsOpen(false);
     }
   }, [getDateString]);
 
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    const handleClickOutSide = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutSide, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutSide, true);
+  }, [setDate]);
 
   return (
     <>
       <button
-        onClick={() => toggleOpen()}
+        onClick={() => setIsOpen(!isOpen)}
         type="button"
         className={styles.toggleButton}
       >
-        {filterDate.length > 0 ? getDateString : ""}
+        {filterDate.length > 0 ? getDateString : "Дата создания"}
       </button>
-      {isOpen && (
-        <div className={styles.calendar_wrapper}>
+      {
+        <div
+          className={classNames(styles.calendar_wrapper, {
+            [styles.calendar_wrapper__hide]: !isOpen,
+          })}
+          ref={ref}
+        >
           <CustomCalendar setDate={setDate} date={date} />
         </div>
-      )}
+      }
     </>
   );
 };

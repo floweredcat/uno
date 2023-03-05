@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.css";
 import {
@@ -15,6 +14,11 @@ import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { TableHeaderFiltered } from "../../Components/TableHeaderFiltered/TableHeaderFiltered";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { nanoid } from "nanoid";
+import { useToggleState } from "../../hooks/UseToggleState";
+import addImage from "../../assets/images/add.svg";
+import resetImage from "../../assets/images/reset filter.svg";
+
+const images = [addImage, resetImage];
 
 const OBJECT_HEADERS = [
   "ID",
@@ -34,10 +38,7 @@ export const Objects = () => {
   }, []);
   const isLoading = useSelector((state) => selectObjectsIsLoading(state));
   const objectsIds = useSelector((state) => selectObjectsIds(state));
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
-  const togglePopup = () => {
-    setIsPopupOpened(!isPopupOpened);
-  };
+  const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
   const resetFilter = () => dispatch(onjectFilterSliceActions.resetFilter());
 
   if (isLoading) {
@@ -46,20 +47,17 @@ export const Objects = () => {
   return (
     <div className={styles.objects_wrapper}>
       <>
-        <button type="button" onClick={resetFilter} className={styles.reset}>
-          сбросить фильтр
-        </button>
         <Table>
           <TableHeaderFiltered headers={OBJECT_HEADERS} />
           {objectsIds?.map((id) => (
             <ObjectDataContainer key={nanoid()} id={id} />
           ))}
         </Table>
-        <ButtonBar onClicks={[togglePopup]} />
+        <ButtonBar onClicks={[setIsPopupOpened, resetFilter]} images={images} />
       </>
       {isPopupOpened && (
-        <PopupContainer togglePopup={togglePopup}>
-          <AddObjectForm togglePopup={togglePopup} />
+        <PopupContainer togglePopup={setIsPopupOpened}>
+          <AddObjectForm togglePopup={setIsPopupOpened} />
         </PopupContainer>
       )}
     </div>

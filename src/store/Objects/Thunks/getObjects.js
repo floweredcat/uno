@@ -14,7 +14,6 @@ export const getObjects =
       }),
     };
     dispatch(objectsSliceActions.startLoading());
-    console.log(userId);
 
     const url = new URL("https://wsuno.xyz/api/getObjects");
 

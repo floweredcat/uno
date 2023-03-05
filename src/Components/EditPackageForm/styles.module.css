@@ -65,7 +65,7 @@
   appearance: none;
   width: 86px;
   height: 25px;
-  border: 1px solid #bcbcbc;
+  border: 2px solid #bcbcbc;
   border-radius: 13px;
   cursor: pointer;
   font-weight: 400;
@@ -76,15 +76,18 @@
 }
 
 .button_period__active {
-  border: 1px solid #45a2d6;
+  border: 2px solid #45a2d6;
   cursor: pointer;
 }
 
 .exestintion {
   margin-left: 10px;
-  padding: 5px 0;
+  margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
-  max-width: 45%;
-  row-gap: 40px;
+  justify-items: center;
+  text-align: center;
+  width: 190px;
+  row-gap: 35px;
+  column-gap: 5px;
 }

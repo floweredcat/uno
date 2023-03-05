@@ -8,7 +8,7 @@ import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { selectObjectById } from "../../store/Objects/selectors";
 import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
-import { formatDate } from "../../helpers/formatDate";
+import { formatDate } from "../../helpers/formatDate.ts";
 
 export const ObjectDataContainer = ({ id, selectedRow }) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
   const dataForFilter = object;
-  const [start, end] = [object.STARTDT, object.ENDDT];
+  const [start, end] = [object.lic[0]?.DTSTART, object.lic[0]?.DTEND];
 
   const diffDates = getDiffInMonths({
     start,

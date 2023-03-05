@@ -1,12 +1,11 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectObjectById } from "../../store/Objects/selectors";
 import { EditPackageForm } from "../../Components/EditPackageForm/EditPackageForm";
 import { PopupContainer } from "../../Containers/PopupContainer/PopupContainer";
 import { separateAmount } from "../../helpers/separateAmount.ts";
-import { InputCountedOption } from "../../UI/InputCountedOption/InputCountedOption";
 import { Table } from "../../Components/Table/Table";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { UserData } from "../../Components/UserData/UserData";
@@ -21,6 +20,9 @@ import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import back from "../../assets/images/back.png";
 import edit from "../../assets/images/edit.svg";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
+import { TariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
+import { useToggleState } from "../../hooks/UseToggleState";
+import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -34,35 +36,25 @@ export const Object = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
   const objectData = useSelector((state) => selectObjectById(state, { id }));
   const history = useSelector((state) =>
     selectObjectHistoryById(state, { id })
   );
+  const idlic = objectData?.lic[0].IDLIC || 0;
 
   const infoEntities = useInfoEntities(objectData);
-  const togglePopup = () => {
-    setIsPopupOpened(!isPopupOpened);
-  };
 
   useEffect(() => {
     if (!objectData) {
       dispatch(getObjects({ userId: localStorage.userId / 1 }));
     } else {
+      dispatch(getPackagePrices);
       dispatch(getHistoryObjectIfNotExist({ id }));
     }
   }, [id, objectData]);
 
-  const [form, setForm] = useState({
-    station: 1,
-    storage: false,
-    calculation: false,
-    tarifiation: false,
-    waiter: 0,
-    qr: 0,
-  });
-
-  const onclicks = [() => navigate(ROUTES.objects), () => togglePopup()];
+  const onclicks = [() => navigate(ROUTES.objects), () => setIsPopupOpened()];
 
   if (!objectData) {
     return null;
@@ -73,37 +65,7 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        <div className={classNames(styles.object_info, styles.objects_element)}>
-          <InputCountedOption
-            label={"Станция"}
-            value={form.station}
-            required={true}
-          />
-          {form.storage && (
-            <InputCountedOption label={"Склад"} value={form.storage} />
-          )}
-          {form.calculation && (
-            <InputCountedOption
-              label={"Калькуляция"}
-              value={form.calculation}
-            />
-          )}
-          {form.tarifiation && (
-            <InputCountedOption
-              label={"Тарификация"}
-              value={form.tarifiation}
-            />
-          )}
-          {form.waiter !== 0 && (
-            <InputCountedOption
-              label={"Мобильный официант"}
-              value={form.waiter}
-            />
-          )}
-          {form.qr !== 0 && (
-            <InputCountedOption label={"QR меню"} value={form.qr} />
-          )}
-        </div>
+        <TariffShowingContainer id={id} />
         <ObjectInfoContainer data={infoEntities[2]} />
         <div
           className={classNames(
@@ -119,7 +81,7 @@ export const Object = () => {
                 [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
               })}
             >
-              {objectData.ENDDT <= Date.now() ? "Пакет не активен" : "Активен"}
+              {objectData.ENDDT < Date.now() ? "Пакет не активен" : "Активен"}
             </div>
           </div>
           <div className={styles.status_element}>
@@ -130,12 +92,8 @@ export const Object = () => {
           </div>
         </div>
         {isPopupOpened && (
-          <PopupContainer togglePopup={togglePopup}>
-            <EditPackageForm
-              togglePopup={togglePopup}
-              form={form}
-              setForm={setForm}
-            />
+          <PopupContainer togglePopup={setIsPopupOpened}>
+            <EditPackageForm togglePopup={setIsPopupOpened} idlic={idlic} />
           </PopupContainer>
         )}
         {history.length > 0 && (

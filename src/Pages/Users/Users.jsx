@@ -18,6 +18,7 @@ import { DeletePopup } from "../../Components/DeletePopup/DeletePopup";
 import { useNavigate } from "react-router-dom";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { ROUTES } from "../../assets/constants/Fixtires";
+import { useToggleState } from "../../hooks/UseToggleState";
 
 const USER_HEADERS = [
   "#",
@@ -38,29 +39,17 @@ export const Users = () => {
     setIsRowSelected(false);
   }, []);
   const usersIds = useSelector((state) => selectUsersIds(state));
-  const [isPopupOpened, setIsPopupOpened] = useState(false);
+  const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
   const [isRowSelected, setIsRowSelected] = useState(false);
-  const [isEditPopupOpened, setIsEditPopupOpened] = useState(false);
-  const [isDeletePopupOpened, setIsDeletePopupOpened] = useState(false);
+  const [isEditPopupOpened, setIsEditPopupOpened] = useToggleState(false);
+  const [isDeletePopupOpened, setIsDeletePopupOpened] = useToggleState(false);
   const [selectedRow, setSelectedRow] = useState(false);
 
   const userId = localStorage.userId / 1;
-
-  const toggleAddPopup = () => {
-    setIsPopupOpened(!isPopupOpened);
-  };
   const resetSelectedRow = () => {
     setSelectedRow(false);
     setIsRowSelected(false);
   };
-  const toggleDeletePopup = () => {
-    setIsDeletePopupOpened(!isDeletePopupOpened);
-  };
-
-  const toggleEditPopup = () => {
-    setIsEditPopupOpened(!isEditPopupOpened);
-  };
-
   const toggleSelectedRow = (el) => {
     if (userId / 1 !== el) {
       if (el) {
@@ -97,26 +86,30 @@ export const Users = () => {
         })}
       </Table>
       <ButtonBar
-        onClicks={[toggleAddPopup, toggleEditPopup, toggleDeletePopup]}
+        onClicks={[
+          setIsPopupOpened,
+          setIsEditPopupOpened,
+          setIsDeletePopupOpened,
+        ]}
         disabled={!isRowSelected}
       />
       {isPopupOpened && (
-        <PopupContainer togglePopup={toggleAddPopup}>
-          <AddUserForm togglePopup={toggleAddPopup} />
+        <PopupContainer togglePopup={setIsPopupOpened}>
+          <AddUserForm togglePopup={setIsPopupOpened} />
         </PopupContainer>
       )}
       {isDeletePopupOpened && (
         <DeletePopup
           id={selectedRow}
-          toggleDeletePopup={toggleDeletePopup}
+          toggleDeletePopup={setIsDeletePopupOpened}
           resetSelectedRow={resetSelectedRow}
         />
       )}
       {isEditPopupOpened && (
-        <PopupContainer togglePopup={toggleEditPopup}>
+        <PopupContainer togglePopup={setIsEditPopupOpened}>
           <EditUserForm
             id={selectedRow}
-            togglePopup={toggleEditPopup}
+            togglePopup={setIsEditPopupOpened}
             resetSelectedRow={resetSelectedRow}
           />
         </PopupContainer>

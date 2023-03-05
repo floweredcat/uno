@@ -11,12 +11,14 @@ interface ObjectData {
   WORKER: string;
   CITY: string;
   PHONE: string;
+  FRAN_NAME: string;
   STARTDT?: string;
   ENDDT?: string;
 }
 
 export function useInfoEntities(objectData: ObjectData) {
-  const { DT, NAME, WORKER, CITY, PHONE, STARTDT, ENDDT } = objectData || {};
+  const { DT, NAME, WORKER, CITY, PHONE, FRAN_NAME, STARTDT, ENDDT } =
+    objectData || {};
 
   const { months, daysLeft } = getLeftTime({
     start: objectData?.STARTDT,
@@ -56,7 +58,7 @@ export function useInfoEntities(objectData: ObjectData) {
       {
         img: partnerIcon,
         title: "Партнер",
-        content: "UM System Group",
+        content: FRAN_NAME,
       },
       {
         img: phoneIcon,

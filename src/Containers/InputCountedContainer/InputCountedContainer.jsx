@@ -6,16 +6,18 @@ export const InputCountedContainer = ({
   setValue,
   value,
   step = 1,
+  required,
+  name,
   ...props
 }) => {
   const increment = () => {
     let newValue = value + step;
-    setValue(newValue);
+    setValue({newValue, name});
   };
   const decrement = () => {
     let newValue = value - step;
-    if (newValue >= 0) {
-      setValue(newValue);
+    if (newValue >= (required ? 1 : 0)) {
+      setValue({newValue, name});
     }
   };
 
@@ -25,6 +27,7 @@ export const InputCountedContainer = ({
       decrement={decrement}
       label={label}
       value={value}
+      required={required}
       {...props}
     >
       {children}

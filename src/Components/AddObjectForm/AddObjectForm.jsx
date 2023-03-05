@@ -6,11 +6,12 @@ import { addObject } from "../../store/Objects/Thunks/addObject";
 import { FormElem } from "../FormElem/FormElem";
 import styles from "./styles.module.css";
 import { isEmpty, isMobilePhone } from "validator";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { InputSelect } from "../../UI/InputSelect/InputSelect";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { useSingleEffect } from "../../hooks/UseSingleEffect";
 import { getFransheses } from "../../store/Franshises/Thunks/getFransheses";
+import { InputDate } from "../../UI/InputDate/InputDate";
 
 export const AddObjectForm = ({ togglePopup }) => {
   const userId = localStorage.userId;
@@ -37,15 +38,24 @@ export const AddObjectForm = ({ togglePopup }) => {
       label: el.CITY,
     };
   });
+
   const [form, setForm] = useState({
     name: "",
     idFran: franshisesMap[0]?.value || " ",
     orgOwner: "",
     phone: "",
     worker: "",
+    date: new Date(),
   });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const handleValidate = () => {
-    if (Object.values(form).some((el) => isEmpty(el))) {
+    if (Object.values(form).some((el) => isEmpty(el.toString()))) {
       setValidate({
         errorMessage: "Необходимо заполнить все поля",
         isValid: false,
@@ -71,30 +81,40 @@ export const AddObjectForm = ({ togglePopup }) => {
         onClick={() => togglePopup()}
       />
       <InputText
+        name={"name"}
         value={form.name}
         label={"Наименование"}
-        setValue={(e) => setForm({ ...form, name: e })}
+        setValue={handleChange}
       />
       <InputSelect
+        name={"idFran"}
         mapValues={franshisesMap}
-        setForm={(e) => setForm({ ...form, idFran: e })}
+        setForm={handleChange}
         label={"Франшиза"}
         value={form.idFran}
       />
       <InputText
+        name={"orgOwner"}
         value={form.orgOwner}
         label={"Имя владельца"}
-        setValue={(e) => setForm({ ...form, orgOwner: e })}
+        setValue={handleChange}
       />
       <InputPhone
+        name={"phone"}
         label={"Телефон"}
         value={form.phone}
-        setValue={(e) => setForm({ ...form, phone: e })}
+        setValue={handleChange}
       />
       <InputText
+        name={"worker"}
         label={"Специалист"}
         value={form.worker}
-        setValue={(e) => setForm({ ...form, worker: e })}
+        setValue={handleChange}
+      />
+      <InputDate
+        date={form.date}
+        setDate={(e) => setForm({ ...form, date: e })}
+        label={"Дата создания"}
       />
       <span className={styles.errorMessage}>{validate.errorMessage}</span>
       <button

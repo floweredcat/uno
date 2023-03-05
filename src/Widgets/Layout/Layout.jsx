@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../assets/constants/Fixtires";
 import { Menu } from "../../Components/Menu/Menu";
+import { useToggleState } from "../../hooks/UseToggleState";
 import { Object } from "../../Pages/Object/Object";
 import { Objects } from "../../Pages/Objects/Objects";
 import { Profile } from "../../Pages/Profile/Profile";
@@ -12,15 +13,12 @@ import styles from "./styles.module.css";
 
 export const Layout = () => {
   const navigate = useNavigate();
-  const [asideIsOpened, setAsideIsOpened] = useState(true);
+  const [asideIsOpened, setAsideIsOpened] = useToggleState(true);
   useEffect(() => {
     if (!user) {
       navigate(ROUTES.auth);
     }
   }, []);
-  const toggleAside = () => {
-    setAsideIsOpened(!asideIsOpened);
-  };
   const user = localStorage.getItem("user");
 
   return (
@@ -33,7 +31,7 @@ export const Layout = () => {
         <button
           type="button"
           className={classNames(styles.button, styles.header_button)}
-          onClick={() => toggleAside()}
+          onClick={() => setAsideIsOpened()}
         ></button>
       </header>
       <Menu asideIsOpened={asideIsOpened} />

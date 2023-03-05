@@ -11,3 +11,7 @@
     background-color: white;
     z-index: 19;
 }
+
+.calendar_wrapper__hide {
+    display: none;
+}   

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../store/Users/Thunks/addUser";
 import { FormElem } from "../FormElem/FormElem";
-import { InputText } from "../../UI/InputText/InputText";
+import { InputText } from "../../UI/InputText/InputText.tsx";
 import { InputPhone } from "../../UI/InputPhone/InputPhone";
 import { InputPass } from "../../UI/InputPass/InputPass";
 import { InputRadio } from "../../UI/InputRadio/InputRadio";
@@ -23,61 +23,78 @@ export const AddUserForm = ({ togglePopup }) => {
   const cityFran = useSelector((state) => selectCityFranshises(state));
   const { userId, userIdAccess } = localStorage;
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState([]);
-  const [pass, setPass] = useState("");
-  const [role, setRole] = useState(ROLES[0].id);
+  const [form, setForm] = useState({
+    email: "",
+    name: "",
+    phone: "",
+    city: [],
+    pass: "",
+    role: ROLES[0].id,
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const initialValidate = {
     validate: undefined,
     errorMessage: " ",
   };
 
-  const availableCities = cityFranIds.filter((el) => !city.includes(el));
+  const availableCities = cityFranIds.filter((el) => !form.city.includes(el));
 
   const [validate, setValidate] = useState(initialValidate);
   useEffect(() => {
     dispatch(getCityFransheses({ userId }));
   }, [userId]);
   useEffect(() => {
-    if (validate.errorMessage.length < 5 && phone.length > 8) {
+    if (validate.errorMessage.length < 5 && form.phone.length > 8) {
       const cities = Object.values(cityFran)
-        .filter((el) => city.includes(el.NAME))
+        .filter((el) => form.city.includes(el.NAME))
         .map((el) => el.ID);
-      dispatch(addUser({ userId, email, role, name, phone, pass, cities }));
+      dispatch(addUser({ ...form, userId, cities }));
       togglePopup();
-      resetForm();
     }
   }, [validate.errorMessage]);
-
-  const resetForm = () => {
-    setCity("");
-    setEmail("");
-    setName("");
-    setPass("");
-    setPhone("");
-    setRole(ROLES[0].id);
-  };
 
   return (
     <FormElem
       title={"Добавление пользователя"}
-      onSubmit={(e) =>
-        onSubmit(e, setValidate, { phone, email, pass, name, city, role })
-      }
+      onSubmit={(e) => onSubmit(e, setValidate, form)}
     >
-      <InputText value={name} label={"Наименование"} setValue={setName} />
-      <InputText value={email} label={"email"} setValue={setEmail} />
-      <InputPhone value={phone} label={"Телефон"} setValue={setPhone} />
+      <InputText
+        value={form.name}
+        name={"name"}
+        label={"Наименование"}
+        setValue={handleChange}
+      />
+      <InputText
+        value={form.email}
+        name={"email"}
+        label={"email"}
+        setValue={handleChange}
+      />
+      <InputPhone
+        name={"phone"}
+        value={form.phone}
+        label={"Телефон"}
+        setValue={handleChange}
+      />
       <InputDataSelect
-        city={city}
+        city={form.city}
         cityFranIds={cityFranIds}
-        setForm={setCity}
+        setForm={(e) => setForm({ ...form, city: e })}
         label={"Город"}
         availableCities={availableCities}
       />
-      <InputPass value={pass} label={"Пароль"} setValue={setPass} />
+      <InputPass
+        value={form.pass}
+        name={"pass"}
+        label={"Пароль"}
+        setValue={handleChange}
+      />
       {
         <>
           <span className={styles.radios_label}>Выберите роль:</span>
@@ -88,8 +105,8 @@ export const AddUserForm = ({ togglePopup }) => {
                 <InputRadio
                   label={content}
                   value={id}
-                  checked={role === id}
-                  setValue={setRole}
+                  checked={form.role === id}
+                  setValue={() => setForm({ ...form, role: id })}
                   key={nanoid()}
                 />
               );

@@ -22,7 +22,7 @@ import { useToggleState } from "../../hooks/UseToggleState";
 
 const USER_HEADERS = [
   "#",
-  "НАИМЕНОВАНИЕ",
+  "Имя",
   "E-mail",
   "Телефон",
   "Роль",

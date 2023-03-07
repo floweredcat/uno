@@ -20,7 +20,7 @@ export const getPackagePrices = (dispatch) => {
       }
       dispatch(
         objectPricesSliceActions.successLoading(
-          normolizeEntities(data.result, "NAME")
+          normolizeEntities(data.result, "ID")
         )
       );
     })

@@ -7,11 +7,12 @@
 }
 .calendar_wrapper {
     position: absolute;
-    top: 34px;
+    top: 40px;
     background-color: white;
     z-index: 19;
+    width: 350px;
 }
 
 .calendar_wrapper__hide {
     display: none;
-}   
+}

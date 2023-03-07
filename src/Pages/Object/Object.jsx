@@ -23,6 +23,7 @@ import { getObjects } from "../../store/Objects/Thunks/getObjects";
 import { TariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
 import { useToggleState } from "../../hooks/UseToggleState";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
+import { AddPackageForm } from "../../Components/AddPackageForm/AddPackageForm";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -37,13 +38,20 @@ export const Object = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isPopupOpened, setIsPopupOpened] = useToggleState(false);
+  const [isAddPopupOpened, setIsAddPopupOpened] = useToggleState(false);
   const objectData = useSelector((state) => selectObjectById(state, { id }));
   const history = useSelector((state) =>
     selectObjectHistoryById(state, { id })
   );
-  const idlic = objectData?.lic[0].IDLIC || 0;
+  const idlic = objectData?.lic[0]?.IDLIC || 0;
 
   const infoEntities = useInfoEntities(objectData);
+  const endDates = objectData?.lic.map((el) => new Date(el.DTEND));
+
+  const status = () =>
+    objectData?.lic.length > 0
+      ? new Date(Math.max.apply(null, endDates)) > Date.now()
+      : false;
 
   useEffect(() => {
     if (!objectData) {
@@ -65,7 +73,7 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        <TariffShowingContainer id={id} />
+        {!status() || <TariffShowingContainer id={id} />}
         <ObjectInfoContainer data={infoEntities[2]} />
         <div
           className={classNames(
@@ -74,16 +82,25 @@ export const Object = () => {
             styles.objects_element
           )}
         >
-          <div className={styles.status_element}>
-            <h2 className={styles.title}>Статус</h2>
-            <div
-              className={classNames(styles.status_info, {
-                [styles.status_info__inactive]: objectData.ENDDT <= Date.now(),
-              })}
-            >
-              {objectData.ENDDT < Date.now() ? "Пакет не активен" : "Активен"}
+          {status() ? (
+            <div className={styles.status_element}>
+              <h2 className={styles.title}>Статус</h2>
+              <div className={classNames(styles.status_info)}>
+                {status() ? "Активен" : "Пакет не активен"}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className={styles.status_element}>
+              <h2 className={styles.title}>{"Начать работу:"}</h2>
+              <button
+                className={styles.activate_tarif}
+                type="button"
+                onClick={setIsAddPopupOpened}
+              >
+                Активировать тариф
+              </button>
+            </div>
+          )}
           <div className={styles.status_element}>
             <h2 className={styles.title}>Сумма</h2>
             <div className={styles.status_info}>
@@ -94,6 +111,11 @@ export const Object = () => {
         {isPopupOpened && (
           <PopupContainer togglePopup={setIsPopupOpened}>
             <EditPackageForm togglePopup={setIsPopupOpened} idlic={idlic} />
+          </PopupContainer>
+        )}
+        {isAddPopupOpened && (
+          <PopupContainer togglePopup={setIsAddPopupOpened}>
+            <AddPackageForm togglePopup={setIsAddPopupOpened} />
           </PopupContainer>
         )}
         {history.length > 0 && (
@@ -116,7 +138,10 @@ export const Object = () => {
           </>
         )}
       </div>
-      <ButtonBar onClicks={onclicks} images={images} />
+      <ButtonBar
+        onClicks={status() ? onclicks : onclicks.slice(0, 1)}
+        images={images}
+      />
     </div>
   );
 };

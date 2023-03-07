@@ -16,7 +16,7 @@ export const ButtonBar = ({
         return (
           <button
             type="button"
-            onClick={() => onClick()}
+            onClick={onClick}
             className={
               idx === 2
                 ? classNames(

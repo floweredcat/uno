@@ -27,7 +27,7 @@ export const AddObjectForm = ({ togglePopup }) => {
   }, [userId]);
   useEffect(() => {
     if (validate.errorMessage.length < 5 && form.phone.length > 7) {
-      dispatch(addObject({ ...form, userId }));
+      dispatch(addObject({ ...form, dt: formatDate(form.dt), userId }));
       togglePopup();
     }
   }, [validate.errorMessage]);
@@ -39,13 +39,18 @@ export const AddObjectForm = ({ togglePopup }) => {
     };
   });
 
+  const formatDate = (date) => {
+    const month = date.getMonth() + 1;
+    return date.getFullYear() + "-" + month + "-" + date.getDate();
+  };
+
   const [form, setForm] = useState({
     name: "",
     idFran: franshisesMap[0]?.value || " ",
     orgOwner: "",
     phone: "",
     worker: "",
-    date: new Date(),
+    dt: new Date(),
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -112,8 +117,8 @@ export const AddObjectForm = ({ togglePopup }) => {
         setValue={handleChange}
       />
       <InputDate
-        date={form.date}
-        setDate={(e) => setForm({ ...form, date: e })}
+        date={form.dt}
+        setDate={(e) => setForm({ ...form, dt: e })}
         label={"Дата создания"}
       />
       <span className={styles.errorMessage}>{validate.errorMessage}</span>

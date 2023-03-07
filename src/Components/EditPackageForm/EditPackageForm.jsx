@@ -1,24 +1,26 @@
-import classNames from "classnames";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
-import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
+import { useCalculateAmount } from "../../hooks/useCalculateAmount";
+import { selectObjectTarifById } from "../../store/Objects/selectors";
 import { editLicence } from "../../store/Objects/Thunks/editLicence";
+import { Button } from "../../UI/Button/Button";
 import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
-import { calculateBill } from "./helpers/calculateBill";
 import styles from "./styles.module.css";
 
 export const EditPackageForm = ({ togglePopup, idlic }) => {
-  const packagePrices = useSelector((state) =>
-    selectObjectPricePackages(state)
-  );
+  const { id } = useParams();
   const formatDate = (date) => {
     const month = date.getMonth() + 1;
     return date.getFullYear() + "-" + month + "-" + date.getDate();
   };
-  const formatData = async function () {
+  const minDate = new Date(
+    useSelector((state) => selectObjectTarifById(state, { id })[0]?.DTEND)
+  );
+  const formatData = () => {
     return Object.values(form)
       .slice(0, -1)
       .map((el) => ({
@@ -31,14 +33,11 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form)
-    formatData().then((res) => {
-      editLicence({
-        params: {
-          id: idlic,
-          items: res,
-        },
-      });
+    editLicence({
+      params: {
+        id: idlic,
+        items: formatData(),
+      },
     });
 
     togglePopup();
@@ -69,16 +68,16 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
     },
     date: "",
   });
-  const handleChange = ({newValue, name}) => {
-    console.log(newValue, name)
+  const amount = Math.round(useCalculateAmount(form));
+  const handleChange = ({ newValue, name }) => {
     setForm((prevState) => ({
       ...prevState,
       [name]: {
         ...prevState[name],
-        klv: newValue
-      }
-    }))
-  }
+        klv: newValue,
+      },
+    }));
+  };
   return (
     <FormElem onSubmit={handleSubmit} title={"Смена тарифа"}>
       <div className={styles.options_container}>
@@ -86,13 +85,15 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
           label={"Станция"}
           required={true}
           value={form.station.klv}
-          name={'station'}
+          name={"station"}
           setValue={handleChange}
         />
         <InputCountedContainer label={"Склад"} value={form.storage.klv}>
           <Toggle
             checked={form.storage.klv}
-            setValue={() => handleChange({newValue: !form.storage.klv, name: 'storage'})}
+            setValue={() =>
+              handleChange({ newValue: !form.storage.klv, name: "storage" })
+            }
           />
         </InputCountedContainer>
         <InputCountedContainer
@@ -101,37 +102,48 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
         >
           <Toggle
             checked={form.calculation.klv}
-            setValue={() => handleChange({newValue: !form.calculation.klv, name: 'calculation'})}
+            setValue={() =>
+              handleChange({
+                newValue: !form.calculation.klv,
+                name: "calculation",
+              })
+            }
           />
         </InputCountedContainer>
         <InputCountedContainer
           label={"Тарификация"}
           value={form.tarifiation.klv}
-          name={'tarifiation'}
+          name={"tarifiation"}
         >
           <Toggle
             checked={form.tarifiation.klv}
-            setValue={() => handleChange({newValue: !form.tarifiation.klv, name: 'tarifiation'})}
+            setValue={() =>
+              handleChange({
+                newValue: !form.tarifiation.klv,
+                name: "tarifiation",
+              })
+            }
           />
         </InputCountedContainer>
-        <div
+        {/* <div
           className={classNames(styles.exestintion_container, {
             [styles.exestintion_container__disable]: form.waiter.klv === 0,
           })}
-        >
-          <InputCountedContainer
-            label={"Мобильный официант"}
-            value={form.waiter.klv}
-            name={'waiter'}
-            setValue={handleChange}
-          />
-          {form.waiter.klv > 0 && (
+        > */}
+        <InputCountedContainer
+          label={"Мобильный официант"}
+          value={form.waiter.klv}
+          name={"waiter"}
+          setValue={handleChange}
+        />
+        {/* {form.waiter.klv > 0 && (
             <div className={styles.exestintion}>
               <h4 className={styles.subtitle}>Период оплаты</h4>
               <button
                 type="button"
                 onClick={() =>
-                  setForm({ ...form, waiter: { ...form.waiter, period: 1 } })}
+                  setForm({ ...form, waiter: { ...form.waiter, period: 1 } })
+                }
                 className={classNames(styles.button_period, {
                   [styles.button_period__active]: form.waiter.period === 1,
                 })}
@@ -141,7 +153,8 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
               <button
                 type="button"
                 onClick={() =>
-                  setForm({ ...form, waiter: { ...form.waiter, period: 2 } })}
+                  setForm({ ...form, waiter: { ...form.waiter, period: 2 } })
+                }
                 className={classNames(styles.button_period, {
                   [styles.button_period__active]: form.waiter.period === 2,
                 })}
@@ -150,27 +163,27 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
               </button>
             </div>
           )}
-        </div>
+        </div> */}
         <InputCountedContainer
           label={"QR Меню"}
           value={form.qr.klv}
-          name={'qr'}
+          name={"qr"}
           step={10}
           setValue={handleChange}
         />
         <CustomCalendar
+          view={"year"}
+          minDate={minDate}
           date={form.date}
           setDate={(e) => {
             setForm({ ...form, date: e });
           }}
           selectRange={true}
         />
-        <button
-          type="submit"
-          className={classNames(styles.button, styles.form_submit)}
-        >
-          Применить изменения
-        </button>
+        <div className={styles.submit__container}>
+          <div className={styles.amount}>{amount}</div>
+          <Button type="submit" label={"Применить изменения"} />
+        </div>
       </div>
     </FormElem>
   );

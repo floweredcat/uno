@@ -124,6 +124,10 @@
   margin-top: 12px;
 }
 
+.title {
+  margin: 0;
+}
+
 .status_info {
   font-size: 24px;
   line-height: 29px;
@@ -160,4 +164,13 @@
   width: fit-content;
   cursor: pointer;
   position: relative;
+}
+
+.activate_tarif {
+  background-color: #0353a4;
+  font-size: 24px;
+  line-height: 29px;border-radius: 83.2px;
+  color: white;
+  padding: 12px 50px;
+  align-self: flex-end;
 }

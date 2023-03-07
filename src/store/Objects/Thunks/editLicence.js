@@ -11,9 +11,9 @@ export const editLicence = ({ params }) => {
       items,
     }),
   };
-  console.log(options.body);
 
   const url = new URL("https://wsuno.xyz/api/editlicense");
+  console.log(options.body);
 
   fetch(url, options)
     .then((res) => res.json())

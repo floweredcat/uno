@@ -9,6 +9,7 @@ export const InputCountedOption = ({
   increment,
   decrement,
   children,
+  id,
 }) => {
   return (
     <div
@@ -28,7 +29,7 @@ export const InputCountedOption = ({
               className={classNames(styles.button, styles.decrement)}
             />
           )}
-          {value}
+          {![0, 1, 2, 3].includes(id) && value}
           {decrement && (
             <button
               type="button"

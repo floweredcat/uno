@@ -12,12 +12,12 @@ export const InputCountedContainer = ({
 }) => {
   const increment = () => {
     let newValue = value + step;
-    setValue({newValue, name});
+    setValue({ newValue, name });
   };
   const decrement = () => {
     let newValue = value - step;
     if (newValue >= (required ? 1 : 0)) {
-      setValue({newValue, name});
+      setValue({ newValue, name });
     }
   };
 

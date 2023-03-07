@@ -35,6 +35,7 @@ export const TableHeaderFiltered = ({ headers }) => {
                   availableValues={availableIds}
                   name={"IDSRV"}
                   label={"ID"}
+                  colorable={true}
                 />
               </th>
             );

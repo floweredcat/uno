@@ -17,6 +17,7 @@ export const TariffShowingContainer = ({ id }) => {
               value={el.KLV}
               required={idx == 0}
               key={nanoid()}
+              id={el.ID}
             />
           )
       )}

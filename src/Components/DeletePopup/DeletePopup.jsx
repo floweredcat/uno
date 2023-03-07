@@ -18,7 +18,7 @@ export const DeletePopup = ({ id, toggleDeletePopup, resetSelectedRow }) => {
           <button
             type="button"
             className={classNames(styles.button, styles.submit)}
-            onClick={() => deleteUser()}
+            onClick={deleteUser}
           >
             Да
           </button>

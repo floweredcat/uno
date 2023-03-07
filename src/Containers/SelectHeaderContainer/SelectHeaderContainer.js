@@ -5,7 +5,12 @@ import { useDispatch } from "react-redux";
 import { onjectFilterSliceActions } from "../../store/ObjectFilter";
 import { InputSelectTable } from "../../UI/InputSelectTable/InputSelectTable";
 
-export const SelectHeaderContainer = ({ availableValues, label, name }) => {
+export const SelectHeaderContainer = ({
+  availableValues,
+  label,
+  name,
+  colorable = false,
+}) => {
   const mapValues = [""].concat(availableValues);
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
@@ -19,6 +24,7 @@ export const SelectHeaderContainer = ({ availableValues, label, name }) => {
 
   return (
     <InputSelectTable
+      colorable={colorable}
       mapValues={mapValues}
       label={label}
       value={value}

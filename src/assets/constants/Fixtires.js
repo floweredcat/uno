@@ -23,3 +23,11 @@ export const ROLES = [
   { content: "local franshase", id: 3 },
   { content: "user", id: 4 },
 ];
+
+export const PERIOD_VALUES = [
+  { label: "1 месяц", value: 1 },
+  { label: "3 месяца", value: 3 },
+  { label: "6 месяцев", value: 6 },
+  { label: "1 год", value: 12 },
+  { label: "Навсегда", value: 36 },
+];

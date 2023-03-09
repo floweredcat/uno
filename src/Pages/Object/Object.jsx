@@ -20,7 +20,7 @@ import { ButtonBar } from "../../Components/ButtonsBar/ButtonsBar";
 import back from "../../assets/images/back.png";
 import edit from "../../assets/images/edit.svg";
 import { getObjects } from "../../store/Objects/Thunks/getObjects";
-import { TariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
+import { MemoTariffShowingContainer } from "../../Containers/TariffShowingContainer/TariffShowingContainer";
 import { useToggleState } from "../../hooks/UseToggleState";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 import { AddPackageForm } from "../../Components/AddPackageForm/AddPackageForm";
@@ -73,7 +73,7 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        {!status() || <TariffShowingContainer id={id} />}
+        {!status() || <MemoTariffShowingContainer id={id} />}
         <ObjectInfoContainer data={infoEntities[2]} />
         <div
           className={classNames(

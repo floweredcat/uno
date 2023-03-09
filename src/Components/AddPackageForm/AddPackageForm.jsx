@@ -1,85 +1,59 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { PERIOD_VALUES } from "../../assets/constants/Fixtires";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
+import { addMonths } from "../../helpers/addMonth";
+import { formatDate } from "../../helpers/formatDate";
 import { useCalculateAmount } from "../../hooks/useCalculateAmount";
+import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
+import { selectObjectById } from "../../store/Objects/selectors";
 import { addLicence } from "../../store/Objects/Thunks/addLicence";
 import { Button } from "../../UI/Button/Button";
 import { InputSelect } from "../../UI/InputSelect/InputSelect";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
+import { useAddFormState } from "./hooks/useAddFormState";
 import styles from "./styles.module.css";
 
 export const AddPackageForm = ({ togglePopup }) => {
   const { id } = useParams();
-  const formatDate = (date) => {
-    const month = date.getMonth() + 1;
-    return date.getFullYear() + "-" + month + "-" + date.getDate();
-  };
+
+  const [form, setForm] = useAddFormState();
+  const objectPrices = useSelector((state) => selectObjectPricePackages(state));
+  const amount = useSelector((state) => selectObjectById(state, { id }).AMOUNT);
   const formatData = () => {
+    const dtend = formatDate(addMonths(new Date(), form.period));
+
     return Object.values(form)
-      .slice(0, -1)
+      .filter((el) => el.ID)
       .map((el) => ({
         iditem: el.ID,
         klv: +el.klv,
-        price: 10000,
-        dtstart: formatDate(form.date[0]),
-        dtend: formatDate(form.date[1]),
+        price: objectPrices[el.ID].PRICE,
+        dtstart: formatDate(form.date),
+        dtend,
       }));
   };
-  const dtend = () => {};
   const handleSubmit = (e) => {
+    const dtend = formatDate(addMonths(new Date(), form.period));
     e.preventDefault();
     addLicence({
       params: {
         idorg: id,
         iditem: 1,
         price: 72000,
-        amount,
+        amount: amount - bill,
         klv: 1,
-        dtstart: formatDate(form.date[0]),
-        dtend: formatDate(form.date[1]),
+        dtstart: formatDate(form.date),
+        dtend,
         items: formatData(),
       },
     });
 
     togglePopup();
   };
-  const periodValues = [
-    { label: "1 месяц", value: 1 },
-    { label: "3 месяца", value: 3 },
-    { label: "6 месяцев", value: 6 },
-    { label: "1 год", value: 12 },
-    { label: "Навсегда", value: 36 },
-  ];
 
-  const [form, setForm] = useState({
-    station: { klv: 1, ID: 1 },
-    storage: {
-      ID: 2,
-      klv: 0,
-    },
-    calculation: {
-      ID: 3,
-      klv: 0,
-    },
-    tarifiation: {
-      ID: 4,
-      klv: 0,
-    },
-    waiter: {
-      klv: 0,
-      period: 1,
-      ID: 5,
-    },
-    qr: {
-      klv: 0,
-      ID: 6,
-    },
-    date: "",
-    period: periodValues[0].label,
-  });
-
-  const amount = Math.round(useCalculateAmount(form));
+  const bill = Math.round(useCalculateAmount(form));
   const handleChange = ({ newValue, name }) => {
     setForm((prevState) => ({
       ...prevState,
@@ -149,10 +123,10 @@ export const AddPackageForm = ({ togglePopup }) => {
           step={10}
           setValue={handleChange}
         />
-        <div>{"Дата начала: " + new Date().toLocaleString().slice(0, 10)}</div>
+        <div>{"Дата начала: " + form.date.toLocaleString().slice(0, 10)}</div>
         <InputSelect
           value={form.period}
-          mapValues={periodValues}
+          mapValues={PERIOD_VALUES}
           setForm={(e) => {
             setForm({ ...form, period: e.target.value });
           }}

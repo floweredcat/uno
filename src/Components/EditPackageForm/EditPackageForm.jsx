@@ -1,34 +1,40 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { PERIOD_VALUES } from "../../assets/constants/Fixtires";
 import { InputCountedContainer } from "../../Containers/InputCountedContainer/InputCountedContainer";
+import { addDays } from "../../helpers/addDays";
+import { addMonths } from "../../helpers/addMonth";
+import { formatDate } from "../../helpers/formatDate";
 import { useCalculateAmount } from "../../hooks/useCalculateAmount";
+import { selectObjectPricePackages } from "../../store/ObjectPrices/selectors";
 import { selectObjectTarifById } from "../../store/Objects/selectors";
 import { editLicence } from "../../store/Objects/Thunks/editLicence";
 import { Button } from "../../UI/Button/Button";
-import { CustomCalendar } from "../../Widgets/Calendar/Calendar";
+import { InputSelect } from "../../UI/InputSelect/InputSelect";
 import { FormElem } from "../FormElem/FormElem";
 import { Toggle } from "../Toggle/Toggle";
+import { useEditFormState } from "./hooks/useEditFormState";
 import styles from "./styles.module.css";
 
 export const EditPackageForm = ({ togglePopup, idlic }) => {
   const { id } = useParams();
-  const formatDate = (date) => {
-    const month = date.getMonth() + 1;
-    return date.getFullYear() + "-" + month + "-" + date.getDate();
-  };
-  const minDate = new Date(
+
+  const objectPrices = useSelector((state) => selectObjectPricePackages(state));
+  const dtend = new Date(
     useSelector((state) => selectObjectTarifById(state, { id })[0]?.DTEND)
   );
+  const minDate = addDays(dtend, 1);
   const formatData = () => {
+    const dtend = formatDate(addMonths(minDate, form.period));
+
     return Object.values(form)
-      .slice(0, -1)
+      .filter((el) => el.ID)
       .map((el) => ({
         iditem: el.ID,
         klv: +el.klv,
-        price: 10000,
-        dtstart: formatDate(form.date[0]),
-        dtend: formatDate(form.date[1]),
+        price: objectPrices[el.ID].PRICE,
+        dtstart: formatDate(form.date),
+        dtend,
       }));
   };
   const handleSubmit = (e) => {
@@ -43,31 +49,7 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
     togglePopup();
   };
 
-  const [form, setForm] = useState({
-    station: { klv: 1, ID: 1 },
-    storage: {
-      ID: 2,
-      klv: 0,
-    },
-    calculation: {
-      ID: 3,
-      klv: 0,
-    },
-    tarifiation: {
-      ID: 4,
-      klv: 0,
-    },
-    waiter: {
-      klv: 0,
-      period: 1,
-      ID: 5,
-    },
-    qr: {
-      klv: 0,
-      ID: 6,
-    },
-    date: "",
-  });
+  const [form, setForm] = useEditFormState({ minDate });
   const amount = Math.round(useCalculateAmount(form));
   const handleChange = ({ newValue, name }) => {
     setForm((prevState) => ({
@@ -171,14 +153,14 @@ export const EditPackageForm = ({ togglePopup, idlic }) => {
           step={10}
           setValue={handleChange}
         />
-        <CustomCalendar
-          view={"year"}
-          minDate={minDate}
-          date={form.date}
-          setDate={(e) => {
-            setForm({ ...form, date: e });
+        <div>{"Дата начала: " + form.date.toLocaleString().slice(0, 10)}</div>
+        <InputSelect
+          value={form.period}
+          mapValues={PERIOD_VALUES}
+          setForm={(e) => {
+            setForm({ ...form, period: e.target.value });
           }}
-          selectRange={true}
+          name={"period"}
         />
         <div className={styles.submit__container}>
           <div className={styles.amount}>{amount}</div>

@@ -1,4 +1,4 @@
-import { getDiffInMonths } from "./getDiffDates.ts";
+import { dateDiff } from "./getDiffDates.js";
 
 interface Dates {
   start: Date;
@@ -15,15 +15,13 @@ export const getLeftTime = ({
       leftDays: "0 Дней",
     };
   }
-  const diffInDays = getDiffInMonths({ start, end }) * 30;
-  const months = diffInDays / 30;
-  const leftDays = diffInDays - Math.floor(months) * 30;
+  const { months, days } = dateDiff({ start, end });
   const leftDaysText =
-    leftDays === 1
-      ? `${leftDays} День`
-      : leftDays >= 2 && leftDays <= 4
-      ? `${leftDays} Дня`
-      : `${leftDays} Дней`;
+    days === 1
+      ? `${days} День`
+      : days >= 2 && days <= 4
+      ? `${days} Дня`
+      : `${days} Дней`;
   const monthsText =
     months === 0
       ? "Пакет не активен"

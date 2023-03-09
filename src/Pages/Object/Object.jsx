@@ -24,6 +24,8 @@ import { MemoTariffShowingContainer } from "../../Containers/TariffShowingContai
 import { useToggleState } from "../../hooks/UseToggleState";
 import { getPackagePrices } from "../../store/ObjectPrices/Thunks/getPackagePrices";
 import { AddPackageForm } from "../../Components/AddPackageForm/AddPackageForm";
+import { getMaxDate } from "../../helpers/getMaxDate.ts";
+import { getMinDate } from "../../helpers/getMinDate.ts";
 const images = [back, edit];
 const HISTORY_HEADERS = [
   "Дата операции",
@@ -44,13 +46,15 @@ export const Object = () => {
     selectObjectHistoryById(state, { id })
   );
   const idlic = objectData?.lic[0]?.IDLIC || 0;
-
-  const infoEntities = useInfoEntities(objectData);
   const endDates = objectData?.lic.map((el) => new Date(el.DTEND));
+  const startDates = objectData?.lic.map((el) => new Date(el.DTSTART));
+  const ENDDT = getMaxDate(endDates);
+  const STARTDT = getMinDate(startDates);
 
+  const infoEntities = useInfoEntities({ ...objectData, ENDDT, STARTDT });
   const status = () =>
     objectData?.lic.length > 0
-      ? new Date(Math.max.apply(null, endDates)) > Date.now()
+      ? ENDDT > Date.now() && STARTDT < Date.now()
       : false;
 
   useEffect(() => {

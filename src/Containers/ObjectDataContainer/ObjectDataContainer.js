@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../assets/constants/Fixtires";
-import { getDiffInMonths } from "../../helpers/getDiffDates.ts";
+import { dateDiff } from "../../helpers/getDiffDates";
 import { separateAmount } from "../../helpers/separateAmount.ts";
 import { selectObjectFilters } from "../../store/ObjectFilter/selectors";
 import { selectObjectById } from "../../store/Objects/selectors";
@@ -26,7 +26,7 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
   const dataForFilter = object;
   const [start, end] = [object.lic[0]?.DTSTART, object.lic[0]?.DTEND];
 
-  const diffDates = getDiffInMonths({
+  const diffDates = dateDiff({
     start,
     end,
   });

@@ -12,8 +12,8 @@ interface ObjectData {
   CITY: string;
   PHONE: string;
   FRAN_NAME: string;
-  STARTDT?: string;
-  ENDDT?: string;
+  STARTDT?: Date;
+  ENDDT?: Date;
 }
 
 export function useInfoEntities(objectData: ObjectData) {
@@ -70,12 +70,12 @@ export function useInfoEntities(objectData: ObjectData) {
       {
         img: timerIcon,
         title: "Начало",
-        content: STARTDT || "Пакет не активен",
+        content: STARTDT?.toLocaleString().slice(0, 10) || "Пакет не активен",
       },
       {
         img: endtimerIcon,
         title: "Конец",
-        content: ENDDT || "Пакет не активен",
+        content: ENDDT?.toLocaleString().slice(0, 10) || "Пакет не активен",
       },
       {
         img: timerIcon,

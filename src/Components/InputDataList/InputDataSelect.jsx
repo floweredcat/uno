@@ -16,10 +16,8 @@ export const InputDataSelect = ({
     setIsOpen(!isOpen);
   }
   const handleChange = (e) => {
-    const target = e.target.value;
-
-    if (cityFranIds.includes(target)) {
-      const newValue = city.concat(target);
+    if (cityFranIds.includes(e)) {
+      const newValue = city.concat(e);
       setForm(newValue);
     }
   };
@@ -41,18 +39,19 @@ export const InputDataSelect = ({
         ))}
       </div>
       {isOpen && (
-        <div id={label} className={styles.optionContainer}>
+        <ul id={label} className={styles.optionContainer}>
           {availableCities?.map((el) => {
             return (
-              <Option
-                value={el}
-                label={el}
+              <li
                 key={nanoid()}
-                onClick={handleChange}
-              />
+                onClick={() => handleChange(el)}
+                className={styles.option}
+              >
+                {el}
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}{" "}
       <label htmlFor={label} className={styles.form_label__select}>
         {label}

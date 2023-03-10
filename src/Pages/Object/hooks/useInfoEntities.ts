@@ -20,15 +20,19 @@ export function useInfoEntities(objectData: ObjectData) {
   const { DT, NAME, WORKER, CITY, PHONE, FRAN_NAME, STARTDT, ENDDT } =
     objectData || {};
 
-  const { months, daysLeft } = getLeftTime({
-    start: objectData?.STARTDT,
+  console.log(ENDDT);
+
+  const { months, leftDays } = getLeftTime({
+    start: new Date(),
     end: objectData?.ENDDT,
   });
 
+  console.log(months, leftDays);
+
   const packageTimeLeft = months
     ? months
-    : "" + daysLeft
-    ? " " + daysLeft
+    : "" + leftDays
+    ? " " + leftDays
     : " ";
 
   return [

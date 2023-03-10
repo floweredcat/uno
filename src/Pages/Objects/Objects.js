@@ -17,6 +17,7 @@ import { nanoid } from "nanoid";
 import { useToggleState } from "../../hooks/UseToggleState";
 import addImage from "../../assets/images/add.svg";
 import resetImage from "../../assets/images/reset filter.svg";
+import { Loading } from "../../Widgets/Loading/Loading";
 
 const images = [addImage, resetImage];
 
@@ -42,7 +43,7 @@ export const Objects = () => {
   const resetFilter = () => dispatch(onjectFilterSliceActions.resetFilter());
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   return (
     <div className={styles.objects_wrapper}>

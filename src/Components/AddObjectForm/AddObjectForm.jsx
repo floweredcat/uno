@@ -34,7 +34,7 @@ export const AddObjectForm = ({ togglePopup }) => {
 
   const franshisesMap = Object.values(franshises).map((el) => {
     return {
-      value: el.ID.toString(),
+      value: el.ID,
       label: el.CITY,
     };
   });
@@ -46,7 +46,7 @@ export const AddObjectForm = ({ togglePopup }) => {
 
   const [form, setForm] = useState({
     name: "",
-    idFran: franshisesMap[0]?.value || " ",
+    idFran: franshisesMap[0]?.value || 1,
     orgOwner: "",
     phone: "",
     worker: "",

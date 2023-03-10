@@ -20,7 +20,7 @@ export const AddPackageForm = ({ togglePopup }) => {
 
   const [form, setForm] = useAddFormState();
   const objectPrices = useSelector((state) => selectObjectPricePackages(state));
-  const amount = useSelector((state) => selectObjectById(state, { id }).AMOUNT);
+  const bill = useSelector((state) => selectObjectById(state, { id }).AMOUNT);
   const formatData = () => {
     const dtend = formatDate(addMonths(new Date(), form.period));
 
@@ -42,7 +42,7 @@ export const AddPackageForm = ({ togglePopup }) => {
         idorg: id,
         iditem: 1,
         price: 72000,
-        amount: amount - bill,
+        amount: bill - amount,
         klv: 1,
         dtstart: formatDate(form.date),
         dtend,
@@ -53,7 +53,7 @@ export const AddPackageForm = ({ togglePopup }) => {
     togglePopup();
   };
 
-  const bill = Math.round(useCalculateAmount(form));
+  const amount = Math.round(useCalculateAmount(form));
   const handleChange = ({ newValue, name }) => {
     setForm((prevState) => ({
       ...prevState,

@@ -52,3 +52,30 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+.option {
+  border-bottom: 1px solid #bcbcbc;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 47px;
+  width: 100%;
+  margin: 0;
+  padding: 0 5px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 41px;
+  background-color: white;
+  z-index: 99;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; /* disable selectable labels */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.option:hover {
+  background-color: rgb(212, 212, 212);
+}

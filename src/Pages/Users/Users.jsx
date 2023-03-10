@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { TableHeader } from "../../Components/TableHeader/TableHeader";
 import { ROUTES } from "../../assets/constants/Fixtires";
 import { useToggleState } from "../../hooks/UseToggleState";
+import { Loading } from "../../Widgets/Loading/Loading";
 
 const USER_HEADERS = [
   "#",
@@ -66,7 +67,7 @@ export const Users = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

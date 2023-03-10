@@ -37,17 +37,13 @@
 }
 
 .colorable option:nth-of-type(2) {
-  background-color: #f13d25;
+  background-color: rgb(241, 61, 37);
 }
 
 .colorable option:nth-of-type(4) {
-  background-color: #25f176;
+  background-color: rgb(37, 241, 118);
 }
 
 .colorable option:nth-of-type(3) {
-  background-color: #fff50c;
+  background-color: rgb(255, 245, 12);
 }
-
-
-
-

@@ -12,6 +12,7 @@
   font-size: 15px;
   line-height: 41px;
   background-color: white;
+  z-index: 99;
 }
 
 .option:hover {

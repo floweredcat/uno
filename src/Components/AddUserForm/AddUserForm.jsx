@@ -82,13 +82,15 @@ export const AddUserForm = ({ togglePopup }) => {
         label={"Телефон"}
         setValue={handleChange}
       />
-      <InputDataSelect
-        city={form.city}
-        cityFranIds={cityFranIds}
-        setForm={(e) => setForm({ ...form, city: e })}
-        label={"Город"}
-        availableCities={availableCities}
-      />
+      <div className={styles.input_wrapper}>
+        <InputDataSelect
+          city={form.city}
+          cityFranIds={cityFranIds}
+          setForm={(e) => setForm({ ...form, city: e })}
+          label={"Город"}
+          availableCities={availableCities}
+        />
+      </div>
       <InputPass
         value={form.pass}
         name={"pass"}

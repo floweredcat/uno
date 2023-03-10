@@ -4,7 +4,7 @@ import { selectObjectPricePackages } from "../store/ObjectPrices/selectors";
 export const useCalculateAmount = (form) => {
   const formData = Object.values(form);
   const objectPrices = useSelector((state) => selectObjectPricePackages(state));
-  console.log(objectPrices);
+
   return (
     formData
       .filter((el) => el.ID)

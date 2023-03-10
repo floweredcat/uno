@@ -77,8 +77,12 @@ export const Object = () => {
       <div className={styles.objects}>
         <ObjectInfoContainer data={infoEntities[0]} />
         <ObjectInfoContainer data={infoEntities[1]} />
-        {!status() || <MemoTariffShowingContainer id={id} />}
-        <ObjectInfoContainer data={infoEntities[2]} />
+        {!status() || (
+          <>
+            <MemoTariffShowingContainer id={id} />
+            <ObjectInfoContainer data={infoEntities[2]} />
+          </>
+        )}
         <div
           className={classNames(
             styles.object_info,

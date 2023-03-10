@@ -9,6 +9,8 @@ import { selectObjectById } from "../../store/Objects/selectors";
 import { UserData } from "../../Components/UserData/UserData";
 import styles from "./styles.module.css";
 import { formatDate } from "../../helpers/formatDate.ts";
+import { getStyleByLeftMonths } from "./helpers/getStyleBuLeftMonth";
+import { getMaxDate } from "../../helpers/getMaxDate.ts";
 
 export const ObjectDataContainer = ({ id, selectedRow }) => {
   const navigate = useNavigate();
@@ -24,25 +26,16 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
     object.AMOUNT ? separateAmount(object.AMOUNT) : 0,
   ];
   const dataForFilter = object;
-  const [start, end] = [object.lic[0]?.DTSTART, object.lic[0]?.DTEND];
 
-  const diffDates = dateDiff({
-    start,
-    end,
+  const endDates = object?.lic?.map((el) => new Date(el.DTEND));
+  const ENDDT = getMaxDate(endDates);
+
+  const { months, days } = dateDiff({
+    start: new Date(),
+    end: ENDDT,
   });
+  const diffDates = months + days / 30;
   const filterTitles = Object.keys(filter);
-
-  const getStyleByLeftMonths = () => {
-    if (diffDates < 1) {
-      return styles.red;
-    }
-    if (diffDates === 1) {
-      return styles.yellow;
-    }
-    if (diffDates > 1) {
-      return styles.green;
-    }
-  };
 
   const filterByCalendar =
     filter.DT.length > 0
@@ -69,7 +62,10 @@ export const ObjectDataContainer = ({ id, selectedRow }) => {
   if (isSelected) {
     return (
       <tr
-        className={classNames(styles.table_row, getStyleByLeftMonths())}
+        className={classNames(
+          styles.table_row,
+          styles[getStyleByLeftMonths(diffDates)]
+        )}
         onDoubleClick={() => navigate(ROUTES.objects + `/${id}`)}
       >
         <UserData data={data} selectedRow={selectedRow} />

@@ -31,6 +31,8 @@
   position: relative;
   right: -5px;
   z-index: 99;
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
   padding: 5px;
   margin: 0;
   cursor: pointer;

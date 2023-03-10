@@ -1,11 +1,11 @@
 export function getMinDate(date: [Date]): Date {
-  let maxDate = new Date(2100, 0, 1);
+  let minDate = new Date();
 
   date?.forEach((el) => {
-    if (new Date(el) < maxDate) {
-      maxDate = new Date(el);
+    if (new Date(el) < minDate) {
+      minDate = new Date(el);
     }
   });
 
-  return maxDate;
+  return minDate;
 }

@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { nanoid } from "nanoid";
 import { Option } from "../Option/Option";
 import styles from "./styles.module.css";
@@ -9,14 +8,9 @@ export const InputSelectTable = ({
   size = 1,
   label,
   value,
-  colorable = false,
 }) => {
   return (
-    <div
-      className={classNames(styles.input_container, {
-        [styles.colorable]: colorable,
-      })}
-    >
+    <div className={styles.input_container}>
       <label className={styles.label}>{value.length == 0 && label}</label>
       <select
         size={size}
@@ -26,7 +20,7 @@ export const InputSelectTable = ({
         onChange={(e) => setForm(e.target.value)}
       >
         {mapValues?.map((el) => (
-          <Option key={nanoid()} label={colorable ? " " : el} value={el} />
+          <Option key={nanoid()} label={el} value={el} />
         ))}
       </select>
     </div>

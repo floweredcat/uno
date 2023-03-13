@@ -1,0 +1,44 @@
+.popup_wrapper {
+  position: fixed;
+  z-index: 88;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate();
+  -webkit-transform: rotate();
+}
+
+.popup {
+    background-color: white;
+    border-radius: 12px;
+    padding: 36px 24px;
+    position: relative;
+}
+
+.button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.popup_closeButton {
+  background-image: url("./images/close.svg");
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center;
+  background-repeat: no-repeat;
+}

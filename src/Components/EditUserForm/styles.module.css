@@ -1,0 +1,32 @@
+.button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.form_submit {
+  background-color: #0353a4;
+  min-width: 346px;
+  line-height: 22px;
+  font-family: "Inter";
+  padding: 20px 0;
+  border-radius: 30px;
+  appearance: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  border: none;
+  margin-top: 64px;
+  transition: 300ms ease-in-out;
+}
+
+.form_submit:hover {
+  opacity: 0.7;
+  transition: 300ms ease-in-out;
+}

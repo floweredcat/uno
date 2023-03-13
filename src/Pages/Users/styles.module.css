@@ -1,0 +1,50 @@
+.users_wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+tr:nth-child(even) .table_cell,
+.table_cell__header {
+  background: #f2f2f2;
+}
+
+.table_cell__header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table_cell {
+  height: 100%;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0;
+  border-left: 1px solid white;
+}
+
+.table_cell:nth-of-type(1) {
+  border-left: none;
+}
+
+.button {
+  appearance: none;
+  margin: auto 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .users_wrapper {
+    overflow-x: scroll;
+  }
+}

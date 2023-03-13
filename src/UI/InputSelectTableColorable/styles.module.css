@@ -1,0 +1,49 @@
+.form_input {
+  outline: none;
+  border: none;
+  appearance: none;
+  z-index: 99;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  width: 100%;
+  background-color: rgba(255,255,255, 0.0);
+}
+
+.input_container {
+  position: relative;
+  background-color: rgba(255,255,255, 0.0);
+  border: 1px solid black;
+  width: 80%;
+  z-index: 9;
+}
+
+.label {
+  width: cacl(100% - 10px);
+  background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-weight: 400;
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  z-index: -1;
+}
+
+.colorable option:nth-of-type(2) {
+  background-color: rgb(241, 61, 37);
+}
+
+.colorable option:nth-of-type(4) {
+  background-color: rgb(37, 241, 118);
+}
+
+.colorable option:nth-of-type(3) {
+  background-color: rgb(255, 245, 12);
+}

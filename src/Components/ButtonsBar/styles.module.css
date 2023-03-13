@@ -1,0 +1,55 @@
+.bar_container {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  z-index: 1;
+}
+
+.bar_button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(3, 83, 164, 0.8);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar_buttonImage {
+  width: 48px;
+  height: 48px;
+  transform: scale(0.4);
+  transition: all 200ms ease-in-out;
+}
+
+.bar_button:hover .bar_buttonImage {
+  transform: scale(0.6);
+  transition: all 200ms ease-in-out;
+}
+
+.bar_button__delete {
+  background-color: rgba(237, 33, 33, 0.8);
+}
+
+.emptyData {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.bar_button__active {
+  cursor: pointer;
+}
+
+.bar_button:disabled .bar_buttonImage {
+  transform: scale(0.4);
+  opacity: 0.5;
+}
+
+.bar_button:disabled {
+  cursor: default;
+}

@@ -1,0 +1,51 @@
+.table {
+  display: grid;
+  grid-template-columns:
+    minmax(100px, 0.5fr)
+    minmax(160px, 1.67fr)
+    minmax(160px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(120px, 1.67fr)
+    minmax(150px, 2.5fr)
+    minmax(150px, 1.8fr);
+  padding-bottom: 96px;
+}
+
+.table_lite {
+  display: grid;
+  grid-template-columns:
+    minmax(120px, 0.7fr)
+    minmax(160px, 1.67fr)
+    minmax(160px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(120px, 1.1fr);
+  padding-bottom: 96px;
+}
+
+thead,
+tbody,
+tr {
+  display: contents;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; /* disable selectable labels */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+th,
+td {
+  padding: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+th:last-child {
+  border: 0;
+}
+
+.table_cell:nth-of-type(1) {
+  border-left: none;
+}

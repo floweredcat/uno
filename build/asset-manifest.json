@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e233134b.css",
+    "main.js": "/static/js/main.48eb98bd.js",
+    "static/media/Inter-Bold.ttf": "/static/media/Inter-Bold.88fa7ae373b07b41ecce.ttf",
+    "static/media/Inter-Regular.ttf": "/static/media/Inter-Regular.e89cb19905e7db5591b0.ttf",
+    "static/media/Group 179.svg": "/static/media/Group 179.76c0b73f77927639454a.svg",
+    "static/media/exit_to_app.svg": "/static/media/exit_to_app.ed1a85ed24f24ce8a6e8.svg",
+    "static/media/reset filter.svg": "/static/media/reset filter.dc014f0d68c558b9f3d11d15b6dae102.svg",
+    "static/media/timer.svg": "/static/media/timer.ea24bd39732e4f0903e3173a3956e7a9.svg",
+    "static/media/Users.svg": "/static/media/Users.c8ee78d41ebd28d5a068eabedeef620b.svg",
+    "index.html": "/index.html",
+    "static/media/bi_eye-slash-fill.svg": "/static/media/bi_eye-slash-fill.48cbafe6c8e4cd0de321.svg",
+    "static/media/bi_eye-slash.svg": "/static/media/bi_eye-slash.6fdf7bd341993019680a.svg",
+    "static/media/endtimer.svg": "/static/media/endtimer.93741ac165b21ef56a61e9de2e68e259.svg",
+    "static/media/close.svg": "/static/media/close.393610df92197047b571.svg",
+    "static/media/delete.svg": "/static/media/delete.98ddb990fa85b0216144489cbbc52e06.svg",
+    "static/media/domain.svg": "/static/media/domain.dafe50bf5522bfdd2ab3fe316a9b8461.svg",
+    "static/media/geo.svg": "/static/media/geo.68d18fdca7e0551263b45100dd59c79e.svg",
+    "static/media/edit.svg": "/static/media/edit.ae06a7ea421e84811864e5f3b548f4f9.svg",
+    "static/media/add.svg": "/static/media/add.f8a9a3affb56df7d082c490b6aa3f964.svg",
+    "static/media/phone.svg": "/static/media/phone.b3c160f012b7c3b6d93fa3cb80b041f5.svg",
+    "static/media/person.svg": "/static/media/person.7b25b8bb5575442d6078fd9c4e6ad1f0.svg",
+    "static/media/partner.svg": "/static/media/partner.c3f8ab701775cc2e26336e2920a41f06.svg",
+    "static/media/incremet.svg": "/static/media/incremet.c31e19d10867b08b35ec.svg",
+    "static/media/decrement.svg": "/static/media/decrement.4311f13f65cee6b9cf00.svg",
+    "main.e233134b.css.map": "/static/css/main.e233134b.css.map",
+    "main.48eb98bd.js.map": "/static/js/main.48eb98bd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e233134b.css",
+    "static/js/main.48eb98bd.js"
+  ]
+}

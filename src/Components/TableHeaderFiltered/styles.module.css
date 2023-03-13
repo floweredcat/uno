@@ -1,0 +1,42 @@
+.table_cell__header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table_cell {
+  height: 100%;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 12px;
+  padding: 0 10px;
+  margin: 0;
+  border-left: 1px solid white;
+}
+
+.table_cell__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table_cell:nth-of-type(1) {
+  border-left: none;
+}
+
+.table_row {
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+  position: relative;
+}
+tr.table_row__selected .table_cell {
+  background: rgba(3, 83, 164, 0.2) !important;
+}
+
+tr:nth-child(even) .table_cell,
+.table_cell__header {
+  background: #f2f2f2;
+}

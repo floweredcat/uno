@@ -1,0 +1,41 @@
+.button {
+  appearance: none;
+  margin: auto 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.tab {
+  width: calc(100% - 48px);
+  border-bottom: 1px solid rgba(255, 255, 255);
+  padding: 24px;
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: white;
+  font-size: 24px;
+  line-height: 100%;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.tab_active {
+  opacity: 1;
+  border-top: 1px solid rgba(255, 255, 255);
+  z-index: 3;
+  position: relative;
+  top: -1px;
+}
+
+@media screen and (max-width: 1360px) {
+  .title {
+    display: none;
+  }
+
+  .tab {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,89 @@
+.input_container {
+  background-color: #bcbcbc;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding: 16px; */
+  width: 190px;
+  height: 103px;
+  align-items: center;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+}
+
+.input_notRequered {
+  background-color: #bcbcbc;
+}
+
+.input_requered {
+  background-color: #19ba8a;
+}
+
+.input_active {
+  background-color: #0353a4;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: white;
+  max-width: 120px;
+  text-align: center;
+}
+
+.count_container {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  color: white;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.button {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+}
+
+.count_input {
+  all: unset;
+  outline: none;
+  background-color: inherit;
+  appearance: none;
+  border: none;
+  width: 50px;
+  text-align: center;
+}
+
+.increment {
+  background-image: url("./images/incremet.svg");
+}
+
+.decrement {
+  background-image: url("./images/decrement.svg");
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

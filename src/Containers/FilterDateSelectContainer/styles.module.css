@@ -1,0 +1,18 @@
+.toggleButton {
+    background-color: white;
+    height: 70%;
+    width: 90%;
+    font-size: 12px;
+    border: 1px solid gray;
+}
+.calendar_wrapper {
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    z-index: 19;
+    width: 350px;
+}
+
+.calendar_wrapper__hide {
+    display: none;
+}

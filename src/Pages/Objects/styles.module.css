@@ -1,0 +1,120 @@
+.objects_wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+tr:nth-child(even) .table_cell,
+.table_cell__header {
+  background: #f2f2f2;
+}
+
+.table_cell__header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
+}
+
+.table_cell {
+  height: 100%;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0;
+  border-left: 1px solid white;
+}
+
+.button {
+  appearance: none;
+  margin: auto 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.bar_container {
+  position: fixed;
+  bottom: 0;
+  left: 336px;
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  transition: all 200ms ease;
+}
+
+.bar_button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(3, 83, 164, 0.8);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bar_buttonImage {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.4);
+  transition: all 200ms ease-in-out;
+}
+
+.bar_button:hover .bar_buttonImage {
+  transform: scale(0.6);
+  transition: all 200ms ease-in-out;
+}
+
+.bar_button__delete {
+  background-color: rgba(237, 33, 33, 0.8);
+}
+
+.bar_moved {
+  left: 0;
+  transition: all 200ms ease;
+}
+
+.emptyData {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.bar_button__active {
+  cursor: pointer;
+}
+
+.bar_button:disabled .bar_buttonImage {
+  transform: scale(0.4);
+  opacity: 0.5;
+}
+
+.bar_button:disabled {
+  cursor: default;
+}
+
+.reset {
+  width: fit-content;
+  padding: 10px;
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  cursor: pointer;
+  z-index: 99;
+  background-color: rgba(3, 83, 164, 0.8);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  
+}
+
+@media screen and (max-width: 1100px) {
+  .objects_wrapper {
+    overflow-x: scroll;
+  }
+}

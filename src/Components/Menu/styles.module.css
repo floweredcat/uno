@@ -1,0 +1,136 @@
+.button {
+    appearance: none;
+    margin: auto 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header_logo {
+    width: 71px;
+    height: 25px;
+}
+
+.link {
+    display: block;
+    appearance: none;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.header_link {
+    width: 70px;
+    height: 24px;
+    background-image: url('../../assets/images/Group\ 179.svg');
+    background-position: center;
+    background-size: cover;
+}
+
+.header_logoWrapper {
+    width: calc(17.5vw - 24px);
+    border-bottom: 1px solid white;
+    height: 73px;
+    display: flex;
+    padding-left: 24px;
+    align-items: center;
+}
+
+.navWrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 17.5vw;
+    background-image: inherit;
+    padding: 0;
+    margin: 0;
+    transform: translateX(-100%);
+    transition: all 200ms ease;
+    height: 100vh;
+}
+
+.navWrapper_visible {
+    transform: translateX(0);
+    transition: all 200ms ease;
+}
+
+.user {
+    display: flex;
+    padding: 51px 24px 48px;
+    gap: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.user_avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background-color: gray;
+    background-position: center;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.user_name {
+    font-size: 20px;
+    line-height: 24px;
+    font-family: 'Inter';
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+.user_from {
+    color: #BCBCBC;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.tabs_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.exitButton {
+    font-family: 'Inter';
+    font-size: 24px;
+    line-height: 29px;
+    color: white;
+    background-color: inherit;
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+}
+
+@media screen and (max-width: 1360px) {
+    .navWrapper {
+        width: 118px;
+    }
+
+    .user {
+        display: none;
+    }
+
+    .header_logoWrapper {
+        width: 94px;
+    }
+    .exitButton {
+        color: rgba(0, 0, 0, 0);
+        background-image: url('../../assets/images/exit_to_app.svg');
+        background-repeat: no-repeat;
+    }
+}

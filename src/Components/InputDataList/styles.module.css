@@ -1,0 +1,81 @@
+.form_input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #bcbcbc;
+  appearance: none;
+  height: 47px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 15px;
+  z-index: 99;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  overflow-x: scroll;
+}
+
+.form_input::-webkit-scrollbar {
+  width: 0;
+}
+
+.input_container {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form_label__select {
+  position: absolute;
+  transform: translateY(-12px);
+  line-height: 15px;
+  font-size: 12px;
+  color: #bcbcbc;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.optionContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46px;
+  z-index: 99;
+  width: 100%;
+  height: 40vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.option {
+  border-bottom: 1px solid #bcbcbc;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 47px;
+  width: 100%;
+  margin: 0;
+  padding: 0 5px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 41px;
+  background-color: white;
+  z-index: 99;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none; /* disable selectable labels */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.option:hover {
+  background-color: rgb(212, 212, 212);
+}

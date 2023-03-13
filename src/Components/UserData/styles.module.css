@@ -1,0 +1,49 @@
+tr:nth-child(even) .table_cell,
+.table_cell__header {
+  background: #f2f2f2;
+}
+.table_cell {
+  height: 100%;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0;
+  border-left: 1px solid white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all .5s;
+}
+
+.table_cell:hover {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
+  height: auto;
+}
+
+
+.table_cell__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table_cell:nth-of-type(1) {
+  border-left: none;
+}
+
+.table_cell__balance {
+  background-color: #0353a4;
+  border-radius: 15px;
+  line-height: 21px;
+  padding: 0 13px;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 5px;
+}
+
+
